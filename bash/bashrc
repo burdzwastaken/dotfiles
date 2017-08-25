@@ -100,9 +100,9 @@ alias killconky='killall conky'
 # today
 alias today='grep -h -d skip `date +%m/%d` /usr/share/calendar/*'
 # open ports
-openports='netstat -nape --inet'
+alias openports='netstat -nape --inet'
 # tree
-tree='tree -CAhF --dirsfirst'
+alias tree='tree -CAhF --dirsfirst'
 
 # invoke ssh-agent
 if [ -z "$SSH_AUTH_SOCK" ] ; then
