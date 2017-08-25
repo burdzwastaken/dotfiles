@@ -99,6 +99,10 @@ alias conkyrc='(vi ~/.conkyrc)'
 alias killconky='killall conky'
 # today
 alias today='grep -h -d skip `date +%m/%d` /usr/share/calendar/*'
+# open ports
+openports='netstat -nape --inet'
+# tree
+tree='tree -CAhF --dirsfirst'
 
 # invoke ssh-agent
 if [ -z "$SSH_AUTH_SOCK" ] ; then
@@ -156,5 +160,8 @@ clear
 
 echo -ne "${LIGHTGREEN}""Hello, $USER. today is, "; date
 echo -e "${LIGHTGREEN}"; cal ;
+echo -e "publicIP: $(shodan myip)" ;
+echo -e "internalwiredIP: $(ip addr show enp0s31f6 | grep -Po 'inet \K[\d.]+')" ;
+echo -e "internalwirelessIP: $(ip addr show wlp4s0 | grep -Po 'inet \K[\d.]+')" ;
 echo -e "${WHITE}"; uname -a ;
 echo ""
