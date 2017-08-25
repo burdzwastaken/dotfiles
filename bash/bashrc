@@ -100,7 +100,7 @@ alias killconky='killall conky'
 # today
 alias today='grep -h -d skip `date +%m/%d` /usr/share/calendar/*'
 # open ports
-openports='netstat -nape --inet'
+alias openports='netstat -nape --inet'
 # tree
 tree='tree -CAhF --dirsfirst'
 # git stuff
@@ -111,7 +111,7 @@ alias gb='git branch'
 alias gba='git branch -a'
 alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
 alias gc='git commit'
-alias gca='git commit --amend -S'
+alias gca='git commit --amend'
 alias gco='git checkout'
 alias gd='git diff'
 alias gdom='git diff origin/master'
@@ -141,7 +141,7 @@ extract () { # extract files.
                 *.zip )              ee "unzip" "$x"      ;;
                 *.Z )                ee "uncompress" "$x" ;;
                 *.7z )               ee "7z x" "$x"       ;;
-		*)                   echo "'$1' cannot be extracted via extract()"
+		* )                  echo "'$1' cannot be extracted via extract()"
             esac
         else
 	    echo "'$1' is not a valid file for extraction!"
