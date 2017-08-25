@@ -124,7 +124,7 @@ extract () { # extract files.
                 *.zip )              ee "unzip" "$x"      ;;
                 *.Z )                ee "uncompress" "$x" ;;
                 *.7z )               ee "7z x" "$x"       ;;
-		*)                   echo "'$1' cannot be extracted via extract()"
+		* )                  echo "'$1' cannot be extracted via extract()"
             esac
         else
 	    echo "'$1' is not a valid file for extraction!"
