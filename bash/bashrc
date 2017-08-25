@@ -163,5 +163,5 @@ echo -e "${LIGHTGREEN}"; cal ;
 echo -e "publicIP: $(shodan myip)" ;
 echo -e "internalwiredIP: $(ip addr show enp0s31f6 | grep -Po 'inet \K[\d.]+')" ;
 echo -e "internalwirelessIP: $(ip addr show wlp4s0 | grep -Po 'inet \K[\d.]+')" ;
-echo -e "${WHITE}"; uname -a ;
+echo -e "${LIGHTGREEN}"; uname -a ;
 echo ""
