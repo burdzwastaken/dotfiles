@@ -103,6 +103,19 @@ alias today='grep -h -d skip `date +%m/%d` /usr/share/calendar/*'
 openports='netstat -nape --inet'
 # tree
 tree='tree -CAhF --dirsfirst'
+# git stuff
+alias ga='git add -A'
+alias gs='git status'
+alias gstat='git show --stat'
+alias gb='git branch'
+alias gba='git branch -a'
+alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
+alias gc='git commit'
+alias gca='git commit --amend -S'
+alias gco='git checkout'
+alias gd='git diff'
+alias gdom='git diff origin/master'
+alias grm='git rm `git ls-files --deleted`'
 
 # invoke ssh-agent
 if [ -z "$SSH_AUTH_SOCK" ] ; then
@@ -163,5 +176,5 @@ echo -e "${LIGHTGREEN}"; cal ;
 echo -e "publicIP: $(shodan myip)" ;
 echo -e "internalwiredIP: $(ip addr show enp0s31f6 | grep -Po 'inet \K[\d.]+')" ;
 echo -e "internalwirelessIP: $(ip addr show wlp4s0 | grep -Po 'inet \K[\d.]+')" ;
-echo -e "${WHITE}"; uname -a ;
+echo -e "${LIGHTGREEN}"; uname -a ;
 echo ""
