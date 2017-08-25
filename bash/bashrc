@@ -102,7 +102,7 @@ alias today='grep -h -d skip `date +%m/%d` /usr/share/calendar/*'
 # open ports
 alias openports='netstat -nape --inet'
 # tree
-tree='tree -CAhF --dirsfirst'
+alias tree='tree -CAhF --dirsfirst'
 # git stuff
 alias ga='git add -A'
 alias gs='git status'
