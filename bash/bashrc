@@ -149,6 +149,11 @@ extract () { # extract files.
     done
 }
 
+sshrc() {
+    scp ~/.bashrc $1:/tmp/.bashrc_temp
+    ssh -t $1 "bash --rcfile /tmp/.bashrc_temp ; rm /tmp/.bashrc_temp"
+}
+
 # few colours
 BLACK='\e[0;30m'
 BLUE='\e[0;34m'
@@ -169,12 +174,10 @@ NC='\e[0m' # no color
 
 # welcome burdz
 
-clear
-
 echo -ne "${LIGHTGREEN}""Hello, $USER. today is, "; date
 echo -e "${LIGHTGREEN}"; cal ;
 echo -e "publicIP: $(shodan myip)" ;
-echo -e "internalwiredIP: $(ip addr show enp0s31f6 | grep -Po 'inet \K[\d.]+')" ;
+echo -e "internalwiredIP: $(ip addr show enxac7f3ee606da | grep -Po 'inet \K[\d.]+')" ;
 echo -e "internalwirelessIP: $(ip addr show wlp4s0 | grep -Po 'inet \K[\d.]+')" ;
 echo -e "${LIGHTGREEN}"; uname -a ;
 echo ""
