@@ -98,6 +98,9 @@ fi
 # git-status
 source ~/.git-status.bash
 
+# kubectl completion
+echo "source <(kubectl completion bash)"
+
 # even more aliasessss
 alias xclip="xclip -selection c"
 alias fuck='sudo $(history -p !!)'
