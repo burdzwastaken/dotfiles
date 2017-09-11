@@ -99,7 +99,7 @@ fi
 source ~/.git-status.bash
 
 # kubectl completion
-echo "source <(kubectl completion bash)"
+source <(kubectl completion bash)
 
 # even more aliasessss
 alias xclip="xclip -selection c"
