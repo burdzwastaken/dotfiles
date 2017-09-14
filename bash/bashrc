@@ -128,6 +128,8 @@ alias gco='git checkout'
 alias gd='git diff'
 alias gdom='git diff origin/master'
 alias grm='git rm `git ls-files --deleted`'
+# sublime
+alias st='subl .'
 
 # invoke ssh-agent
 if [ -z "$SSH_AUTH_SOCK" ] ; then
