@@ -1,0 +1,7 @@
+[user]
+	email = burdz@burdz.net
+	name = Matt Burdan\n
+[core]
+	editor = vim
+[commit]
+	gpgsign = true
