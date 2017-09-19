@@ -154,7 +154,7 @@ slack() {
 }
 
 discord() {
-    curl -fsSL -o discord.deb https://discordapp.com/api/download?platform=linux&format=deb
+    curl -fsSL -o discord.deb "https://discordapp.com/api/download?platform=linux&format=deb"
     sudo dpkg -i discord.deb
     sudo apt -f install
     rm -rf discord.deb
