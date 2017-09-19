@@ -22,7 +22,7 @@ packages() {
         apt-transport-https \
         ca-certificates \
         curl \
-        python-software-properties \
+        software-properties-common \
         tmux \
         vim \
         htop \
@@ -37,11 +37,12 @@ packages() {
         python \
         python-pip \
         sl \
+        tcpdump \
         wireshark
 }
 
 repos() {
-    echo "deb http://httppredir.debian.org/debian/ $(lsb_release -cs) main contrib non-free" | sudo tee /etc/apt/sources.list.d/non-free.list
+    echo "deb http://httpredir.debian.org/debian/ $(lsb_release -cs) main contrib non-free" | sudo tee /etc/apt/sources.list.d/non-free.list
     echo "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
     echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
     echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
@@ -49,7 +50,7 @@ repos() {
     echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
     echo "deb [arch=amd64] https://osquery-packages.s3.amazonaws.com/deb deb main" | sudo tee /etc/apt/sources.list.d/osquery.list
     echo "deb http://packages.cloud.google.com/apt $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list
-    echo "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" > /etc/apt/sources.list.d/virtualbox.list
+    echo "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
 }
 
 repos-gpg() {
