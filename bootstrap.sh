@@ -34,7 +34,8 @@ packages() {
         vlc \
         browser-plugin-vlc \
         xclip \
-        python
+        python \
+        sl
 }
 
 repos() {
