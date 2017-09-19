@@ -151,6 +151,7 @@ upgrade
 packages
 repos
 repos-gpg
+update
 repo-packages
 aws-cli
 kernel-modules
