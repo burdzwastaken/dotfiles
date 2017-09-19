@@ -95,7 +95,7 @@ conf() {
     cp curl/.curlrc ~/.curlrc
     cp git/.gitconfig ~/.gitconfig
     cp gitstatus/.git-status.bash ~/.git-status.bash
-    cp ssh/config ~/.ssh/config
+    cp ssh/.config ~/.ssh/config
     cp tmux/.tmux.conf ~/.tmux.conf
     cp wget/.wgetrc ~/.wgetrc
 }
