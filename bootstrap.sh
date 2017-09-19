@@ -35,6 +35,7 @@ packages() {
         browser-plugin-vlc \
         xclip \
         python \
+        python-pip \
         sl
 }
 
