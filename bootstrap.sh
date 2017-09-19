@@ -74,10 +74,10 @@ repo-packages() {
         sublime-text \
         google-chrome-stable \
         code \
-        spotify-client \
         osquery \
         virtualbox-5.1 \
-        google-cloud-sdk 
+        google-cloud-sdk \
+        sudo apt -f install -y
 }
 
 aws-cli() {
@@ -140,6 +140,13 @@ minikube() {
     sudo mv ./minikube /usr/local/bin/minikube
 }
 
+spotify() {
+    curl -fsSL -o libssl1.0.0 http://ftp.us.debian.org/debian/pool/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u6_amd64.deb
+    sudo dpkg -i libssl1.0.0
+    rm -rf libssl1.0.0
+    sudo apt install -y spotify-client
+}
+
 slack() {
     curl -fsSL -o slack-desktop-2.8.0-amd64.deb https://downloads.slack-edge.com/linux_releases/slack-desktop-2.8.0-amd64.deb
     sudo dpkg -i slack-desktop-*-amd64.deb
@@ -151,6 +158,10 @@ discord() {
     sudo dpkg -i discord.deb
     sudo apt -f install
     rm -rf discord.deb
+}
+
+autoremove() {
+    sudo apt autoremove -y
 }
 
 update
@@ -169,5 +180,7 @@ golang
 keybase
 kubectl
 minikube
+spotify
 slack
 discord
+autoremove
