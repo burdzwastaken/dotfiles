@@ -100,6 +100,10 @@ conf() {
     cp wget/.wgetrc ~/.wgetrc
 }
 
+tmux-plugins() {
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+}
+
 colours() {
     git clone https://github.com/Anthony25/gnome-terminal-colors-solarized.git
     pushd gnome-terminal-colors-solarized/
@@ -172,6 +176,7 @@ repos-gpg
 update
 repo-packages
 aws-cli
+tmux-plugins
 kernel-modules
 conf
 colours
