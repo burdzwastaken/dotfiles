@@ -36,7 +36,8 @@ packages() {
         xclip \
         python \
         python-pip \
-        sl
+        sl \
+        wireshark
 }
 
 repos() {
