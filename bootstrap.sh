@@ -22,6 +22,8 @@ packages() {
         apt-transport-https \
         ca-certificates \
         curl \
+        wget \
+        dirmngr \
         software-properties-common \
         tmux \
         vim \
@@ -65,7 +67,7 @@ repos-gpg() {
 
 repo-packages() {
     sudo apt install -y \
-        iwlwifi \
+        firmware-iwlwifi \
         docker-ce \
         sublime-text \
         google-chrome-stable \
@@ -89,7 +91,7 @@ conf() {
     cp bash/.bash_profile ~/.bash_profile
     cp conky/.conkyrc ~/.conkyrc
     cp curl/.curlrc ~/.curlrc
-    cp git/.gitconfig ~/.git/config
+    cp git/.gitconfig ~/.gitconfig
     cp gitstatus/.git-status.bash ~/.git-status.bash
     cp ssh/config ~/.ssh/config
     cp tmux/.tmux.conf ~/.tmux.conf
