@@ -113,20 +113,20 @@ colours() {
 }
 
 dropbox() {
-    curl -fsSL -o dropbox_2015.10.28_amd64.deb https://www.dropbox.com/download?dl=packages/debian/dropbox_2015.10.28_amd64.deb
+    curl -fsSL -o dropbox_2015.10.28_amd64.deb "https://www.dropbox.com/download?dl=packages/debian/dropbox_2015.10.28_amd64.deb"
     sudo dpkg -i dropbox_2015.10.28_amd64.deb
     sudo apt -f install -y
     rm -rf dropbox_2015.10.28_amd64.deb
 }
 
 golang() {
-    curl -fsSL -o go1.9.linux-amd64.tar.gz https://storage.googleapis.com/golang/go1.9.linux-amd64.tar.gz
+    curl -fsSL -o go1.9.linux-amd64.tar.gz "https://storage.googleapis.com/golang/go1.9.linux-amd64.tar.gz"
     sudo tar -C /usr/local -xzf go1.9.linux-amd64.tar.gz
     rm -rf go1.9.linux-amd64.tar.gz
 }
 
 keybase() {
-    curl -fsSL -o keybase_amd64.deb https://prerelease.keybase.io/keybase_amd64.deb
+    curl -fsSL -o keybase_amd64.deb "https://prerelease.keybase.io/keybase_amd64.deb"
     sudo dpkg -i keybase_amd64.deb
     sudo apt -f install -y
     rm -rf keybase_amd64.deb
@@ -139,20 +139,20 @@ kubectl() {
 }
 
 minikube() {
-    curl -fsSL -o minikube https://storage.googleapis.com/minikube/releases/v0.22.2/minikube-linux-amd64
+    curl -fsSL -o minikube "https://storage.googleapis.com/minikube/releases/v0.22.2/minikube-linux-amd64"
     chmod +x ./minikube 
     sudo mv ./minikube /usr/local/bin/minikube
 }
 
 spotify() {
-    curl -fsSL -o libssl1.0.0 http://ftp.us.debian.org/debian/pool/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u6_amd64.deb
+    curl -fsSL -o libssl1.0.0 "http://ftp.us.debian.org/debian/pool/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u6_amd64.deb"
     sudo dpkg -i libssl1.0.0
     rm -rf libssl1.0.0
     sudo apt install -y spotify-client
 }
 
 slack() {
-    curl -fsSL -o slack-desktop-2.8.0-amd64.deb https://downloads.slack-edge.com/linux_releases/slack-desktop-2.8.0-amd64.deb
+    curl -fsSL -o slack-desktop-2.8.0-amd64.deb "https://downloads.slack-edge.com/linux_releases/slack-desktop-2.8.0-amd64.deb"
     sudo dpkg -i slack-desktop-*-amd64.deb
     rm -rf slack-desktop-*-amd64.deb
 }
