@@ -40,7 +40,8 @@ packages() {
         python-pip \
         sl \
         tcpdump \
-        wireshark
+        wireshark \
+        libc++1
 }
 
 repos() {
