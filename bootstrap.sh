@@ -41,7 +41,8 @@ packages() {
         sl \
         tcpdump \
         wireshark \
-        libc++1
+        libc++1 \
+        zeal
 }
 
 repos() {
