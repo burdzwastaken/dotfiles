@@ -108,27 +108,27 @@ colours() {
 }
 
 dropbox() {
-    curl -fsSL https://www.dropbox.com/download?dl=packages/debian/dropbox_2015.10.28_amd64.deb
+    curl -fsSL -o dropbox_2015.10.28_amd64.deb https://www.dropbox.com/download?dl=packages/debian/dropbox_2015.10.28_amd64.deb
     sudo dpkg -i dropbox_2015.10.28_amd64.deb
     sudo apt -f install -y
     rm -rf dropbox_2015.10.28_amd64.deb
 }
 
 golang() {
-    curl -fsSL https://storage.googleapis.com/golang/go1.9.linux-amd64.tar.gz
+    curl -fsSL -o go1.9.linux-amd64.tar.gz https://storage.googleapis.com/golang/go1.9.linux-amd64.tar.gz
     sudo tar -C /usr/local -xzf go1.9.linux-amd64.tar.gz
     rm -rf go1.9.linux-amd64.tar.gz
 }
 
 keybase() {
-    curl -fsSL https://prerelease.keybase.io/keybase_amd64.deb
+    curl -fsSL -o keybase_amd64.deb https://prerelease.keybase.io/keybase_amd64.deb
     sudo dpkg -i keybase_amd64.deb
     sudo apt -f install -y
     rm -rf keybase_amd64.deb
 }
 
 kubectl() {
-    curl -fsSL https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/darwin/amd64/kubectl 
+    curl -fsSL -o kubectl https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/darwin/amd64/kubectl 
     chmod +x ./kubectl 
     sudo mv ./kubectl /usr/local/bin/kubectl
 }
@@ -140,16 +140,16 @@ minikube() {
 }
 
 slack() {
-    curl -fsSL https://downloads.slack-edge.com/linux_releases/slack-desktop-2.8.0-amd64.deb
+    curl -fsSL -o slack-desktop-2.8.0-amd64.deb https://downloads.slack-edge.com/linux_releases/slack-desktop-2.8.0-amd64.deb
     sudo dpkg -i slack-desktop-*-amd64.deb
     rm -rf slack-desktop-*-amd64.deb
 }
 
 discord() {
-    curl -fsSL https://discordapp.com/api/download?platform=linux&format=deb
-    sudo dpkg -i discord-*.deb
+    curl -fsSL -o discord.deb https://discordapp.com/api/download?platform=linux&format=deb
+    sudo dpkg -i discord.deb
     sudo apt -f install
-    rm -rf discord-*.deb
+    rm -rf discord.deb
 }
 
 update
