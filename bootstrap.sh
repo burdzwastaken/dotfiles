@@ -78,7 +78,8 @@ packages() {
         google-cloud-sdk \
         sysdig \
         rkhunter \
-        chkrootkit
+        chkrootkit \
+        nethogs
     sudo apt -f install -y
 }
 
