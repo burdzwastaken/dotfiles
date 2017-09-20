@@ -55,6 +55,7 @@ repos() {
     echo "deb [arch=amd64] https://osquery-packages.s3.amazonaws.com/deb deb main" | sudo tee /etc/apt/sources.list.d/osquery.list
     echo "deb http://packages.cloud.google.com/apt cloud-sdk-$(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list
     echo "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
+    echo "deb http://download.draios.com/stable/deb stable-$(ARCH)/" | sudo tee /etc/apt/sources.list.d/draios.list
 }
 
 repos-gpg() {
@@ -64,6 +65,7 @@ repos-gpg() {
     curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add - #vscode
     curl -fsSL https://www.virtualbox.org/download/oracle_vbox_2016.asc | sudo apt-key add - #virtualbox
     curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add - #gcloud-sdk
+    curl -fsSL https://s3.amazonaws.com/download.draios.com/DRAIOS-GPG-KEY.public | sudo apt-key add - #sysdig
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886 0DF731E45CE24F27EEEB1450EFDC8610341D9410 #spotify
     sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1484120AC4E9F8A1A577AEEE97A80C63C9D8B80B #osquery
 }
@@ -78,6 +80,7 @@ repo-packages() {
         osquery \
         virtualbox-5.1 \
         google-cloud-sdk \
+        sysdig \
         sudo apt -f install -y
 }
 
