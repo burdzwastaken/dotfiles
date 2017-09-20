@@ -9,6 +9,31 @@
 # bootstrapz
 #------------------------------------------------------------------------------
 
+repos() {
+    echo "deb http://httpredir.debian.org/debian/ $(lsb_release -cs) main contrib non-free" | sudo tee /etc/apt/sources.list.d/non-free.list
+    echo "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
+    echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+    echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+    echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" | sudo tee /etc/apt/sources.list.d/vscode.list
+    echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+    echo "deb [arch=amd64] https://osquery-packages.s3.amazonaws.com/deb deb main" | sudo tee /etc/apt/sources.list.d/osquery.list
+    echo "deb http://packages.cloud.google.com/apt cloud-sdk-$(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list
+    echo "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
+    echo "deb http://download.draios.com/stable/deb stable-$(ARCH)/" | sudo tee /etc/apt/sources.list.d/draios.list
+}
+
+repos-gpg() {
+    curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg | sudo apt-key add - #docker
+    curl -fsSL https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add - #sublime
+    curl -fsSL https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - #google-chrome
+    curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add - #vscode
+    curl -fsSL https://www.virtualbox.org/download/oracle_vbox_2016.asc | sudo apt-key add - #virtualbox
+    curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add - #gcloud-sdk
+    curl -fsSL https://s3.amazonaws.com/download.draios.com/DRAIOS-GPG-KEY.public | sudo apt-key add - #sysdig
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886 0DF731E45CE24F27EEEB1450EFDC8610341D9410 #spotify
+    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1484120AC4E9F8A1A577AEEE97A80C63C9D8B80B #osquery
+}
+
 update() {
     sudo apt update -y
 }
@@ -42,36 +67,7 @@ packages() {
         tcpdump \
         wireshark \
         libc++1 \
-        zeal
-}
-
-repos() {
-    echo "deb http://httpredir.debian.org/debian/ $(lsb_release -cs) main contrib non-free" | sudo tee /etc/apt/sources.list.d/non-free.list
-    echo "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
-    echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
-    echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
-    echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" | sudo tee /etc/apt/sources.list.d/vscode.list
-    echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-    echo "deb [arch=amd64] https://osquery-packages.s3.amazonaws.com/deb deb main" | sudo tee /etc/apt/sources.list.d/osquery.list
-    echo "deb http://packages.cloud.google.com/apt cloud-sdk-$(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list
-    echo "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
-    echo "deb http://download.draios.com/stable/deb stable-$(ARCH)/" | sudo tee /etc/apt/sources.list.d/draios.list
-}
-
-repos-gpg() {
-    curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg | sudo apt-key add - #docker
-    curl -fsSL https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add - #sublime
-    curl -fsSL https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - #google-chrome
-    curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add - #vscode
-    curl -fsSL https://www.virtualbox.org/download/oracle_vbox_2016.asc | sudo apt-key add - #virtualbox
-    curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add - #gcloud-sdk
-    curl -fsSL https://s3.amazonaws.com/download.draios.com/DRAIOS-GPG-KEY.public | sudo apt-key add - #sysdig
-    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886 0DF731E45CE24F27EEEB1450EFDC8610341D9410 #spotify
-    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1484120AC4E9F8A1A577AEEE97A80C63C9D8B80B #osquery
-}
-
-repo-packages() {
-    sudo apt install -y \
+        zeal \
         firmware-iwlwifi \
         docker-ce \
         sublime-text \
@@ -93,16 +89,16 @@ kernel-modules() {
 }
 
 conf() {
-    cp bash/.bashrc ~/.bashrc
-    cp bash/.bash_profile ~/.bash_profile
-    cp conky/.conkyrc ~/.conkyrc
-    cp curl/.curlrc ~/.curlrc
-    cp editor/.editorconfig ~/.editorconfig
-    cp git/.gitconfig ~/.gitconfig
-    cp gitstatus/.git-status.bash ~/.git-status.bash
-    cp ssh/.config ~/.ssh/config
-    cp tmux/.tmux.conf ~/.tmux.conf
-    cp wget/.wgetrc ~/.wgetrc
+    ln -sf $(pwd)/bash/.bashrc ~/.bashrc
+    ln -sf $(pwd)/bash/.bash_profile ~/.bash_profile
+    ln -sf $(pwd)/conky/.conkyrc ~/.conkyrc
+    ln -sf $(pwd)/curl/.curlrc ~/.curlrc
+    ln -sf $(pwd)/editor/.editorconfig ~/.editorconfig
+    ln -sf $(pwd)/git/.gitconfig ~/.gitconfig
+    ln -sf $(pwd)/gitstatus/.git-status.bash ~/.git-status.bash
+    ln -sf $(pwd)/ssh/.config ~/.ssh/config
+    ln -sf $(pwd)/tmux/.tmux.conf ~/.tmux.conf
+    ln -sf $(pwd)/wget/.wgetrc ~/.wgetrc
 }
 
 tmux-plugins() {
@@ -138,14 +134,14 @@ keybase() {
 }
 
 kubectl() {
-    curl -fsSL -o kubectl "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl" 
-    chmod +x ./kubectl 
+    curl -fsSL -o kubectl "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl"
+    chmod +x ./kubectl
     sudo mv ./kubectl /usr/local/bin/kubectl
 }
 
 minikube() {
     curl -fsSL -o minikube "https://storage.googleapis.com/minikube/releases/v0.22.2/minikube-linux-amd64"
-    chmod +x ./minikube 
+    chmod +x ./minikube
     sudo mv ./minikube /usr/local/bin/minikube
 }
 
@@ -177,13 +173,11 @@ autoremove() {
     sudo apt autoremove -y
 }
 
-update
-upgrade
-packages
 repos
 repos-gpg
 update
-repo-packages
+upgrade
+packages
 aws-cli
 tmux-plugins
 kernel-modules
