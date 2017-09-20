@@ -76,8 +76,8 @@ packages() {
         osquery \
         virtualbox-5.1 \
         google-cloud-sdk \
-        sysdig \
-        sudo apt -f install -y
+        sysdig 
+    sudo apt -f install -y
 }
 
 aws-cli() {
