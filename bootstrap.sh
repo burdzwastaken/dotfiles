@@ -76,7 +76,9 @@ packages() {
         osquery \
         virtualbox-5.1 \
         google-cloud-sdk \
-        sysdig 
+        sysdig \
+        rkhunter \
+        chkrootkit
     sudo apt -f install -y
 }
 
