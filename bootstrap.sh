@@ -19,7 +19,7 @@ repos() {
     echo "deb [arch=amd64] https://osquery-packages.s3.amazonaws.com/deb deb main" | sudo tee /etc/apt/sources.list.d/osquery.list
     echo "deb http://packages.cloud.google.com/apt cloud-sdk-$(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list
     echo "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
-    echo "deb http://download.draios.com/stable/deb stable-$(ARCH)/" | sudo tee /etc/apt/sources.list.d/draios.list
+    echo "deb http://download.draios.com/stable/deb stable-amd64/" | sudo tee /etc/apt/sources.list.d/draios.list
 }
 
 repos-gpg() {
@@ -159,7 +159,11 @@ slack() {
 }
 
 shodan() {
-    sudo easy_install shodan
+    if [ -f /usr/local/bin/shodan ]; then
+        sudo easy_install -U shodan
+    else
+        sudo easy_install shodan
+    fi
 }
 
 discord() {
