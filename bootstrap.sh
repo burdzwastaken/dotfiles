@@ -162,6 +162,10 @@ slack() {
     rm -rf slack-desktop-*-amd64.deb
 }
 
+shodan() {
+    sudo easy_install shodan
+}
+
 discord() {
     curl -fsSL -o discord.deb "https://discordapp.com/api/download?platform=linux&format=deb"
     sudo dpkg -i discord.deb
@@ -192,5 +196,6 @@ kubectl
 minikube
 spotify
 slack
+shodan
 discord
 autoremove
