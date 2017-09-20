@@ -97,6 +97,7 @@ conf() {
     cp bash/.bash_profile ~/.bash_profile
     cp conky/.conkyrc ~/.conkyrc
     cp curl/.curlrc ~/.curlrc
+    cp editor/.editorconfig ~/.editorconfig
     cp git/.gitconfig ~/.gitconfig
     cp gitstatus/.git-status.bash ~/.git-status.bash
     cp ssh/.config ~/.ssh/config
