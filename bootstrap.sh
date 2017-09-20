@@ -159,11 +159,7 @@ slack() {
 }
 
 shodan() {
-    if [ -f /usr/local/bin/shodan ]; then
-        sudo easy_install -U shodan
-    else
-        sudo easy_install shodan
-    fi
+    sudo pip install shodan
 }
 
 discord() {
