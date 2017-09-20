@@ -159,7 +159,7 @@ slack() {
 }
 
 shodan() {
-    sudo pip install shodan
+    pip install shodan --upgrade --user
 }
 
 discord() {
