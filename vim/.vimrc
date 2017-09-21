@@ -1,0 +1,94 @@
+" vundle
+set nocompatible
+filetype off
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'editorconfig/editorconfig-vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'edkolev/tmuxline.vim'
+
+call vundle#end()
+filetype plugin indent on
+
+" colours
+syntax enable
+let g:solarized_termcolors=256
+set background=dark
+colorscheme solarized
+
+" tmux statusbar
+let g:tmuxline_powerline_separators = 0
+let g:tmuxline_preset = {
+        \ 'a': '#S',
+        \ 'b': ['#(whoami)', '#(uptime | cut -d " " -f 1,2,3,4,5)'],
+        \ 'c': '#W',
+        \ 'win': ['#I', '#W'],
+        \ 'cwin': ['#I', '#W'],
+        \ 'x': '%a',
+        \ 'y': ['%b %d', '%R'],
+        \ 'z': '#H'}
+
+let g:tmuxline_theme = {
+    \   'a'    : [ 236, 103 ],
+    \   'b'    : [ 253, 239 ],
+    \   'c'    : [ 244, 236 ],
+    \   'x'    : [ 244, 236 ],
+    \   'y'    : [ 253, 239 ],
+    \   'z'    : [ 236, 103 ],
+    \   'win'  : [ 103, 236 ],
+    \   'cwin' : [ 236, 103 ],
+    \   'bg'   : [ 244, 236 ],
+    \ }
+
+" UI
+set number
+set showmode
+set showcmd
+set cursorline
+set wildmenu
+set lazyredraw
+set showmatch
+set ruler
+set wrap
+
+" search
+set incsearch
+set hlsearch
+
+if exists('$TMUX')
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
+
+map <C-n> :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+function! GitBranch()
+  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+endfunction
+
+function! StatuslineGit()
+  let l:branchname = GitBranch()
+  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+endfunction
+
+set laststatus=2
+set statusline=
+set statusline+=%#PmenuSel#
+set statusline+=%{StatuslineGit()}
+set statusline+=%#LineNr#
+set statusline+=\ %f
+set statusline+=%m\
+set statusline+=%=
+set statusline+=%#CursorColumn#
+set statusline+=\ %y
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+set statusline+=\[%{&fileformat}\]
+set statusline+=\ %p%%
+set statusline+=\ %l:%c
