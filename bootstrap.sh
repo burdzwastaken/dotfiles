@@ -104,6 +104,7 @@ conf() {
     ln -sf $(pwd)/hexchat/servlist.conf ~/.config/hexchat/servlist.conf
     ln -sf $(pwd)/ssh/.config ~/.ssh/config
     ln -sf $(pwd)/tmux/.tmux.conf ~/.tmux.conf
+    ln -sf $(pwd)/vim/.vimrc ~/.vimrc
     ln -sf $(pwd)/wget/.wgetrc ~/.wgetrc
 }
 
@@ -179,6 +180,15 @@ discord() {
     rm -rf discord.deb
 }
 
+vim() {
+    git@github.com:burdzwastaken/vim-colors-solarized.git
+    mv vim-colors-solarized/colors/solarized.vim ~/.vim/colors/
+
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+    vim +PluginInstall +qall
+}
+
 autoremove() {
     sudo apt autoremove -y
 }
@@ -203,4 +213,5 @@ slack
 shodan
 rvm
 discord
+vim
 autoremove
