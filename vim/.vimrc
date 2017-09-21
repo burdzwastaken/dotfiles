@@ -13,6 +13,10 @@ Plugin 'edkolev/tmuxline.vim'
 call vundle#end()
 filetype plugin indent on
 
+" history
+set history=10000
+set undolevels=1000
+
 " colours
 syntax enable
 let g:solarized_termcolors=256
@@ -23,7 +27,7 @@ colorscheme solarized
 let g:tmuxline_powerline_separators = 0
 let g:tmuxline_preset = {
         \ 'a': '#S',
-        \ 'b': ['#(whoami)', '#(uptime | cut -d " " -f 1,2,3,4,5)'],
+        \ 'b': ['#(whoami)', '#(uptime | cut -d " " -f 3,4,5,6 | sed "s/,$//")'],
         \ 'c': '#W',
         \ 'win': ['#I', '#W'],
         \ 'cwin': ['#I', '#W'],
@@ -49,6 +53,8 @@ set showmode
 set showcmd
 set cursorline
 set wildmenu
+set wildmode=list:full
+set wildignore=*.swp,*.bak,*.pyc,*.class,~*
 set lazyredraw
 set showmatch
 set ruler
@@ -59,11 +65,11 @@ set incsearch
 set hlsearch
 
 if exists('$TMUX')
-    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
 else
-    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+    let &t_SI = "\e[5 q"
+    let &t_EI = "\e[5 q"
 endif
 
 map <C-n> :NERDTreeToggle<CR>
