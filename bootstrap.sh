@@ -80,7 +80,8 @@ packages() {
         sysdig \
         rkhunter \
         chkrootkit \
-        nethogs
+        nethogs \
+        ntp
     sudo apt -f install -y
 }
 
