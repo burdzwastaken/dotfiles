@@ -9,6 +9,13 @@
 # bootstrapz
 #------------------------------------------------------------------------------
 
+deps() {
+    sudo apt install -y \
+        apt-transport-https \
+        curl \
+        dirmngr
+}
+
 repos() {
     echo "deb http://httpredir.debian.org/debian/ $(lsb_release -cs) main contrib non-free" | sudo tee /etc/apt/sources.list.d/non-free.list
     echo "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
@@ -45,11 +52,8 @@ upgrade() {
 
 packages() {
     sudo apt install -y \
-        apt-transport-https \
         ca-certificates \
-        curl \
         wget \
-        dirmngr \
         software-properties-common \
         tmux \
         vim \
@@ -182,8 +186,8 @@ discord() {
 }
 
 vim() {
-    git@github.com:burdzwastaken/vim-colors-solarized.git
-    mv vim-colors-solarized/colors/solarized.vim ~/.vim/colors/
+    git clone https://github.com/burdzwastaken/vim-colors-solarized.git
+    mkdir -p ~/.vim/colors && mv vim-colors-solarized/colors/solarized.vim ~/.vim/colors/
 
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
@@ -194,6 +198,7 @@ autoremove() {
     sudo apt autoremove -y
 }
 
+deps
 repos
 repos-gpg
 update
