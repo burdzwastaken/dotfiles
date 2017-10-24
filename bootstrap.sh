@@ -85,7 +85,8 @@ packages() {
         rkhunter \
         chkrootkit \
         nethogs \
-        ntp
+        ntp \
+        dnsutils
     sudo apt -f install -y
 }
 
