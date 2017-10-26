@@ -86,7 +86,11 @@ packages() {
         chkrootkit \
         nethogs \
         ntp \
-        dnsutils
+        dnsutils \
+        nmap \
+        gir1.2-gtop-2.0 \
+        gir1.2-networkmanager-1.0 \
+        gir1.2-clutter-1.0
     sudo apt -f install -y
 }
 
