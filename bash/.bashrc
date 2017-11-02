@@ -173,6 +173,10 @@ dockerrm() {
     docker rmi $(docker images --filter dangling=true -q 2>/dev/null) 2>/dev/null
 }
 
+chromepdf() {
+    chrome --headless --disable-gpu --print-to-pdf="$1" $2
+}
+
 getcertnames() {
 	if [ -z "${1}" ]; then
 		echo "ERROR: No domain specified.";
