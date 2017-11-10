@@ -23,7 +23,7 @@ indent_size = 4
 indent_style = space
 indent_size = 4
 
-[*.{json,js,yml,yaml,less,ps1}]
+[*.{json,js,yml,yaml,less,ps1,tf}]
 indent_style = space
 indent_size = 2
 
