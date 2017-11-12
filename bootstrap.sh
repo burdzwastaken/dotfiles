@@ -101,6 +101,10 @@ aws-cli() {
     pip install awscli --upgrade --user
 }
 
+virtualenvwrapper() {
+    pip install virtualenvwrapper --upgrade --user
+}
+
 kernel-modules() {
     sudo modprobe -r iwlwifi && sudo modprobe iwlwifi
 }
@@ -213,6 +217,7 @@ update
 upgrade
 packages
 aws-cli
+virtualenvwrapper
 tmux-plugins
 kernel-modules
 conf
