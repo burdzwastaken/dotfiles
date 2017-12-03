@@ -124,6 +124,7 @@ conf() {
     ln -sf $(pwd)/tmux/.tmux.conf ~/.tmux.conf
     ln -sf $(pwd)/vim/.vimrc ~/.vimrc
     ln -sf $(pwd)/wget/.wgetrc ~/.wgetrc
+    ls -sf $(pwd)/gnupg/gpg-agent.conf ~/.gnupg/gpg-agent.conf
 }
 
 tmux-plugins() {
