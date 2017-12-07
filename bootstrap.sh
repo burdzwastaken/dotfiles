@@ -94,7 +94,8 @@ packages() {
         gir1.2-networkmanager-1.0 \
         gir1.2-clutter-1.0 \
         signal-desktop \
-        tree
+        tree \
+        exiftool
     sudo apt -f install -y
 }
 
