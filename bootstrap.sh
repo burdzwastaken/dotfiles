@@ -95,7 +95,8 @@ packages() {
         gir1.2-clutter-1.0 \
         signal-desktop \
         tree \
-        exiftool
+        exiftool \
+        whois
     sudo apt -f install -y
 }
 
