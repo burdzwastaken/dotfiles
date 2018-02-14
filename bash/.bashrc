@@ -101,6 +101,9 @@ source ~/.git-status.bash
 # kubectl completion
 source <(kubectl completion bash)
 
+# TmuxLine                                                                                                                                                                                                                                         
+vim +TmuxLine +qall
+
 # even more aliasessss
 alias xclip="xclip -selection c"
 alias fuck='sudo $(history -p !!)'
