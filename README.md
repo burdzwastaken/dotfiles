@@ -1,4 +1,4 @@
-# dotfiles
+# dotfiles (aka soupfiles)
 a collection of my dotfilez
 
 ## install
