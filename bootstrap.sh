@@ -96,7 +96,8 @@ packages() {
         signal-desktop \
         tree \
         exiftool \
-        whois
+        whois \
+        uuid-runtime
     sudo apt -f install -y
 }
 
