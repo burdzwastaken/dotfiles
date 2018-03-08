@@ -180,6 +180,10 @@ chromepdf() {
     chrome --headless --disable-gpu --print-to-pdf="$1" $2
 }
 
+mem() {                                                                                                      
+    ps -eo rss,pid,euser,args:100 --sort %mem | grep -v grep | grep -i $@ | awk '{printf $1/1024 "MB"; $1=""; print }'
+}
+
 getcertnames() {
 	if [ -z "${1}" ]; then
 		echo "ERROR: No domain specified.";
