@@ -97,7 +97,8 @@ packages() {
         tree \
         exiftool \
         whois \
-        uuid-runtime
+        uuid-runtime \
+        asciinema
     sudo apt -f install -y
 }
 
