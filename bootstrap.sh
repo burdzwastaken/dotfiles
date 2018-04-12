@@ -98,7 +98,8 @@ packages() {
         exiftool \
         whois \
         uuid-runtime \
-        asciinema
+        asciinema \
+        clusterssh
     sudo apt -f install -y
 }
 
