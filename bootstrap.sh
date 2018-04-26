@@ -100,7 +100,8 @@ packages() {
         uuid-runtime \
         asciinema \
         clusterssh \
-        chromium
+        chromium \
+        blueman
     sudo apt -f install -y
 }
 
