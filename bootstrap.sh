@@ -99,7 +99,8 @@ packages() {
         whois \
         uuid-runtime \
         asciinema \
-        clusterssh
+        clusterssh \
+        chromium
     sudo apt -f install -y
 }
 
