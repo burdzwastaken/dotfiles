@@ -9,6 +9,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'edkolev/tmuxline.vim'
+Plugin 'fatih/vim-go'
 
 call vundle#end()
 filetype plugin indent on
