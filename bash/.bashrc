@@ -184,6 +184,11 @@ mem() {
     ps -eo rss,pid,euser,args:100 --sort %mem | grep -v grep | grep -i $@ | awk '{printf $1/1024 "MB"; $1=""; print }'
 }
 
+log() {
+    logger -i -t $0 "$@"
+    echo [$$] `date`: $@
+}
+
 getcertnames() {
 	if [ -z "${1}" ]; then
 		echo "ERROR: No domain specified.";
