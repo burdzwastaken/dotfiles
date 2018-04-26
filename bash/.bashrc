@@ -189,6 +189,11 @@ log() {
     echo [$$] `date`: $@
 }
 
+# requires sudo due to folder perms
+bigfilez() {
+  sudo find $@ -type f -size +10M -exec ls -lh {} \;
+}
+
 getcertnames() {
 	if [ -z "${1}" ]; then
 		echo "ERROR: No domain specified.";
