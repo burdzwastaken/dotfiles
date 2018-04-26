@@ -191,7 +191,11 @@ log() {
 
 # requires sudo due to folder perms
 bigfilez() {
-  sudo find $@ -type f -size +10M -exec ls -lh {} \;
+    sudo find $@ -type f -size +10M -exec ls -lh {} \;
+}
+
+statuscode() {
+    curl -s -o /dev/null -w "%{http_code}" $@
 }
 
 getcertnames() {
