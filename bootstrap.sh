@@ -221,7 +221,7 @@ fzf() {
 }
 
 gc-hooks() {
-    mkdir -p /etc/git/hooks
+    sudo mkdir -p /etc/git/hooks
 }
 
 autoremove() {
