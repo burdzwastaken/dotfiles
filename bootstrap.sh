@@ -220,6 +220,10 @@ fzf() {
     true | ~/.fzf/install
 }
 
+gc-hooks() {
+    mkdir -p /etc/git/hooks
+}
+
 autoremove() {
     sudo apt autoremove -y
 }
@@ -248,4 +252,5 @@ rvm
 discord
 vim
 fzf
+gc-hooks
 autoremove
