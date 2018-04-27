@@ -3,5 +3,6 @@
 	name = Matt Burdan\n
 [core]
 	editor = vim
+	hooksPath = /etc/git/hooks/
 [commit]
 	gpgsign = true
