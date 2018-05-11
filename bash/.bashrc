@@ -198,6 +198,10 @@ statuscode() {
     curl -s -o /dev/null -w "%{http_code}" $@
 }
 
+upgrade-kubectl() {
+    curl -Lo /tmp/kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x /tmp/kubectl && mv /tmp/kubectl /usr/local/bin/
+}
+
 getcertnames() {
 	if [ -z "${1}" ]; then
 		echo "ERROR: No domain specified.";
