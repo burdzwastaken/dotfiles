@@ -202,6 +202,10 @@ upgrade-kubectl() {
     curl -Lo /tmp/kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x /tmp/kubectl && mv /tmp/kubectl /usr/local/bin/
 }
 
+upgrade-minikube() {
+    curl -Lo /tmp/minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x /tmp/minikube && mv /tmp/minikube /usr/local/bin/
+}
+
 getcertnames() {
 	if [ -z "${1}" ]; then
 		echo "ERROR: No domain specified.";
