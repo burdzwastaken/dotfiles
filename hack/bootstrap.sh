@@ -264,6 +264,14 @@ gc-hooks() {
     sudo mkdir -p /etc/git/hooks
 }
 
+wallpaper() {
+    sudo mkdir -p /usr/share/backgrounds/debian
+    sudo chown burdz:burdz -R /usr/share/backgrounds/debian
+    ln -sf $(pwd)/images/linux-debian-wallpaper.jpg /usr/share/backgrounds/debian/linux-debian-wallpaper.jpg
+    ln -sf $(pwd)/images/linux-debian-metal-wallpaper.jpg /usr/share/backgrounds/debian/linux-debian-metal-wallpaper.jpg
+    ln -sf $(pwd)/images/linux-debian-high-res-wallpaper.jpg /usr/share/backgrounds/debian/linux-debian-high-res-wallpaper.jpg
+}
+
 autoremove() {
     sudo apt autoremove -y
 }
@@ -295,4 +303,5 @@ vim
 fzf
 hub
 gc-hooks
+wallpaper
 autoremove
