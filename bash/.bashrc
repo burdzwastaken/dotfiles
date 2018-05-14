@@ -101,8 +101,13 @@ source ~/.git-status.bash
 # kubectl completion
 source <(kubectl completion bash)
 
-# hub completion
+# hub alias
 eval "$(hub alias -s)"
+
+# hub completion
+if [ -f /etc/hub.bash_completion ]; then
+  . /etc/hub.bash_completion
+fi
 
 # TmuxLine                                                                                                                                                                                                                                         
 vim +TmuxLine +qall
