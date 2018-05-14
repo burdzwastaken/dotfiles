@@ -16,13 +16,13 @@ jobs:
           command: docker build -t dotfilez -t $CIRCLE_SHA1 .
       - run:
           name: tag docker image
-          command: docker tag $CIRCLE_SHA1 burdz/private/dotfilez:${CIRCLE_BRANCH}
+          command: docker tag $CIRCLE_SHA1 burdz/private:dotfilez
       - run:
           name: docker login
           command: docker login -u $DOCKER_USER -p $DOCKER_PASS
       - run:
           name: push docker image
-          command: docker push burdz/private/dotfilez:${CIRCLE_BRANCH}
+          command: docker push burdz/private:dotfilez
 
 workflows:
   version: 2
