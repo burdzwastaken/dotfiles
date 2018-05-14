@@ -14,6 +14,7 @@ env() {
     DROPBOX_VERSION=2015.10.28
     MINIKUBE_VERSION=0.26.1
     SLACK_VERSION=3.1.0
+    HUB_VERSION=2.2.9
 }
 
 deps() {
@@ -227,6 +228,14 @@ fzf() {
     true | ~/.fzf/install
 }
 
+hub() {
+    curl -fsSL -o hub-${HUB_VERSION}.tgz https://github.com/github/hub/releases/download/v${HUB_VERSION}/hub-linux-amd64-${HUB_VERSION}.tgz
+    source ~/.bashrc
+    extract hub-${HUB_VERSION}.tgz
+    sudo cp hub-linux-amd64-${HUB_VERSION}/bin/hub /usr/local/bin/
+    sudo cp hub-linux-amd64-${HUB_VERSION}/etc/hub.bash_completion.sh /etc/hub.bash_completion
+}
+
 gc-hooks() {
     sudo mkdir -p /etc/git/hooks
 }
@@ -260,5 +269,6 @@ rvm
 discord
 vim
 fzf
+hub
 gc-hooks
 autoremove
