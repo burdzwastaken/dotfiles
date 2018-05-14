@@ -23,7 +23,7 @@ env() {
     MINIKUBE_VERSION=0.26.1
     SLACK_VERSION=3.1.0
     HUB_VERSION=2.2.9
-    DEBIAN_FRONTEND=noninteractive
+    export DEBIAN_FRONTEND=noninteractive
 }
 
 deps() {
@@ -117,7 +117,8 @@ packages() {
         asciinema \
         clusterssh \
         chromium \
-        blueman
+        blueman \
+        shellcheck
     sudo apt -f install -y
 
     if [ -z "$IN_DOCKER" ]; then
