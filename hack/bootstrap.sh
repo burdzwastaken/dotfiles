@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #------------------------------------------------------------------------------
-# File:   $HOME/dotfiles/bootstrap.sh
+# File:   $HOME/dotfiles/hack/bootstrap.sh
 # Author: Matt Burdan <burdz@burdz.net>
 #------------------------------------------------------------------------------
 
@@ -9,12 +9,21 @@
 # bootstrapz
 #------------------------------------------------------------------------------
 
+set -euxo pipefail
+
+ignore-errors() {
+    set +e
+    $1
+    set -e
+}
+
 env() {
     GO_VERSION=1.10.2
     DROPBOX_VERSION=2015.10.28
     MINIKUBE_VERSION=0.26.1
     SLACK_VERSION=3.1.0
     HUB_VERSION=2.2.9
+    DEBIAN_FRONTEND=noninteractive
 }
 
 deps() {
@@ -80,7 +89,6 @@ packages() {
         python-pip \
         sl \
         tcpdump \
-        wireshark \
         libc++1 \
         zeal \
         firmware-iwlwifi \
@@ -111,6 +119,10 @@ packages() {
         chromium \
         blueman
     sudo apt -f install -y
+
+    if [ -z "$IN_DOCKER" ]; then
+        sudo apt install wireshark -y
+    fi
 }
 
 aws-cli() {
@@ -122,10 +134,13 @@ virtualenvwrapper() {
 }
 
 kernel-modules() {
-    sudo modprobe -r iwlwifi && sudo modprobe iwlwifi
+    if [ -z "$IN_DOCKER" ]; then
+        sudo modprobe -r iwlwifi && sudo modprobe iwlwifi
+    fi
 }
 
 conf() {
+    mkdir ~/.config
     ln -sf $(pwd)/bash/.bashrc ~/.bashrc
     ln -sf $(pwd)/bash/.bash_profile ~/.bash_profile
     ln -sf $(pwd)/conky/.conkyrc ~/.conkyrc
@@ -133,13 +148,17 @@ conf() {
     ln -sf $(pwd)/editor/.editorconfig ~/.editorconfig
     ln -sf $(pwd)/git/.gitconfig ~/.gitconfig
     ln -sf $(pwd)/gitstatus/.git-status.bash ~/.git-status.bash
-    ln -sf $(pwd)/hexchat/hexchat.conf ~/.config/hexchat/hexchat.conf
+    mkdir ~/.config/hexchat && ln -sf $(pwd)/hexchat/hexchat.conf ~/.config/hexchat/hexchat.conf
     ln -sf $(pwd)/hexchat/servlist.conf ~/.config/hexchat/servlist.conf
     ln -sf $(pwd)/ssh/.config ~/.ssh/config
     ln -sf $(pwd)/tmux/.tmux.conf ~/.tmux.conf
     ln -sf $(pwd)/vim/.vimrc ~/.vimrc
     ln -sf $(pwd)/wget/.wgetrc ~/.wgetrc
-    ln -sf $(pwd)/gnupg/gpg-agent.conf ~/.gnupg/gpg-agent.conf
+    mkdir ~/.gnupg && ln -sf $(pwd)/gnupg/gpg-agent.conf ~/.gnupg/gpg-agent.conf
+
+    if [ "$IN_DOCKER" == "true" ]; then                                                                                                                                                                        
+        rm -rf ~/.gitconfig                                                                            
+    fi
 }
 
 tmux-plugins() {
@@ -148,9 +167,11 @@ tmux-plugins() {
 
 colours() {
     git clone https://github.com/Anthony25/gnome-terminal-colors-solarized.git
-    pushd gnome-terminal-colors-solarized/
-        ./install.sh
-    popd
+    if [ -z "IN_DOCKER" ]; then
+        pushd gnome-terminal-colors-solarized/
+            ./install.sh --scheme=dark --install-dircolors
+        popd
+    fi
     rm -rfd gnome-terminal-colors-solarized/
 }
 
@@ -187,7 +208,7 @@ minikube() {
 }
 
 spotify() {
-    curl -fsSL -o libssl1.0.0 "http://ftp.us.debian.org/debian/pool/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u6_amd64.deb"
+    curl -fsSL -o libssl1.0.0 "http://ftp.us.debian.org/debian/pool/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u7_amd64.deb"
     sudo dpkg -i libssl1.0.0
     rm -rf libssl1.0.0
     sudo apt install -y spotify-client
@@ -196,6 +217,7 @@ spotify() {
 slack() {
     curl -fsSL -o slack-desktop-${SLACK_VERSION}-amd64.deb "https://downloads.slack-edge.com/linux_releases/slack-desktop-${SLACK_VERSION}-amd64.deb"
     sudo dpkg -i slack-desktop-${SLACK_VERSION}-amd64.deb
+    sudo apt -f install -y
     rm -rf slack-desktop-${SLACK_VERSION}-amd64.deb
 }
 
@@ -210,7 +232,7 @@ rvm() {
 discord() {
     curl -fsSL -o discord.deb "https://discordapp.com/api/download?platform=linux&format=deb"
     sudo dpkg -i discord.deb
-    sudo apt -f install
+    sudo apt -f install -y
     rm -rf discord.deb
 }
 
@@ -220,7 +242,9 @@ vim() {
 
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
-    vim +PluginInstall +qall
+    if [ -z "$IN_DOCKER" ]; then
+        vim +PluginInstall +qall
+    fi
 }
 
 fzf() {
@@ -230,10 +254,10 @@ fzf() {
 
 hub() {
     curl -fsSL -o hub-${HUB_VERSION}.tgz https://github.com/github/hub/releases/download/v${HUB_VERSION}/hub-linux-amd64-${HUB_VERSION}.tgz
-    source ~/.bashrc
-    extract hub-${HUB_VERSION}.tgz
+    tar -zxvf hub-${HUB_VERSION}.tgz
     sudo cp hub-linux-amd64-${HUB_VERSION}/bin/hub /usr/local/bin/
     sudo cp hub-linux-amd64-${HUB_VERSION}/etc/hub.bash_completion.sh /etc/hub.bash_completion
+    sudo rm -rf hub-*
 }
 
 gc-hooks() {
@@ -257,16 +281,16 @@ tmux-plugins
 kernel-modules
 conf
 colours
-dropbox
+ignore-errors dropbox
 golang
-keybase
+ignore-errors keybase
 kubectl
 minikube
 spotify
-slack
+ignore-errors slack
 shodan
 rvm
-discord
+ignore-errors discord
 vim
 fzf
 hub
