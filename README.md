@@ -21,7 +21,7 @@ $ ./hack/bootstrap.sh
 
 ## pre-commit hookz
 this repo contains a shell lint pre commit hook. 
-install pre-commit and install the hook
+install pre-commit and ze hook
 ```
 $ pip install pre-commit --upgrade --user
 $ pre-commit autoupdate
