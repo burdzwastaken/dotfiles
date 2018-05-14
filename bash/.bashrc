@@ -95,11 +95,14 @@ if [ -f ~/.dir_colors/dircolors ]
     then eval `dircolors ~/.dir_colors/dircolors`
 fi
 
-# git-status
+# git-status 
 source ~/.git-status.bash
 
 # kubectl completion
 source <(kubectl completion bash)
+
+# hub completion
+eval "$(hub alias -s)"
 
 # TmuxLine                                                                                                                                                                                                                                         
 vim +TmuxLine +qall
