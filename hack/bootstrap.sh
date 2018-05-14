@@ -48,7 +48,7 @@ repos() {
 }
 
 repos-gpg() {
-    curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg | sudo apt-key add - #docker
+    curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add - #docker
     curl -fsSL https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add - #sublime
     curl -fsSL https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - #google-chrome
     curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add - #vscode
@@ -142,20 +142,20 @@ kernel-modules() {
 
 conf() {
     mkdir ~/.config
-    ln -sf $(pwd)/bash/.bashrc ~/.bashrc
-    ln -sf $(pwd)/bash/.bash_profile ~/.bash_profile
-    ln -sf $(pwd)/conky/.conkyrc ~/.conkyrc
-    ln -sf $(pwd)/curl/.curlrc ~/.curlrc
-    ln -sf $(pwd)/editor/.editorconfig ~/.editorconfig
-    ln -sf $(pwd)/git/.gitconfig ~/.gitconfig
-    ln -sf $(pwd)/gitstatus/.git-status.bash ~/.git-status.bash
-    mkdir ~/.config/hexchat && ln -sf $(pwd)/hexchat/hexchat.conf ~/.config/hexchat/hexchat.conf
-    ln -sf $(pwd)/hexchat/servlist.conf ~/.config/hexchat/servlist.conf
-    ln -sf $(pwd)/ssh/.config ~/.ssh/config
-    ln -sf $(pwd)/tmux/.tmux.conf ~/.tmux.conf
-    ln -sf $(pwd)/vim/.vimrc ~/.vimrc
-    ln -sf $(pwd)/wget/.wgetrc ~/.wgetrc
-    mkdir ~/.gnupg && ln -sf $(pwd)/gnupg/gpg-agent.conf ~/.gnupg/gpg-agent.conf
+    ln -sf "$(pwd)"/bash/.bashrc ~/.bashrc
+    ln -sf "$(pwd)"/bash/.bash_profile ~/.bash_profile
+    ln -sf "$(pwd)"/conky/.conkyrc ~/.conkyrc
+    ln -sf "$(pwd)"/curl/.curlrc ~/.curlrc
+    ln -sf "$(pwd)"/editor/.editorconfig ~/.editorconfig
+    ln -sf "$(pwd)"/git/.gitconfig ~/.gitconfig
+    ln -sf "$(pwd)"/gitstatus/.git-status.bash ~/.git-status.bash
+    mkdir ~/.config/hexchat && ln -sf "$(pwd)"/hexchat/hexchat.conf ~/.config/hexchat/hexchat.conf
+    ln -sf "$(pwd)"/hexchat/servlist.conf ~/.config/hexchat/servlist.conf
+    ln -sf "$(pwd)"/ssh/.config ~/.ssh/config
+    ln -sf "$(pwd)"/tmux/.tmux.conf ~/.tmux.conf
+    ln -sf "$(pwd)"/vim/.vimrc ~/.vimrc
+    ln -sf "$(pwd)"/wget/.wgetrc ~/.wgetrc
+    mkdir ~/.gnupg && ln -sf "$(pwd)"/gnupg/gpg-agent.conf ~/.gnupg/gpg-agent.conf
 
     if [ "$IN_DOCKER" == "true" ]; then                                                                                                                                                                        
         rm -rf ~/.gitconfig                                                                            
@@ -168,7 +168,7 @@ tmux-plugins() {
 
 colours() {
     git clone https://github.com/Anthony25/gnome-terminal-colors-solarized.git
-    if [ -z "IN_DOCKER" ]; then
+    if [ -z "$IN_DOCKER" ]; then
         pushd gnome-terminal-colors-solarized/
             ./install.sh --scheme=dark --install-dircolors
         popd
@@ -268,9 +268,9 @@ gc-hooks() {
 wallpaper() {
     sudo mkdir -p /usr/share/backgrounds/debian
     sudo chown burdz:burdz -R /usr/share/backgrounds/debian
-    ln -sf $(pwd)/images/linux-debian-wallpaper.jpg /usr/share/backgrounds/debian/linux-debian-wallpaper.jpg
-    ln -sf $(pwd)/images/linux-debian-metal-wallpaper.jpg /usr/share/backgrounds/debian/linux-debian-metal-wallpaper.jpg
-    ln -sf $(pwd)/images/linux-debian-high-res-wallpaper.jpg /usr/share/backgrounds/debian/linux-debian-high-res-wallpaper.jpg
+    ln -sf "$(pwd)"/images/linux-debian-wallpaper.jpg /usr/share/backgrounds/debian/linux-debian-wallpaper.jpg
+    ln -sf "$(pwd)"/images/linux-debian-metal-wallpaper.jpg /usr/share/backgrounds/debian/linux-debian-metal-wallpaper.jpg
+    ln -sf "$(pwd)"/images/linux-debian-high-res-wallpaper.jpg /usr/share/backgrounds/debian/linux-debian-high-res-wallpaper.jpg
 }
 
 autoremove() {
