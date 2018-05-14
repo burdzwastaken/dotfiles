@@ -18,3 +18,13 @@ $ chown burdz:burdz -R dotfiles/
 $ cd dotfiles
 $ ./hack/bootstrap.sh
 ```
+
+## pre-commit hookz
+this repo contains a shell lint pre commit hook. 
+install pre-commit and install the hook
+```
+$ pip install pre-commit --upgrade --user
+$ pre-commit autoupdate
+$ pre-commit install
+```
+*NOTE*: this requires the [following](https://github.com/burdzwastaken/dotfiles/blob/master/git/.gitconfig#L6) line to be removed from `~/.gitconfig`
