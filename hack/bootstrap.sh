@@ -62,11 +62,11 @@ repos-gpg() {
 }
 
 update() {
-    sudo apt update -y
+    sh -c 'sudo apt update -y'
 }
 
 upgrade() {
-    sudo apt upgrade -y
+    sh -c 'sudo apt upgrade -y'
 }
 
 packages() {
@@ -237,7 +237,7 @@ discord() {
     rm -rf discord.deb
 }
 
-vim() {
+vim-plugins() {
     git clone https://github.com/burdzwastaken/vim-colors-solarized.git
     mkdir -p ~/.vim/colors && mv vim-colors-solarized/colors/solarized.vim ~/.vim/colors/
 
@@ -274,7 +274,7 @@ wallpaper() {
 }
 
 autoremove() {
-    sudo apt autoremove -y
+    sh -c 'sudo apt autoremove -y'
 }
 
 env
@@ -300,7 +300,7 @@ ignore-errors slack
 shodan
 rvm
 ignore-errors discord
-vim
+vim-plugins
 fzf
 hub
 gc-hooks
