@@ -118,7 +118,8 @@ packages() {
         clusterssh \
         chromium \
         blueman \
-        shellcheck
+        shellcheck \
+        qemu
     sudo apt -f install -y
 
     if [ -z "$IN_DOCKER" ]; then
