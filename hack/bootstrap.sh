@@ -112,7 +112,6 @@ packages() {
         signal-desktop \
         tree \
         exiftool \
-        whois \
         uuid-runtime \
         asciinema \
         clusterssh \
