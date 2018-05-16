@@ -228,6 +228,10 @@ shodan() {
     pip install shodan --upgrade --user
 }
 
+yq() {
+    pip install yq --upgrade --user
+}
+
 rvm() {
     curl -fsSL https://get.rvm.io | bash
 }
@@ -300,6 +304,7 @@ minikube
 spotify
 ignore-errors slack
 shodan
+yq
 rvm
 ignore-errors discord
 vim-plugins
