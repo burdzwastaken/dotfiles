@@ -240,6 +240,10 @@ yq() {
     pip install yq --upgrade --user
 }
 
+hax0r-news() {
+    pip install haxor-news --upgrade --user
+}
+
 rvm() {
     curl -fsSL https://get.rvm.io | bash
 }
@@ -320,6 +324,7 @@ spotify
 ignore-errors slack
 shodan
 yq
+hax0r-news
 rvm
 ignore-errors discord
 vim-plugins
