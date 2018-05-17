@@ -155,7 +155,6 @@ conf() {
     ln -sf "$(pwd)"/git/.gitconfig ~/.gitconfig
     ln -sf "$(pwd)"/gitstatus/.git-status.bash ~/.git-status.bash
     ln -sf "$(pwd)"/hexchat ~/.config/hexchat
-    ln -sf "$(pwd)"/hexchat/servlist.conf ~/.config/hexchat/servlist.conf
     ln -sf "$(pwd)"/ssh/.config ~/.ssh/config
     ln -sf "$(pwd)"/tmux/.tmux.conf ~/.tmux.conf
     ln -sf "$(pwd)"/vim/.vimrc ~/.vimrc
