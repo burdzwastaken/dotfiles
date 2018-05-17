@@ -26,7 +26,7 @@ echo -e "${GREEN}pre-commit verion $(pre-commit --version | cut -d " " -f2)!"
 echo "########################################################################################"
 
 if grep --quiet hooksPath ~/.gitconfig; then
-    echo -e "${RED}global hooksPath set, please remove to install this pre-commit hook in this repo!"
+    echo -e "${RED}global hooksPath set, please remove to install pre-commit hook(s) in the $(pwd | awk -F / '{ print $3; }') repo!"
     exit 1
 fi
 
