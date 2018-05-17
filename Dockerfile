@@ -2,7 +2,9 @@ FROM debian:stretch
 
 LABEL Maintainer="Matt Burdan <burdz@burdz.net>"
 
-RUN ./hack/prepare.sh
+ADD ./hack/prepare.sh .
+RUN ./prepare.sh
+RUN rm -rf ./prepare.sh
 
 RUN adduser burdz
 RUN chown -R burdz /home/burdz
