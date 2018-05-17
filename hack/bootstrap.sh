@@ -120,7 +120,8 @@ packages() {
         chromium \
         blueman \
         shellcheck \
-        qemu
+        qemu \
+	atop
     sudo apt -f install -y
 
     if [ -z "$IN_DOCKER" ]; then
