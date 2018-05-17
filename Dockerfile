@@ -6,6 +6,9 @@ ADD ./hack/prepare.sh .
 RUN ./prepare.sh
 RUN rm -rf ./prepare.sh
 
+# no passwd in container                                                                                                                                                                                                                                                       
+RUN echo "burdz ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/burdz
+
 RUN adduser burdz
 RUN chown -R burdz /home/burdz
 RUN chown -R burdz /usr/local
@@ -15,9 +18,6 @@ RUN mkdir /home/burdz/dotfiles
 ADD . /home/burdz/dotfiles/
 RUN sudo chown burdz:burdz -R /home/burdz/dotfiles/
 WORKDIR /home/burdz/dotfiles
-
-# no passwd in container                                   
-RUN echo "burdz ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/burdz  
 
 # hack for cloning
 RUN mkdir ~/.ssh && ssh-keyscan -H github.com >> ~/.ssh/known_hosts
