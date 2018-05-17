@@ -23,8 +23,6 @@ $ ./hack/bootstrap.sh
 this repo contains a shell lint pre commit hook. 
 install pre-commit and ze hook
 ```
-$ pip install pre-commit --upgrade --user
-$ pre-commit autoupdate
-$ pre-commit install
+$ ./scripts/install-pre-commit-hooks.sh
 ```
 *NOTE*: this requires the [following](https://github.com/burdzwastaken/dotfiles/blob/master/git/.gitconfig#L6) line to be removed from `~/.gitconfig`
