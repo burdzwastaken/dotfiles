@@ -13,25 +13,27 @@ path_name="$(basename "$PWD" | tr . -)"
 window_name=${1-$path_name}
 
 not_in_tmux() {
-  [ -z "$TMUX" ]
+    [ -z "$TMUX" ]
 }
 
 window_exists() {
-  tmux list-windows | sed -E 's/:.*$//' | grep -q "^$window_name$"
+    tmux list-windows | cut -d " " -f2 | sed 's/[^a-z  A-Z]//g' | grep -q "$window_name$"
 }
 
 create_window() {
-  (TMUX='' tmux new-window -n "$window_name")
+    (TMUX='' tmux new-window -n "$window_name")
 }
 
 create_if_needed_and_attach() {
-  if not_in_tmux; then
-    tmux new-session -As "$window_name"
-  else
-    if ! window_exists; then
-      create_window
+    if not_in_tmux; then
+        tmux new-session -As "$window_name"
+    else
+        if ! window_exists; then
+            create_window
+	else
+	    echo "window named: $window_name already exists!"
+        fi
     fi
-  fi
 }
 
 create_if_needed_and_attach
