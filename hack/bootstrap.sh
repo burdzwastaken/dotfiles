@@ -154,7 +154,7 @@ conf() {
     ln -sf "$(pwd)"/editor/.editorconfig ~/.editorconfig
     ln -sf "$(pwd)"/git/.gitconfig ~/.gitconfig
     ln -sf "$(pwd)"/gitstatus/.git-status.bash ~/.git-status.bash
-    mkdir ~/.config/hexchat && ln -sf "$(pwd)"/hexchat/hexchat.conf ~/.config/hexchat/hexchat.conf
+    ln -sf "$(pwd)"/hexchat ~/.config/hexchat
     ln -sf "$(pwd)"/hexchat/servlist.conf ~/.config/hexchat/servlist.conf
     ln -sf "$(pwd)"/ssh/.config ~/.ssh/config
     ln -sf "$(pwd)"/tmux/.tmux.conf ~/.tmux.conf
@@ -162,10 +162,11 @@ conf() {
     ln -sf "$(pwd)"/wget/.wgetrc ~/.wgetrc
     ln -sf "$(pwd)"/netrc/.netrc ~/.netrc
     ln -sf "$(pwd)"/ctags/.ctags ~/.ctags
-    mkdir ~/.gnupg && ln -sf "$(pwd)"/gnupg/gpg-agent.conf ~/.gnupg/gpg-agent.conf
+    ln -sf "$(pwd)"/tmuxp ~/.tmuxp
+    ln -sf "$(pwd)"/gnupg ~/.gnupg
 
-    if [ "$IN_DOCKER" == "true" ]; then                                                                                                                                                                        
-        rm -rf ~/.gitconfig                                                                            
+    if [ "$IN_DOCKER" == "true" ]; then
+        rm -rf ~/.gitconfig
     fi
 }
 
@@ -244,6 +245,10 @@ yq() {
 
 hax0r-news() {
     pip install haxor-news --upgrade --user
+}
+
+tmuxp() {
+    pip install tmuxp --upgrade --user
 }
 
 rvm() {
@@ -327,6 +332,7 @@ ignore-errors slack
 shodan
 yq
 hax0r-news
+tmuxp
 rvm
 ignore-errors discord
 vim-plugins
