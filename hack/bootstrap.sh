@@ -23,6 +23,7 @@ env() {
     MINIKUBE_VERSION=0.26.1
     SLACK_VERSION=3.1.0
     HUB_VERSION=2.2.9
+    BAT_VERSION=0.3.0
     export DEBIAN_FRONTEND=noninteractive
 }
 
@@ -260,11 +261,17 @@ fzf() {
 }
 
 hub() {
-    curl -fsSL -o hub-${HUB_VERSION}.tgz https://github.com/github/hub/releases/download/v${HUB_VERSION}/hub-linux-amd64-${HUB_VERSION}.tgz
+    curl -fsSL -o hub-${HUB_VERSION}.tgz "https://github.com/github/hub/releases/download/v${HUB_VERSION}/hub-linux-amd64-${HUB_VERSION}.tgz"
     tar -zxvf hub-${HUB_VERSION}.tgz
     sudo cp hub-linux-amd64-${HUB_VERSION}/bin/hub /usr/local/bin/
     sudo cp hub-linux-amd64-${HUB_VERSION}/etc/hub.bash_completion.sh /etc/hub.bash_completion
     sudo rm -rf hub-*
+}
+
+bat() {
+    curl -fsSl -o bat.deb "https://github.com/sharkdp/bat/releases/download/v${BAT_VERSION}/bat-musl_${BAT_VERSION}_amd64.deb"
+    sudo dpkg -i bat.deb
+    rm -rf bat.deb
 }
 
 gc-hooks() {
@@ -310,6 +317,7 @@ ignore-errors discord
 vim-plugins
 fzf
 hub
+bat
 gc-hooks
 wallpaper
 autoremove
