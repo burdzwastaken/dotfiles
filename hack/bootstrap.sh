@@ -124,7 +124,9 @@ packages() {
     sudo apt -f install -y
 
     if [ -z "$IN_DOCKER" ]; then
-        sudo apt install wireshark -y
+        sudo apt install -y \
+            wireshark \
+            tor
     fi
 }
 
