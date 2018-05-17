@@ -269,7 +269,7 @@ hub() {
 }
 
 bat() {
-    curl -fsSl -o bat.deb "https://github.com/sharkdp/bat/releases/download/v${BAT_VERSION}/bat-musl_${BAT_VERSION}_amd64.deb"
+    curl -fsSL -o bat.deb "https://github.com/sharkdp/bat/releases/download/v${BAT_VERSION}/bat-musl_${BAT_VERSION}_amd64.deb"
     sudo dpkg -i bat.deb
     rm -rf bat.deb
 }
