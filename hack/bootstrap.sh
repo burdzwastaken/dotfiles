@@ -161,6 +161,7 @@ conf() {
     ln -sf "$(pwd)"/vim/.vimrc ~/.vimrc
     ln -sf "$(pwd)"/wget/.wgetrc ~/.wgetrc
     ln -sf "$(pwd)"/netrc/.netrc ~/.netrc
+    ln -sf "$(pwd)"/ctags/.ctags ~/.ctags
     mkdir ~/.gnupg && ln -sf "$(pwd)"/gnupg/gpg-agent.conf ~/.gnupg/gpg-agent.conf
 
     if [ "$IN_DOCKER" == "true" ]; then                                                                                                                                                                        
