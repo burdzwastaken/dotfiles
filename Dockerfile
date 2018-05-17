@@ -2,12 +2,7 @@ FROM debian:stretch
 
 LABEL Maintainer="Matt Burdan <burdz@burdz.net>"
 
-RUN apt update -y && \
-    apt install -y \
-      sudo \
-      git \
-      lsb-release
-
+# no passwd in container
 RUN echo "burdz ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/burdz
 
 RUN adduser burdz
@@ -25,5 +20,6 @@ WORKDIR /home/burdz/dotfiles
 RUN mkdir ~/.ssh && ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 RUN ssh-keygen -t rsa -b 4096 -C "burdz@burdz.net" -f $HOME/.ssh/key_name.pem
 ENV IN_DOCKER=true
+RUN ./hack/prepare.sh
 RUN ./hack/bootstrap.sh
 RUN echo "./hack/bootstrap.sh still works! (phew), ready for soup!"
