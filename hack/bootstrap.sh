@@ -167,6 +167,10 @@ conf() {
     fi
 }
 
+bin() {
+    ln -sf "$(pwd)"/bin/tat /usr/local/bin/tat
+}
+
 tmux-plugins() {
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 }
@@ -304,6 +308,7 @@ virtualenvwrapper
 tmux-plugins
 kernel-modules
 conf
+bin
 colours
 ignore-errors dropbox
 golang
