@@ -2,7 +2,7 @@
 set nocompatible
 filetype off
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/.vim/bundle/Vundle.vim,~/.fzf
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
@@ -24,7 +24,7 @@ let g:solarized_termcolors=256
 set background=dark
 colorscheme solarized
 
-" editorconfig                                                                                                                                                                                                                                                                 
+" editorconfig
 let g:EditorConfig_core_mode = 'external_command'
 
 " tmux statusbar
