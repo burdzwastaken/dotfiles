@@ -165,7 +165,7 @@ conf() {
     ln -sf "$(pwd)"/tmuxp ~/.tmuxp
     ln -sf "$(pwd)"/gnupg ~/.gnupg
 
-    if [ "$IN_DOCKER" == "true" ]; then
+    if [ ! -z "$IN_DOCKER" ]; then
         rm -rf ~/.gitconfig
     fi
 }
