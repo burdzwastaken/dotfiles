@@ -24,6 +24,9 @@ let g:solarized_termcolors=256
 set background=dark
 colorscheme solarized
 
+" editorconfig                                                                                                                                                                                                                                                                 
+let g:EditorConfig_core_mode = 'external_command'
+
 " tmux statusbar
 let g:tmuxline_powerline_separators = 0
 let g:tmuxline_preset = {
