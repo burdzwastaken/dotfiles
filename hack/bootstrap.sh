@@ -121,7 +121,8 @@ packages() {
         blueman \
         shellcheck \
         qemu \
-	atop
+        atop \
+        editorconfig
     sudo apt -f install -y
 
     if [ -z "$IN_DOCKER" ]; then
