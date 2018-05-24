@@ -122,7 +122,8 @@ packages() {
         shellcheck \
         qemu \
         atop \
-        editorconfig
+        editorconfig \
+        cmake
     sudo apt -f install -y
 
     if [ -z "$IN_DOCKER" ]; then
