@@ -11,6 +11,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'fatih/vim-go'
 Plugin 'matze/vim-move'
+Plugin 'valloric/youcompleteme'
 
 call vundle#end()
 filetype plugin indent on
