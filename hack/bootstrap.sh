@@ -76,7 +76,7 @@ packages() {
         wget \
         software-properties-common \
         tmux \
-        vim \
+        vim-gnome \
         htop \
         hexchat \
         git \
