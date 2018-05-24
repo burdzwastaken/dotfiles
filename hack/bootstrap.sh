@@ -174,6 +174,7 @@ conf() {
 bin() {
     ln -sf "$(pwd)"/bin/tat /usr/local/bin/tat
     ln -sf "$(pwd)"/bin/slack-hex /usr/local/bin/slack-hex
+    ln -sf "$(pwd)"/bin/knode-limits /usr/local/bin/knode-limits
 }
 
 tmux-plugins() {
