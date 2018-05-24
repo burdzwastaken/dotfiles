@@ -10,6 +10,7 @@ Plugin 'editorconfig/editorconfig-vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'fatih/vim-go'
+Plugin 'matze/vim-move'
 
 call vundle#end()
 filetype plugin indent on
@@ -23,6 +24,9 @@ syntax enable
 let g:solarized_termcolors=256
 set background=dark
 colorscheme solarized
+
+" vim-move
+let g:move_key_modifier = 'C'
 
 " editorconfig
 let g:EditorConfig_core_mode = 'external_command'
