@@ -14,6 +14,7 @@ Plugin 'matze/vim-move'
 Plugin 'valloric/youcompleteme'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tpope/vim-eunuch'
+Plugin 'tomtom/tcomment_vim'
 
 call vundle#end()
 filetype plugin indent on
