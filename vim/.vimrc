@@ -13,6 +13,7 @@ Plugin 'fatih/vim-go'
 Plugin 'matze/vim-move'
 Plugin 'valloric/youcompleteme'
 Plugin 'terryma/vim-multiple-cursors'
+Plugin 'tpope/vim-eunuch'
 
 call vundle#end()
 filetype plugin indent on
