@@ -32,6 +32,9 @@ let g:move_key_modifier = 'C'
 " editorconfig
 let g:EditorConfig_core_mode = 'external_command'
 
+" fzf
+map ; :FZF<CR>
+
 " tmux statusbar
 let g:tmuxline_powerline_separators = 0
 let g:tmuxline_preset = {
