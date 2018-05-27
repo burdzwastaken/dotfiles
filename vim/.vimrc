@@ -90,7 +90,7 @@ else
     let &t_EI = "\e[5 q"
 endif
 
-map <C-\> :NERDTreeToggle<CR>
+map <C-o> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 function! GitBranch()
