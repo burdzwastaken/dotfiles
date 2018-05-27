@@ -12,6 +12,7 @@ Plugin 'edkolev/tmuxline.vim'
 Plugin 'fatih/vim-go'
 Plugin 'matze/vim-move'
 Plugin 'valloric/youcompleteme'
+Plugin 'terryma/vim-multiple-cursors'
 
 call vundle#end()
 filetype plugin indent on
@@ -89,7 +90,7 @@ else
     let &t_EI = "\e[5 q"
 endif
 
-map <C-n> :NERDTreeToggle<CR>
+map <C-\> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 function! GitBranch()
