@@ -337,6 +337,7 @@ shodan
 yq
 hax0r-news
 tmuxp
+grip
 rvm
 ignore-errors discord
 vim-plugins
