@@ -253,6 +253,10 @@ tmuxp() {
     pip install tmuxp --upgrade --user
 }
 
+grip() {
+    pip install grip --upgrade --user
+}
+
 rvm() {
     curl -fsSL https://get.rvm.io | bash
 }
