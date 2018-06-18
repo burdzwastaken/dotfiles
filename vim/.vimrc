@@ -30,6 +30,9 @@ let g:solarized_termcolors=256
 set background=dark
 colorscheme solarized
 
+" backspace
+set backspace=indent,eol,start
+
 " vim-move
 let g:move_key_modifier = 'C'
 
