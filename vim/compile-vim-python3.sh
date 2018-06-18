@@ -24,19 +24,19 @@ sudo apt-get install -y \
     ncurses-dev
 
 ./configure \
---enable-perlinterp \
---enable-python3interp \
---enable-rubyinterp \
---enable-cscope \
---enable-gui=auto \
---enable-gtk2-check \
---enable-gnome-check \
---with-features=huge \
---enable-multibyte \
---with-x \
---with-compiledby="burdz@burdz.net" \
---with-python3-config-dir=/usr/lib/python3.4/config-3.4m-x86_64-linux-gnu \
---prefix=/usr/local
+    --enable-perlinterp \
+    --enable-python3interp \
+    --enable-rubyinterp \
+    --enable-cscope \
+    --enable-gui=auto \
+    --enable-gtk2-check \
+    --enable-gnome-check \
+    --with-features=huge \
+    --enable-multibyte \
+    --with-x \
+    --with-compiledby="burdz@burdz.net" \
+    --with-python3-config-dir=/usr/lib/python3.4/config-3.4m-x86_64-linux-gnu \
+    --prefix=/usr/local
 
 make VIMRUNTIMEDIR=/usr/share/vim/vim80
 popd
