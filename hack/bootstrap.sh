@@ -123,7 +123,8 @@ packages() {
         qemu \
         atop \
         editorconfig \
-        cmake
+        cmake \
+        exuberant-ctags
     sudo apt -f install -y
 
     if [ -z "$IN_DOCKER" ]; then
