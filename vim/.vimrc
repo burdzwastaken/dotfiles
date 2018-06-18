@@ -39,6 +39,9 @@ let g:move_key_modifier = 'C'
 " editorconfig
 let g:EditorConfig_core_mode = 'external_command'
 
+" nerdTREE
+let NERDTreeShowHidden=1
+
 " fzf
 map ; :FZF<CR>
 
