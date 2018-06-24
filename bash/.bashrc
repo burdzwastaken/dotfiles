@@ -98,7 +98,7 @@ if [ -f ~/.dir_colors/dircolors ]
     then eval `dircolors ~/.dir_colors/dircolors`
 fi
 
-# git-status 
+# git-status
 source ~/.git-status.bash
 
 # kubectl completion
@@ -112,7 +112,7 @@ if [ -f /etc/hub.bash_completion ]; then
   . /etc/hub.bash_completion
 fi
 
-# TmuxLine                                                                                                                                                                                                                                         
+# TmuxLine
 vim +TmuxLine +qall
 
 # even more aliasessss
@@ -191,7 +191,7 @@ chromepdf() {
     chrome --headless --disable-gpu --print-to-pdf="$1" $2
 }
 
-mem() {                                                                                                      
+mem() {
     ps -eo rss,pid,euser,args:100 --sort %mem | grep -v grep | grep -i $@ | awk '{printf $1/1024 "MB"; $1=""; print }'
 }
 
@@ -203,6 +203,10 @@ log() {
 # requires sudo due to folder perms
 bigfilez() {
     sudo find $@ -type f -size +10M -exec ls -lh {} \;
+}
+
+Go-Dep-imports() {
+    go list -f '{{join .Deps "\n"}}' $@
 }
 
 statuscode() {
