@@ -305,7 +305,7 @@ wtf() {
     curl -fsSL -o wtf-${WTF_VERSION}.tar.gz "https://github.com/senorprogrammer/wtf/releases/download/v${WTF_VERSION}/wtf_${WTF_VERSION}_linux_amd64.tar.gz"
     tar -zxvf wtf-${WTF_VERSION}.tar.gz
     sudo cp wtf_${WTF_VERSION}_linux_amd64/wtf /usr/local/bin/
-    sudo rm -rf wtf-*
+    sudo rm -rf wtf-* wtf_*
 }
 
 gc-hooks() {
