@@ -161,6 +161,7 @@ wtf:
       refreshInterval: 8
       repositories:
       - "/home/burdz/go/src/github.com/burdzwastaken/concourse-spinnaker-resource"
+      - "/home/burdz/code/dotfiles"
     newrelic:
       # WTF_NEW_RELIC_API_KEY from newrelic.com
       applicationId:

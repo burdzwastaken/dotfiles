@@ -24,6 +24,7 @@ env() {
     SLACK_VERSION=3.1.0
     HUB_VERSION=2.2.9
     BAT_VERSION=0.3.0
+    WTF_VERSION=0.0.9
     export DEBIAN_FRONTEND=noninteractive
 }
 
@@ -166,6 +167,7 @@ conf() {
     ln -sf "$(pwd)"/ctags/.ctags ~/.ctags
     ln -sf "$(pwd)"/tmuxp ~/.tmuxp
     ln -sf "$(pwd)"/gnupg ~/.gnupg
+    ln -sf "$(pwd)"/wtf ~/.config/wtf
 
     if [ ! -z "$IN_DOCKER" ]; then
         rm -rf ~/.gitconfig
@@ -299,6 +301,13 @@ bat() {
     rm -rf bat.deb
 }
 
+wtf() {
+    curl -fsSL -o wtf-${WTF_VERSION}.tar.gz "https://github.com/senorprogrammer/wtf/releases/download/v${WTF_VERSION}/wtf_${WTF_VERSION}_linux_amd64.tar.gz"
+    tar -zxvf wtf-${WTF_VERSION}.tar.gz
+    sudo cp wtf-${WTF_VERSION}/wtf /usr/local/bin/
+    sudo rm -rf wtf-*
+}
+
 gc-hooks() {
     sudo mkdir -p /etc/git/hooks
 }
@@ -345,6 +354,7 @@ vim-plugins
 fzf
 hub
 bat
+wtf
 gc-hooks
 wallpaper
 autoremove
