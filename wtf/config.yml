@@ -1,0 +1,209 @@
+wtf:
+  grid:
+    columns: [54, 54, 54, 54, 54]
+    rows: [18, 18, 18, 18]
+  refreshInterval: 1
+  term: "xterm-256color"
+  mods:
+    system:
+      enabled: true
+      position:
+        top: 0
+        left: 0
+        height: 1
+        width: 1
+        refreshInterval: 3600
+    clocks:
+      colors:
+        rows:
+          even: "lightblue"
+          odd: "white"
+      enabled: true
+      locations:
+        # From https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+        SanFran: "America/Los_Angeles"
+        Singapore: "Asia/Singapore"
+        Argentina: "America/Argentina/Buenos_Aires"
+        NewZealand: "Pacific/Auckland"
+        NewYork: "America/New_York"
+        UTC: "Etc/UTC"
+      position:
+        top: 3
+        left: 0
+        height: 1
+        width: 1
+      refreshInterval: 15
+      # Valid options are: alphabetical, chronological
+      sort: "chronological"
+    security:
+      enabled: true
+      position:
+        top: 2
+        left: 1
+        height: 1
+        width: 1
+      refreshInterval: 3600
+    power:
+      enabled: true
+      position:
+        top: 1
+        left: 0
+        height: 1
+        width: 1
+      refreshInterval: 15
+    weather:
+        # WTF_OWM_API_KEY from https://openweathermap.org/appid
+        # From http://openweathermap.org/help/city_list.txt
+      cityids:
+        - 3621911
+        - 1880252
+        - 2063523
+        - 4016589
+        - 4281386
+        - 5128581
+      colors:
+      current: "lightblue"
+      enabled: true
+      language: "EN"
+      position:
+        top: 2
+        left: 0
+        height: 1
+        width: 1
+      refreshInterval: 90
+      tempUnit: "C"
+    github:
+      # WTF_GITHUB_TOKEN from https://github.com/settings/tokens
+      enabled: true
+      position:
+        top: 1
+        left: 2
+        height: 2
+        width: 1
+      refreshInterval: 300
+      repositories:
+        dotfiles: "burdzwastaken"
+      username: "burdzwastaken"
+    circleci:
+      # WTF_CIRCLE_API_KEY from https://circleci.com/account/api
+      enabled: true
+      position:
+        top: 3
+        left: 2
+        height: 1
+        width: 1
+      refreshInterval: 200
+    gcal:
+      # client_secret.json from https://console.developers.google.com/apis/credentials?project=wtf&authuser=
+      # https://github.com/senorprogrammer/wtf/issues/83#issuecomment-393665229
+      colors:
+        title: "red"
+        description: "lightblue"
+        highlights:
+        - ['1on1|1\/11', 'green']
+        - ['apple|google|aws', 'blue']
+        - ['interview|meet\ ', 'lightseagreen']
+        - ['lunch', 'yellow']
+        past: "white"
+      conflictIcon: "ⓧ"
+      currentIcon: "©"
+      displayResponseStatus: true
+      email: ""
+      enabled: true
+      eventCount: 12
+      multiCalendar: true
+      position:
+        top: 0
+        left: 3
+        height: 3
+        width: 1
+      refreshInterval: 100
+      secretFile: "~/.config/wtf/gcal/client_secret.json"
+      withLocation: true
+    jira:
+      # WTF_JIRA_API_KEY from username/password
+      colors:
+        rows:
+          even: "lightblue"
+          odd: "white"
+      domain: ""
+      enabled: true
+      position:
+        top: 0
+        left: 1
+        height: 1
+        width: 2
+      project: ["DZR"]
+      refreshInterval: 300
+      email: ""
+      verifyServerCertificate: true
+    ipinfo:
+      colors:
+        name: red
+        value: white
+      enabled: true
+      position:
+        top: 3
+        left: 1
+        height: 1
+        width: 1
+      refreshInterval: 150
+    git:
+      commitCount: 5
+      commitFormat: "[forestgreen]%h [green]%cd [white]%s [green]%an[white]"
+      dateFormat: "%H:%M %d %b %y"
+      enabled: true
+      position:
+        top: 3
+        left: 3
+        height: 1
+        width: 2
+      refreshInterval: 8
+      repositories:
+      - "/home/burdz/go/src/github.com/burdzwastaken/concourse-spinnaker-resource"
+    newrelic:
+      # WTF_NEW_RELIC_API_KEY from newrelic.com
+      applicationId:
+      enabled: true
+      deployCount: 10
+      position:
+        top: 1
+        left: 1
+        height: 1
+        width: 1
+      refreshInterval: 500
+    todo:
+      checkedIcon: "X"
+      colors:
+        checked: gray
+        highlight:
+          fore: "black"
+          back: "orange"
+      enabled: true
+      filename: "todo.yml"
+      position:
+        top: 0
+        left: 4
+        height: 3
+        width: 1
+      refreshInterval: 3600
+    # jenkins:
+    #   enabled: true
+    #   position:
+    #     top: 2
+    #     left:  1
+    #     height: 1
+    #     width: 1
+    #   refreshInterval: 300
+    #   url: ""
+    #   user: ""
+    # cmdrunner:
+    #   args: ["-g", "batt"]
+    #   cmd: "pmset"
+    #   enabled: true
+    #   position:
+    #     top: 6
+    #     left: 1
+    #     height: 1
+    #     width: 3
+    #   refreshInterval: 30
