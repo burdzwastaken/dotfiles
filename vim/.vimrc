@@ -85,6 +85,7 @@ set showmatch
 set ruler
 set wrap
 set guicursor+=a:blinkon0
+set autoread
 
 " search
 set incsearch
