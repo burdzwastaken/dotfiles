@@ -226,7 +226,7 @@ minikube() {
 }
 
 spotify() {
-    curl -fsSL -o libssl1.0.0 "http://ftp.us.debian.org/debian/pool/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u7_amd64.deb"
+    curl -fsSL -o libssl1.0.0 "http://ftp.us.debian.org/debian/pool/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u8_amd64.deb"
     sudo dpkg -i libssl1.0.0
     rm -rf libssl1.0.0
     sudo apt install -y spotify-client
