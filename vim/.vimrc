@@ -16,6 +16,7 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tpope/vim-eunuch'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'hashivim/vim-terraform'
 
 call vundle#end()
 filetype plugin indent on
