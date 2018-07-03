@@ -24,7 +24,7 @@ env() {
     SLACK_VERSION=3.1.0
     HUB_VERSION=2.4.0
     BAT_VERSION=0.4.1
-    WTF_VERSION=0.0.9
+    WTF_VERSION=0.0.10
     export DEBIAN_FRONTEND=noninteractive
 }
 
