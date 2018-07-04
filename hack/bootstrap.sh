@@ -135,14 +135,6 @@ packages() {
     fi
 }
 
-aws-cli() {
-    pip install awscli --upgrade --user
-}
-
-virtualenvwrapper() {
-    pip install virtualenvwrapper --upgrade --user
-}
-
 kernel-modules() {
     if [ -z "$IN_DOCKER" ]; then
         sudo modprobe -r iwlwifi && sudo modprobe iwlwifi
@@ -239,6 +231,14 @@ slack() {
     rm -rf slack-desktop-${SLACK_VERSION}-amd64.deb
 }
 
+aws-cli() {
+    pip install awscli --upgrade --user
+}
+
+virtualenvwrapper() {
+    pip install virtualenvwrapper --upgrade --user
+}
+
 shodan() {
     pip install shodan --upgrade --user
 }
@@ -328,8 +328,6 @@ repos-gpg
 update
 upgrade
 packages
-aws-cli
-virtualenvwrapper
 tmux-plugins
 kernel-modules
 conf
@@ -342,6 +340,8 @@ kubectl
 minikube
 spotify
 ignore-errors slack
+aws-cli
+virtualenvwrapper
 shodan
 yq
 hax0r-news
