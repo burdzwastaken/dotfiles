@@ -95,6 +95,11 @@ set hlsearch
 set ignorecase
 set smartcase
 
+" spelling
+set spell                                                                                                                              
+set spelllang=en_au                                                                                                                    
+set spellfile=$HOME/Dropbox/vim/spell/en.utf-8.add
+
 if exists('$TMUX')
     let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
     let &t_EI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
