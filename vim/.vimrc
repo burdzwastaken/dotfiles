@@ -91,10 +91,10 @@ let g:tmux_navigator_save_on_switch = 1
 let g:tmux_navigator_disable_when_zoomed = 1
 
 " fzf
-map ; :FZF<CR>
+map ;f :FZF<CR>
 
 " redraw
-map ,l :redraw!<CR>
+map ;l :redraw!<CR>
 
 " tmux statusbar
 let g:tmuxline_powerline_separators = 0
