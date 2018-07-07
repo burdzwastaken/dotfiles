@@ -103,6 +103,14 @@ set spell
 set spelllang=en_au                                                                                                                    
 set spellfile=$HOME/Dropbox/vim/spell/en.utf-8.add
 
+" generate ctags
+command! MakeTags :call MakeTags()
+
+function! MakeTags()
+    exe 'silent !ctags -a -R . 2>/dev/null'
+    exe 'redraw!'
+endfunction
+
 if exists('$TMUX')
     let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
     let &t_EI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
