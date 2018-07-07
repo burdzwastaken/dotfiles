@@ -18,6 +18,7 @@ Plugin 'tomtom/tcomment_vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'hashivim/vim-terraform'
 Plugin 'townk/vim-autoclose'
+Plugin 'ZoomWin'
 
 call vundle#end()
 filetype plugin indent on
