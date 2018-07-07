@@ -6,7 +6,7 @@ ADD ./hack/prepare.sh .
 RUN ./prepare.sh
 RUN rm -rf ./prepare.sh
 
-# no passwd in container                                                                                                                                                                                                                                                       
+# no passwd in container
 RUN echo "burdz ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/burdz
 
 RUN adduser burdz
