@@ -88,6 +88,9 @@ set ruler
 set wrap
 set guicursor+=a:blinkon0
 set autoread
+set autowrite
+set autowriteall
+set autochdir
 
 " search
 set incsearch
