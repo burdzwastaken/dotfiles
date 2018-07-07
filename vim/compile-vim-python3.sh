@@ -39,4 +39,5 @@ sudo apt-get install -y \
     --prefix=/usr/local
 
 make VIMRUNTIMEDIR=/usr/share/vim/vim80
+./vim --version
 popd

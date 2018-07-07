@@ -19,6 +19,9 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'hashivim/vim-terraform'
 Plugin 'townk/vim-autoclose'
 Plugin 'ZoomWin'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'christoomey/vim-tmux-navigator'
 
 call vundle#end()
 filetype plugin indent on
@@ -78,8 +81,20 @@ let g:EditorConfig_core_mode = 'external_command'
 " nerdTREE
 let NERDTreeShowHidden=1
 
+" markDOWN
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_autowrite = 1
+
+" tMUX
+" 1 :update, 2 :wall
+let g:tmux_navigator_save_on_switch = 1
+let g:tmux_navigator_disable_when_zoomed = 1
+
 " fzf
 map ; :FZF<CR>
+
+" redraw
+map ,l :redraw!<CR>
 
 " tmux statusbar
 let g:tmuxline_powerline_separators = 0
