@@ -92,6 +92,7 @@ let g:tmux_navigator_disable_when_zoomed = 1
 
 " fzf
 map ;f :FZF<CR>
+let $FZF_DEFAULT_COMMAND = 'find . -type f -not -path "*/\.git/*";'
 
 " redraw
 map ;l :redraw!<CR>
