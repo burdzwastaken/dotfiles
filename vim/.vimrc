@@ -36,6 +36,39 @@ colorscheme solarized
 " backspace
 set backspace=indent,eol,start
 
+" UI
+set ttyfast
+set mouse=a
+set number
+set showmode
+set showcmd
+set cursorline
+set wildmenu
+set wildmode=list:full
+set wildignore=*.swp,*.bak,*.pyc,*.class,~*
+set lazyredraw
+set showmatch
+set ruler
+set wrap
+set guicursor+=a:blinkon0
+
+" auto
+set autoread
+set autowrite
+set autowriteall
+set autochdir
+
+" search
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
+
+" spelling
+set spell
+set spelllang=en_au
+set spellfile=$HOME/Dropbox/vim/spell/en.utf-8.add
+
 " vim-move
 let g:move_key_modifier = 'C'
 
@@ -71,37 +104,6 @@ let g:tmuxline_theme = {
     \   'cwin' : [ 236, 103 ],
     \   'bg'   : [ 244, 236 ],
     \ }
-
-" UI
-set ttyfast
-set mouse=a
-set number
-set showmode
-set showcmd
-set cursorline
-set wildmenu
-set wildmode=list:full
-set wildignore=*.swp,*.bak,*.pyc,*.class,~*
-set lazyredraw
-set showmatch
-set ruler
-set wrap
-set guicursor+=a:blinkon0
-set autoread
-set autowrite
-set autowriteall
-set autochdir
-
-" search
-set incsearch
-set hlsearch
-set ignorecase
-set smartcase
-
-" spelling
-set spell                                                                                                                              
-set spelllang=en_au                                                                                                                    
-set spellfile=$HOME/Dropbox/vim/spell/en.utf-8.add
 
 " generate ctags
 command! MakeTags :call MakeTags()
