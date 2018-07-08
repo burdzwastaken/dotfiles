@@ -128,6 +128,8 @@ function! MakeTags()
     exe 'redraw!'
 endfunction
 
+nnoremap ,goboilerplate :-1read $HOME/Dropbox/vim/snippets/goboilerplate.go<CR>6jwf)a
+
 if exists('$TMUX')
     let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
     let &t_EI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
