@@ -97,6 +97,9 @@ let $FZF_DEFAULT_COMMAND = 'find . -type f -not -path "*/\.git/*";'
 " redraw
 map ;l :redraw!<CR>
 
+" gOlAnG
+let g:go_template_autocreate = 0
+
 " tmux statusbar
 let g:tmuxline_powerline_separators = 0
 let g:tmuxline_preset = {
@@ -129,7 +132,7 @@ function! MakeTags()
     exe 'redraw!'
 endfunction
 
-nnoremap ,goboilerplate :-1read $HOME/Dropbox/vim/snippets/goboilerplate.go<CR>6jwf)a
+nnoremap ,gobp :-1read $HOME/Dropbox/vim/snippets/goboilerplate.go<CR>6jwf)a
 
 if exists('$TMUX')
     let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
