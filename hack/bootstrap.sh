@@ -76,6 +76,7 @@ packages() {
         ca-certificates \
         wget \
         software-properties-common \
+        sl \
         tmux \
         vim-gnome \
         htop \
