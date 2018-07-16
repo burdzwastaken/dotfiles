@@ -254,10 +254,14 @@ getcertnames() {
 }
 
 # find a file with a pattern in name:
-function ff() { find . -type f -iname '*'$*'*' -ls ; }
+function ff() {
+	find . -type f -iname '*'$*'*' -ls ;
+}
 
 # find a directory with a pattern in name:
-function fd() { find . -type d -iname '*'$*'*' -ls ; } } }
+function fd() {
+	find . -type d -iname '*'$*'*' -ls ;
+}
 
 # few colours
 BLACK='\e[0;30m'
