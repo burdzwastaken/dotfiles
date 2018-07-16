@@ -72,17 +72,6 @@ set spell
 set spelllang=en_au
 set spellfile=$HOME/Dropbox/vim/spell/en.utf-8.add
 
-" spelling mistakes
-command! -bang E e<bang>
-command! -bang Q q<bang>
-command! -bang W w<bang>
-command! -bang QA qa<bang>
-command! -bang Qa qa<bang>
-command! -bang Wa wa<bang>
-command! -bang WA wa<bang>
-command! -bang Wq wq<bang>
-command! -bang WQ wq<bang>
-
 " vim-move
 let g:move_key_modifier = 'C'
 
@@ -137,6 +126,20 @@ let g:tmuxline_theme = {
 
 " generate ctags
 command! MakeTags :call MakeTags()
+
+" spelling mistakes
+command! -bang E e<bang>
+command! -bang Q q<bang>
+command! -bang W w<bang>
+command! -bang QA qa<bang>
+command! -bang Qa qa<bang>
+command! -bang Wa wa<bang>
+command! -bang WA wa<bang>
+command! -bang Wq wq<bang>
+command! -bang WQ wq<bang>
+
+" sudowrite
+cnoremap w!! w !sudo tee % >/dev/null
 
 function! MakeTags()
     exe 'silent !ctags -a -R . 2>/dev/null'
