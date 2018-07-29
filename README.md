@@ -1,5 +1,5 @@
 # dotfiles (aka soupfiles)
-a collection of my dotfilez
+a collection of my dotfilez built for debian (9) stretch
 
 [![build passing](https://circleci.com/gh/burdzwastaken/dotfiles.svg?style=svg&circle-token=35f048165f31188eb400922f7ceb8e944b123d98)](https://circleci.com/gh/burdzwastaken/dotfiles)
 
