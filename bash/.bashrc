@@ -55,7 +55,7 @@ else
 fi
 unset color_prompt force_color_prompt
 
-# If this is an xterm set the title to user@host:dir
+# if this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
     PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
@@ -64,24 +64,13 @@ xterm*|rxvt*)
     ;;
 esac
 
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    alias dir='dir --color=auto'
-    alias grep='grep --color=auto'
-fi
-
-
-# some more ls aliases
-alias ll='ls -l'
-alias la='ls -A'
-alias l='ls -CF'
-
-# Alias definitions.
-
+# alias definitions.
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
+fi
+
+if [ -f ~/.bash_functions ]; then
+    . ~/.bash_functions
 fi
 
 # enable programmable completion features
@@ -104,9 +93,6 @@ source ~/.git-status.bash
 # kubectl completion
 source <(kubectl completion bash)
 
-# hub alias
-eval "$(hub alias -s)"
-
 # hub completion
 if [ -f /etc/hub.bash_completion ]; then
   . /etc/hub.bash_completion
@@ -115,153 +101,11 @@ fi
 # TmuxLine
 vim +TmuxLine +qall
 
-# even more aliasessss
-alias xclip="xclip -selection c"
-alias fuck='sudo $(history -p !!)'
-alias diskspace="du -S | sort -n -r |more"
-# conky
-alias conkyreset='killall -SIGUSR1 conky'
-alias conkyrc='(vi ~/.conkyrc)'
-alias killconky='killall conky'
-# today
-alias today='grep -h -d skip `date +%m/%d` /usr/share/calendar/*'
-# open ports
-alias openports='netstat -nape --inet'
-# tree
-alias tree='tree -CAhF --dirsfirst'
-# git stuff
-alias ga='git add -A'
-alias gs='git status'
-alias gstat='git show --stat'
-alias gb='git branch'
-alias gba='git branch -a'
-alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
-alias gc='git commit -S'
-alias gca='git commit --amend'
-alias gco='git checkout'
-alias gd='git diff'
-alias gdom='git diff origin/master'
-alias grm='git rm `git ls-files --deleted`'
-# sublime
-alias st='subl .'
-
 # invoke ssh-agent
 if [ -z "$SSH_AUTH_SOCK" ] ; then
   eval `ssh-agent -s`
   ssh-add
 fi
-
-extract() { # extract files.
-    local x
-    ee() { # echo and execute
-        echo "$@"
-        $1 "$2"
-    }
-    for x in "$@"; do
-        if [ -f $x ] ; then
-            case "$x" in
-                *.tar.bz2 | *.tbz2 ) ee "tar xvjf" "$x"   ;;
-                *.tar.gz | *.tgz )   ee "tar xvzf" "$x"   ;;
-                *.bz2 )              ee "bunzip2" "$x"    ;;
-                *.rar )              ee "unrar x" "$x"    ;;
-                *.gz )               ee "gunzip" "$x"     ;;
-                *.tar )              ee "tar xvf" "$x"    ;;
-                *.zip )              ee "unzip" "$x"      ;;
-                *.Z )                ee "uncompress" "$x" ;;
-                *.7z )               ee "7z x" "$x"       ;;
-		* )                  echo "'$1' cannot be extracted via extract()"
-            esac
-        else
-	    echo "'$1' is not a valid file for extraction!"
-	fi
-    done
-}
-
-sshrc() {
-    scp ~/.bashrc $1:/tmp/.bashrc_temp
-    ssh -t $1 "bash --rcfile /tmp/.bashrc_temp ; rm /tmp/.bashrc_temp"
-}
-
-dockerrm() {
-    docker rm -v $(docker ps --filter status=exited -q 2>/dev/null) 2>/dev/null
-    docker rmi $(docker images --filter dangling=true -q 2>/dev/null) 2>/dev/null
-}
-
-chromepdf() {
-    chrome --headless --disable-gpu --print-to-pdf="$1" $2
-}
-
-mem() {
-    ps -eo rss,pid,euser,args:100 --sort %mem | grep -v grep | grep -i $@ | awk '{printf $1/1024 "MB"; $1=""; print }'
-}
-
-log() {
-    logger -i -t $0 "$@"
-    echo [$$] `date`: $@
-}
-
-# requires sudo due to folder perms
-bigfilez() {
-    sudo find $@ -type f -size +10M -exec ls -lh {} \;
-}
-
-Go-Dep-imports() {
-    go list -f '{{join .Deps "\n"}}' $@
-}
-
-statuscode() {
-    curl -s -o /dev/null -w "%{http_code}" $@
-}
-
-upgrade-kubectl() {
-    curl -Lo /tmp/kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x /tmp/kubectl && mv /tmp/kubectl /usr/local/bin/
-}
-
-upgrade-minikube() {
-    curl -Lo /tmp/minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x /tmp/minikube && mv /tmp/minikube /usr/local/bin/
-}
-
-getcertnames() {
-	if [ -z "${1}" ]; then
-		echo "ERROR: No domain specified.";
-		return 1;
-	fi;
-
-	local domain="${1}";
-	echo "Testing ${domain}…";
-	echo ""; # newline
-
-	local tmp=$(echo -e "GET / HTTP/1.0\nEOT" \
-		| openssl s_client -connect "${domain}:443" -servername "${domain}" 2>&1);
-
-	if [[ "${tmp}" = *"-----BEGIN CERTIFICATE-----"* ]]; then
-		local certText=$(echo "${tmp}" \
-			| openssl x509 -text -certopt "no_aux, no_header, no_issuer, no_pubkey, \
-			no_serial, no_sigdump, no_signame, no_validity, no_version");
-		echo "Common Name:";
-		echo ""; # newline
-		echo "${certText}" | grep "Subject:" | sed -e "s/^.*CN=//" | sed -e "s/\/emailAddress=.*//";
-		echo ""; # newline
-		echo "Subject Alternative Name(s):";
-		echo ""; # newline
-		echo "${certText}" | grep -A 1 "Subject Alternative Name:" \
-			| sed -e "2s/DNS://g" -e "s/ //g" | tr "," "\n" | tail -n +2;
-		return 0;
-	else
-		echo "ERROR: Certificate not found.";
-		return 1;
-	fi;
-}
-
-# find a file with a pattern in name:
-function ff() {
-	find . -type f -iname '*'$*'*' -ls ;
-}
-
-# find a directory with a pattern in name:
-function fd() {
-	find . -type d -iname '*'$*'*' -ls ;
-}
 
 # few colours
 BLACK='\e[0;30m'
