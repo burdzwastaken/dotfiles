@@ -144,6 +144,8 @@ kernel-modules() {
 conf() {
     mkdir ~/.config
     ln -sf "$(pwd)"/bash/.bashrc ~/.bashrc
+    ln -sf "$(pwd)"/bash/.bash_aliases ~/.bash_aliases
+    ln -sf "$(pwd)"/bash/.bash_functions ~/.bash_functions
     ln -sf "$(pwd)"/bash/.bash_profile ~/.bash_profile
     ln -sf "$(pwd)"/conky/.conkyrc ~/.conkyrc
     ln -sf "$(pwd)"/curl/.curlrc ~/.curlrc
