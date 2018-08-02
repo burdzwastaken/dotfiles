@@ -171,6 +171,12 @@ conf() {
 bin() {
     ln -sf "$(pwd)"/bin/tat /usr/local/bin/tat
     ln -sf "$(pwd)"/bin/slack-hex /usr/local/bin/slack-hex
+    ln -sf "$(pwd)"/bin/pip-mod-upgrade.py /usr/local/bin/pip-mod-upgrade.py
+    ln -sf "$(pwd)"/bin/listening /usr/local/bin/listening
+    ln -sf "$(pwd)"/bin/git-listfiles /usr/local/bin/git-listfiles
+    ln -sf "$(pwd)"/bin/clone-github-user /usr/local/bin/clone-github-user
+    ln -sf "$(pwd)"/bin/clone-github-org /usr/local/bin/clone-github-org
+    ln -sf "$(pwd)"/bin/env2configmap /usr/local/bin/env2configmap
 }
 
 tmux-plugins() {
