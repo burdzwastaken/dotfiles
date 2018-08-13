@@ -178,6 +178,7 @@ bin() {
     ln -sf "$(pwd)"/bin/clone-github-user /usr/local/bin/clone-github-user
     ln -sf "$(pwd)"/bin/clone-github-org /usr/local/bin/clone-github-org
     ln -sf "$(pwd)"/bin/env2configmap /usr/local/bin/env2configmap
+    ln -sf "$(pwd)"/bin/quit /usr/local/bin/quit
 }
 
 tmux-plugins() {
