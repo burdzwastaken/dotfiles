@@ -53,6 +53,13 @@ alias gd='git diff'
 alias gdom='git diff origin/master'
 alias grm='git rm `git ls-files --deleted`'
 
+# movement
+alias cd..='cd ..'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+
 # sublime
 alias st='subl .'
 
