@@ -123,3 +123,7 @@ function fd() {
 function mkcd() {
 	mkdir -p $1; cd $1
 }
+
+function passgen() {
+	< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c$@
+}
