@@ -80,6 +80,7 @@ let g:EditorConfig_core_mode = 'external_command'
 
 " nerdTREE
 let NERDTreeShowHidden=1
+let NERDTreeIgnore=['\.vim$', '\~$', '\.pyo$', '\.pyc$', '\.svn[\//]$', '\.swp$']
 
 " markDOWN
 let g:vim_markdown_folding_disabled = 1
