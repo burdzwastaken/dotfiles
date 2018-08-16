@@ -111,19 +111,26 @@ getcertnames() {
 
 # find a file with a pattern in name:
 function ff() {
-	find . -type f -iname '*'$*'*' -ls ;
+    find . -type f -iname '*'$*'*' -ls ;
 }
 
 # find a directory with a pattern in name:
 function fd() {
-	find . -type d -iname '*'$*'*' -ls ;
+    find . -type d -iname '*'$*'*' -ls ;
 }
 
 # create folder then cd into it
 function mkcd() {
-	mkdir -p $1; cd $1
+    mkdir -p $1; cd $1
 }
 
 function passgen() {
-	< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c$@
+    < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c$@
+}
+
+function up(){
+    DEEP=$1;
+    for i in $(seq 1 ${DEEP:-"1"});
+        do cd ../;
+    done;
 }
