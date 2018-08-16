@@ -18,13 +18,13 @@ ignore-errors() {
 }
 
 env() {
-    GO_VERSION=1.10.2
+    GO_VERSION=1.10.3
     DROPBOX_VERSION=2015.10.28
     MINIKUBE_VERSION=0.28.2
-    SLACK_VERSION=3.1.0
+    SLACK_VERSION=3.2.1
     HUB_VERSION=2.5.0
     BAT_VERSION=0.4.1
-    WTF_VERSION=0.0.10
+    WTF_VERSION=0.2.0
     export DEBIAN_FRONTEND=noninteractive
 }
 
@@ -311,7 +311,7 @@ bat() {
 }
 
 wtf() {
-    curl -fsSL -o wtf-${WTF_VERSION}.tar.gz "https://github.com/senorprogrammer/wtf/releases/download/v${WTF_VERSION}/wtf_${WTF_VERSION}_linux_amd64.tar.gz"
+    curl -fsSL -o wtf-${WTF_VERSION}.tar.gz "https://github.com/senorprogrammer/wtf/releases/download/${WTF_VERSION}/wtf_${WTF_VERSION}_linux_amd64.tar.gz"
     tar -zxvf wtf-${WTF_VERSION}.tar.gz
     sudo cp wtf_${WTF_VERSION}_linux_amd64/wtf /usr/local/bin/
     sudo rm -rf wtf-* wtf_*
