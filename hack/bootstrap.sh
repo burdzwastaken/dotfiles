@@ -320,7 +320,8 @@ wtf() {
 
 git-bug() {
     curl -fsSL -o git-bug-${GIT_BUG_VERSION} "https://github.com/MichaelMure/git-bug/releases/download/${GIT_BUG_VERSION}/git-bug_linux_amd64"
-    sudo cp git-bug-${GIT_BUG_VERSION} /usr/local/bin/
+    sudo cp git-bug-${GIT_BUG_VERSION} /usr/local/bin/git-bug
+    sudo chmod +x /usr/local/bin/git-bug
     sudo rm -rf git-bug-*
 }
 
