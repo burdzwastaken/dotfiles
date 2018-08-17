@@ -25,6 +25,7 @@ env() {
     HUB_VERSION=2.5.0
     BAT_VERSION=0.4.1
     WTF_VERSION=0.2.0
+    GIT_BUG_VERSION=0.2.0
     export DEBIAN_FRONTEND=noninteractive
 }
 
@@ -317,6 +318,12 @@ wtf() {
     sudo rm -rf wtf-* wtf_*
 }
 
+git-bug() {
+    curl -fsSL -o git-bug-${GIT_BUG_VERSION} "https://github.com/MichaelMure/git-bug/releases/download/${GIT_BUG_VERSION}/git-bug_linux_amd64"
+    sudo cp git-bug-${GIT_BUG_VERSION} /usr/local/bin/
+    sudo rm -rf git-bug-*
+}
+
 gc-hooks() {
     sudo mkdir -p /etc/git/hooks
 }
@@ -364,6 +371,7 @@ fzf
 hub
 bat
 wtf
+git-bug
 gc-hooks
 wallpaper
 autoremove
