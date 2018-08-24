@@ -134,3 +134,7 @@ function up(){
         do cd ../;
     done;
 }
+
+function del-via-inode() {
+    find . -inum $1 -exec rm -i {} \;
+}
