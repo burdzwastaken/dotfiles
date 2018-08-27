@@ -127,7 +127,8 @@ packages() {
         editorconfig \
         cmake \
         exuberant-ctags \
-        unrar
+        unrar \
+        dnstracer
     sudo apt -f install -y
 
     if [ -z "$IN_DOCKER" ]; then
