@@ -336,6 +336,10 @@ wallpaper() {
     ln -sf "$(pwd)"/images /usr/share/backgrounds/debian
 }
 
+firefox() {
+    sudo ln -sf "$(pwd)"/firefox/firefox.desktop /usr/share/applications/firefox.desktop
+}
+
 autoremove() {
     sh -c 'sudo apt autoremove -y'
 }
@@ -376,4 +380,5 @@ wtf
 git-bug
 gc-hooks
 wallpaper
+firefox
 autoremove
