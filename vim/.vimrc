@@ -22,6 +22,7 @@ Plugin 'ZoomWin'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'mustache/vim-mustache-handlebars'
 
 call vundle#end()
 filetype plugin indent on
@@ -147,7 +148,16 @@ function! MakeTags()
     exe 'redraw!'
 endfunction
 
+" snippets or some resemblance of them :>
+" go
 nnoremap ,gobp :-1read $HOME/Dropbox/vim/snippets/goboilerplate.go<CR>6jwf)a
+
+" k8s
+nnoremap ,k8dpl :-1read $HOME/Dropbox/vim/snippets/k8s-deployment.yaml<CR>6jwf)a
+nnoremap ,k8svc :-1read $HOME/Dropbox/vim/snippets/k8s-service.yaml<CR>6jwf)a
+nnoremap ,k8ds :-1read $HOME/Dropbox/vim/snippets/k8s-daemonset.yaml<CR>6jwf)a
+nnoremap ,k8cm :-1read $HOME/Dropbox/vim/snippets/k8s-configmap.yaml<CR>6jwf)a
+nnoremap ,k8secret :-1read $HOME/Dropbox/vim/snippets/k8s-secret.yaml<CR>6jwf)a
 
 if exists('$TMUX')
     let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
