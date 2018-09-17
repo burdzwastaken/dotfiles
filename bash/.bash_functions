@@ -35,7 +35,7 @@ extract() { # extract files.
 
 sshrc() {
     scp ~/.bashrc $1:/tmp/.bashrc_temp
-    ssh -t $1 "bash --rcfile /tmp/.bashrc_temp ; rm /tmp/.bashrc_temp"
+    ssh -t $@ "bash --rcfile /tmp/.bashrc_temp ; rm /tmp/.bashrc_temp"
 }
 
 dockerrm() {
@@ -121,7 +121,7 @@ function fd() {
 
 # create folder then cd into it
 function mkcd() {
-    mkdir -p $1; cd $1
+    mkdir -p $@; cd $@
 }
 
 function passgen() {
@@ -136,5 +136,9 @@ function up(){
 }
 
 function del-via-inode() {
-    find . -inum $1 -exec rm -i {} \;
+    find . -inum $@ -exec rm -i {} \;
+}
+
+function ssh-htop() {
+    ssh $@ -t 'htop'
 }
