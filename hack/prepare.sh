@@ -1,18 +1,31 @@
 #!/bin/bash
 
 #------------------------------------------------------------------------------
-# File:   $HOME/.netrc
+# File:   $HOME/dotfiles/hack/prepare.sh
 # Author: Matt Burdan <burdz@burdz.net>
 #------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------
-# .netrc
+# prepz
 #------------------------------------------------------------------------------
 
-machine github.com
-login burdzwastaken
-password 
+set -euxo pipefail
 
-machine api.github.com
-login burdzwastaken
-password 
+update() {
+    apt update -y
+}
+
+deps() {
+    apt install -y \
+        sudo \
+        git \
+        lsb-release
+}
+
+sudoers() {
+    echo "burdz ALL=(ALL:ALL) ALL" > /etc/sudoers.d/burdz
+}
+
+update
+deps
+sudoers

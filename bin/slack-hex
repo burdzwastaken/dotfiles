@@ -1,18 +1,11 @@
 #!/bin/bash
-
 #------------------------------------------------------------------------------
-# File:   $HOME/.netrc
+# File:   /usr/local/bin/slack-hex
 # Author: Matt Burdan <burdz@burdz.net>
 #------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------
-# .netrc
+# print hex codes for slack workspaces (WHY CAN'T THIS BE GLOBAL?)
 #------------------------------------------------------------------------------
 
-machine github.com
-login burdzwastaken
-password 
-
-machine api.github.com
-login burdzwastaken
-password 
+echo "#1d1f21,#282a2e,#282a2e,#c5c8c6,#282a2e,#c5c8c6,#5f89ac,#5f89ac"

@@ -1,18 +1,14 @@
 #!/bin/bash
 
 #------------------------------------------------------------------------------
-# File:   $HOME/.netrc
+# File:   $HOME/dotfiles/firefox/install-firefox.sh
 # Author: Matt Burdan <burdz@burdz.net>
 #------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------
-# .netrc
+# install firefox
 #------------------------------------------------------------------------------
 
-machine github.com
-login burdzwastaken
-password 
-
-machine api.github.com
-login burdzwastaken
-password 
+curl -fsSL -o firefox.tar.bz2 "https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US"
+sudo tar -C /opt -xvf firefox.tar.bz2
+rm -rf firefox.tar.bz2

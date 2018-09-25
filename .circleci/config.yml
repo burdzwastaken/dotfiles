@@ -2,7 +2,7 @@ version: 2
 
 defaults: &defaults
   docker:
-    - image: docker:17.05.0-ce-git      
+    - image: docker:17.05.0-ce-git
 
 jobs:
 
@@ -15,21 +15,16 @@ jobs:
           name: build docker image
           command: docker build -t dotfilez -t $CIRCLE_SHA1 .
       - run:
-          name: tag docker image
-          command: docker tag $CIRCLE_SHA1 burdz/private:dotfilez
-      - run:
-          name: docker login
-          command: docker login -u $DOCKER_USER -p $DOCKER_PASS
-      - run:
-          name: push docker image
-          command: docker push burdz/private:dotfilez
+          name: tag and push docker image
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              docker tag $CIRCLE_SHA1 burdz/private:dotfilez
+              docker login -u $DOCKER_USER -p $DOCKER_PASS
+              docker push burdz/private:dotfilez
+            fi
 
 workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - docker-build:
-          filters:
-            branches:
-              only:
-                - master
+      - docker-build

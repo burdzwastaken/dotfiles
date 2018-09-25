@@ -1,0 +1,27 @@
+#!/bin/bash
+
+function usage()
+{
+	echo "creates a configmap from environment file"
+	echo ""
+	echo "try: ./configmap.sh $namespace ./super_secret_file"
+}
+
+if [ -z "$1" ] && [ -z "$2" ];
+then
+  	usage
+  	exit 0
+fi
+
+nameSpace=$1
+confipMap=$2
+
+append=" "
+while read line
+do
+	append=""${append}""--from-literal="${line}"" "
+done < $2
+
+echo $append
+
+kubectl --namespace $nameSpace create configmap $nameSpace $append --dry-run -o yaml | kubectl --namespace $nameSpace replace configmap $nameSpace -f -

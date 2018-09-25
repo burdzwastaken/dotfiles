@@ -2,7 +2,7 @@
 set nocompatible
 filetype off
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/.vim/bundle/Vundle.vim,~/.fzf
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
@@ -10,6 +10,19 @@ Plugin 'editorconfig/editorconfig-vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'fatih/vim-go'
+Plugin 'matze/vim-move'
+Plugin 'valloric/youcompleteme'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'tpope/vim-eunuch'
+Plugin 'tomtom/tcomment_vim'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'hashivim/vim-terraform'
+Plugin 'townk/vim-autoclose'
+Plugin 'ZoomWin'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'mustache/vim-mustache-handlebars'
 
 call vundle#end()
 filetype plugin indent on
@@ -23,6 +36,71 @@ syntax enable
 let g:solarized_termcolors=256
 set background=dark
 colorscheme solarized
+
+" backspace
+set backspace=indent,eol,start
+
+" UI
+set ttyfast
+set mouse=a
+set number
+set showmode
+set showcmd
+set cursorline
+set wildmenu
+set wildmode=list:full
+set wildignore=*.swp,*.bak,*.pyc,*.class,~*
+set lazyredraw
+set showmatch
+set ruler
+set wrap
+set guicursor+=a:blinkon0
+
+" auto
+set autoread
+set autowrite
+set autowriteall
+set autochdir
+
+" search
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
+
+" spelling
+set spell
+set spelllang=en_au
+set spellfile=$HOME/Dropbox/vim/spell/en.utf-8.add
+
+" vim-move
+let g:move_key_modifier = 'C'
+
+" editorconfig
+let g:EditorConfig_core_mode = 'external_command'
+
+" nerdTREE
+let NERDTreeShowHidden=1
+let NERDTreeIgnore=['\.vim$', '\~$', '\.pyo$', '\.pyc$', '\.svn[\//]$', '\.swp$']
+
+" markDOWN
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_autowrite = 1
+
+" tMUX
+" 1 :update, 2 :wall
+let g:tmux_navigator_save_on_switch = 1
+let g:tmux_navigator_disable_when_zoomed = 1
+
+" fzf
+map ;f :FZF<CR>
+let $FZF_DEFAULT_COMMAND = 'find . -type f -not -path "*/\.git/*";'
+
+" redraw
+map ;l :redraw!<CR>
+
+" gOlAnG
+let g:go_template_autocreate = 0
 
 " tmux statusbar
 let g:tmuxline_powerline_separators = 0
@@ -48,27 +126,38 @@ let g:tmuxline_theme = {
     \   'bg'   : [ 244, 236 ],
     \ }
 
-" UI
-set ttyfast
-set mouse=a
-set number
-set showmode
-set showcmd
-set cursorline
-set wildmenu
-set wildmode=list:full
-set wildignore=*.swp,*.bak,*.pyc,*.class,~*
-set lazyredraw
-set showmatch
-set ruler
-set wrap
-set guicursor+=a:blinkon0
+" generate ctags
+command! MakeTags :call MakeTags()
 
-" search
-set incsearch
-set hlsearch
-set ignorecase
-set smartcase
+" spelling mistakes
+command! -bang E e<bang>
+command! -bang Q q<bang>
+command! -bang W w<bang>
+command! -bang QA qa<bang>
+command! -bang Qa qa<bang>
+command! -bang Wa wa<bang>
+command! -bang WA wa<bang>
+command! -bang Wq wq<bang>
+command! -bang WQ wq<bang>
+
+" sudowrite
+cnoremap w!! w !sudo tee % >/dev/null
+
+function! MakeTags()
+    exe 'silent !ctags -a -R . 2>/dev/null'
+    exe 'redraw!'
+endfunction
+
+" snippets or some resemblance of them :>
+" go
+nnoremap ,gobp :-1read $HOME/Dropbox/vim/snippets/goboilerplate.go<CR>6jwf)a
+
+" k8s
+nnoremap ,k8dpl :-1read $HOME/Dropbox/vim/snippets/k8s-deployment.yaml<CR>6jwf)a
+nnoremap ,k8svc :-1read $HOME/Dropbox/vim/snippets/k8s-service.yaml<CR>6jwf)a
+nnoremap ,k8ds :-1read $HOME/Dropbox/vim/snippets/k8s-daemonset.yaml<CR>6jwf)a
+nnoremap ,k8cm :-1read $HOME/Dropbox/vim/snippets/k8s-configmap.yaml<CR>6jwf)a
+nnoremap ,k8secret :-1read $HOME/Dropbox/vim/snippets/k8s-secret.yaml<CR>6jwf)a
 
 if exists('$TMUX')
     let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
@@ -78,7 +167,7 @@ else
     let &t_EI = "\e[5 q"
 endif
 
-map <C-n> :NERDTreeToggle<CR>
+map <C-o> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 function! GitBranch()

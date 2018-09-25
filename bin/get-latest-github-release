@@ -1,18 +1,15 @@
 #!/bin/bash
-
 #------------------------------------------------------------------------------
-# File:   $HOME/.netrc
+# File:   /usr/local/bin/get-latest-github-release
 # Author: Matt Burdan <burdz@burdz.net>
 #------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------
-# .netrc
+# gets the latest linux tar for a github release
 #------------------------------------------------------------------------------
 
-machine github.com
-login burdzwastaken
-password 
+set -euxo pipefail
 
-machine api.github.com
-login burdzwastaken
-password 
+RELEASE_URL=$(curl -s https://api.github.com/repos/$1/releases/latest | jq '.assets[].browser_download_url' | grep 'linux-amd64' | sed 's/"//g')
+RELEASE_NAME=$(echo $1 | cut -d '/' -f2)
+curl -L $RELEASE_NAME.tar.gz $RELEASE_URL
