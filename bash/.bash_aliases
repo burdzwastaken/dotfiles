@@ -52,6 +52,7 @@ alias gco='git checkout'
 alias gd='git diff'
 alias gdom='git diff origin/master'
 alias grm='git rm `git ls-files --deleted`'
+alias gpom='git remote prune origin'
 
 # movement
 alias cd..='cd ..'
@@ -65,3 +66,6 @@ alias st='subl .'
 
 # hub alias
 eval "$(hub alias -s)"
+
+# firefox
+alias firefox-temp='/opt/firefox/firefox --new-instance --profile $(mktemp -d)'
