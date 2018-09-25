@@ -18,14 +18,14 @@ ignore-errors() {
 }
 
 env() {
-    GO_VERSION=1.11
+    BAT_VERSION=0.6.1
     DROPBOX_VERSION=2015.10.28
+    GIT_BUG_VERSION=0.2.0
+    GO_VERSION=1.11
+    HUB_VERSION=2.5.1
     MINIKUBE_VERSION=0.28.2
     SLACK_VERSION=3.3.1
-    HUB_VERSION=2.5.1
-    BAT_VERSION=0.6.1
     WTF_VERSION=0.2.2
-    GIT_BUG_VERSION=0.2.0
     export DEBIAN_FRONTEND=noninteractive
 }
 
@@ -74,67 +74,67 @@ upgrade() {
 
 packages() {
     sudo apt install -y \
-        ca-certificates \
-        wget \
-        software-properties-common \
-        tmux \
-        vim-gnome \
-        htop \
-        hexchat \
-        git \
-        jq \
-        conky \
-        keepassx \
-        vlc \
+        asciinema \
+        atop \
+        blueman \
         browser-plugin-vlc \
-        xclip \
-        python \
-        python-pip \
-        sl \
-        tcpdump \
-        libc++1 \
-        zeal \
-        firmware-iwlwifi \
-        docker-ce \
-        sublime-text \
-        google-chrome-stable \
-        code \
-        osquery \
-        virtualbox-5.1 \
-        google-cloud-sdk \
-        sysdig \
-        rkhunter \
+        ca-certificates \
         chkrootkit \
-        nethogs \
-        ntp \
+        chromium \
+        clusterssh \
+        cmake \
+        code \
+        conky \
+        dnstracer \
         dnsutils \
-        nmap \
+        docker-ce \
+        editorconfig \
+        exiftool \
+        exuberant-ctags \
+        firmware-iwlwifi \
+        gir1.2-clutter-1.0 \
         gir1.2-gtop-2.0 \
         gir1.2-networkmanager-1.0 \
-        gir1.2-clutter-1.0 \
-        signal-desktop \
-        tree \
-        exiftool \
-        whois \
-        uuid-runtime \
-        asciinema \
-        clusterssh \
-        chromium \
-        blueman \
-        shellcheck \
+        git \
+        google-chrome-stable \
+        google-cloud-sdk \
+        hexchat \
+        htop \
+        jq \
+        keepassx \
+        libc++1 \
+        nethogs \
+        nmap \
+        ntp \
+        osquery \
+        python \
+        python-pip \
         qemu \
-        atop \
-        editorconfig \
-        cmake \
-        exuberant-ctags \
+        rkhunter \
+        shellcheck \
+        signal-desktop \
+        sl \
+        software-properties-common \
+        sublime-text \
+        sysdig \
+        tcpdump \
+        tmux \
+        tree \
         unrar \
-        dnstracer
+        uuid-runtime \
+        vim-gnome \
+        virtualbox-5.1 \
+        vlc \
+        wget \
+        whois \
+        xclip \
+        zeal
     sudo apt -f install -y
 
     if [ -z "$IN_DOCKER" ]; then
         sudo apt install -y \
-            wireshark \
-            tor
+            tor \
+            wireshark
     fi
 }
 
@@ -146,24 +146,25 @@ kernel-modules() {
 
 conf() {
     mkdir ~/.config
-    ln -sf "$(pwd)"/bash/.bashrc ~/.bashrc
+
     ln -sf "$(pwd)"/bash/.bash_aliases ~/.bash_aliases
     ln -sf "$(pwd)"/bash/.bash_functions ~/.bash_functions
     ln -sf "$(pwd)"/bash/.bash_profile ~/.bash_profile
+    ln -sf "$(pwd)"/bash/.bashrc ~/.bashrc
     ln -sf "$(pwd)"/conky/.conkyrc ~/.conkyrc
+    ln -sf "$(pwd)"/ctags/.ctags ~/.ctags
     ln -sf "$(pwd)"/curl/.curlrc ~/.curlrc
     ln -sf "$(pwd)"/editor/.editorconfig ~/.editorconfig
     ln -sf "$(pwd)"/git/.gitconfig ~/.gitconfig
     ln -sf "$(pwd)"/gitstatus/.git-status.bash ~/.git-status.bash
+    ln -sf "$(pwd)"/gnupg ~/.gnupg
     ln -sf "$(pwd)"/hexchat ~/.config/hexchat
+    ln -sf "$(pwd)"/netrc/.netrc ~/.netrc
     ln -sf "$(pwd)"/ssh/.config ~/.ssh/config
     ln -sf "$(pwd)"/tmux/.tmux.conf ~/.tmux.conf
+    ln -sf "$(pwd)"/tmuxp ~/.tmuxp
     ln -sf "$(pwd)"/vim/.vimrc ~/.vimrc
     ln -sf "$(pwd)"/wget/.wgetrc ~/.wgetrc
-    ln -sf "$(pwd)"/netrc/.netrc ~/.netrc
-    ln -sf "$(pwd)"/ctags/.ctags ~/.ctags
-    ln -sf "$(pwd)"/tmuxp ~/.tmuxp
-    ln -sf "$(pwd)"/gnupg ~/.gnupg
     ln -sf "$(pwd)"/wtf ~/.config/wtf
 
     if [ ! -z "$IN_DOCKER" ]; then
@@ -172,15 +173,15 @@ conf() {
 }
 
 bin() {
-    ln -sf "$(pwd)"/bin/tat /usr/local/bin/tat
-    ln -sf "$(pwd)"/bin/slack-hex /usr/local/bin/slack-hex
-    ln -sf "$(pwd)"/bin/pip-mod-upgrade.py /usr/local/bin/pip-mod-upgrade.py
-    ln -sf "$(pwd)"/bin/listening /usr/local/bin/listening
-    ln -sf "$(pwd)"/bin/git-listfiles /usr/local/bin/git-listfiles
-    ln -sf "$(pwd)"/bin/clone-github-user /usr/local/bin/clone-github-user
     ln -sf "$(pwd)"/bin/clone-github-org /usr/local/bin/clone-github-org
+    ln -sf "$(pwd)"/bin/clone-github-user /usr/local/bin/clone-github-user
     ln -sf "$(pwd)"/bin/env2configmap /usr/local/bin/env2configmap
+    ln -sf "$(pwd)"/bin/git-listfiles /usr/local/bin/git-listfiles
+    ln -sf "$(pwd)"/bin/listening /usr/local/bin/listening
+    ln -sf "$(pwd)"/bin/pip-mod-upgrade.py /usr/local/bin/pip-mod-upgrade.py
     ln -sf "$(pwd)"/bin/quit /usr/local/bin/quit
+    ln -sf "$(pwd)"/bin/slack-hex /usr/local/bin/slack-hex
+    ln -sf "$(pwd)"/bin/tat /usr/local/bin/tat
 }
 
 tmux-plugins() {
