@@ -23,6 +23,7 @@ Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'mustache/vim-mustache-handlebars'
+Plugin 'emilyst/vim-xray'
 
 call vundle#end()
 filetype plugin indent on
