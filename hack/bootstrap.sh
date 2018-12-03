@@ -61,7 +61,9 @@ repos-gpg() {
     curl -fsSL https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add - #signal
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90 #spotify
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 1484120AC4E9F8A1A577AEEE97A80C63C9D8B80B #osquery
-    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 #rvm
+    if [ -z "$IN_DOCKER" ]; then
+        sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 #rvm
+    fi
 }
 
 update() {
@@ -77,7 +79,6 @@ packages() {
         asciinema \
         atop \
         blueman \
-        browser-plugin-vlc \
         ca-certificates \
         chkrootkit \
         chromium \
@@ -273,7 +274,9 @@ grip() {
 }
 
 rvm() {
-    curl -fsSL https://get.rvm.io | bash
+    if [ -z "$IN_DOCKER" ]; then
+        curl -fsSL https://get.rvm.io | bash
+    fi
 }
 
 discord() {
