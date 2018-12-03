@@ -79,7 +79,6 @@ packages() {
         asciinema \
         atop \
         blueman \
-        browser-plugin-vlc \
         ca-certificates \
         chkrootkit \
         chromium \
