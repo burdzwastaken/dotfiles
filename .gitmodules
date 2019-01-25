@@ -1,0 +1,3 @@
+[submodule "modules/kube-tmux"]
+	path = modules/kube-tmux
+	url = git://github.com/jonmosco/kube-tmux.git

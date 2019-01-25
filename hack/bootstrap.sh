@@ -344,6 +344,10 @@ firefox() {
     sudo ln -sf "$(pwd)"/firefox/firefox.desktop /usr/share/applications/firefox.desktop
 }
 
+kube-tmux() {
+    sudo ln -sf "$(pwd)/modules/kube-tmux ~/.tmux/"
+}
+
 autoremove() {
     sh -c 'sudo apt autoremove -y'
 }
@@ -385,4 +389,5 @@ git-bug
 gc-hooks
 wallpaper
 firefox
+kube-tmux
 autoremove

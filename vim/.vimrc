@@ -108,7 +108,7 @@ let g:tmuxline_powerline_separators = 0
 let g:tmuxline_preset = {
     \ 'a': '#S',
     \ 'b': ['#(whoami)', '#(uptime | cut -d " " -f 3,4,5,6,7 | sed "s/,$//")'],
-    \ 'c': '#W',
+    \ 'c': '#(/bin/bash ~/.tmux/kube-tmux/kube.tmux 250 red cyan)',
     \ 'win': ['#I', '#W'],
     \ 'cwin': ['#I', '#W'],
     \ 'x': '%a',
