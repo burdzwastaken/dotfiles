@@ -160,6 +160,9 @@ nnoremap ,k8ds :-1read $HOME/Dropbox/vim/snippets/k8s-daemonset.yaml<CR>6jwf)a
 nnoremap ,k8cm :-1read $HOME/Dropbox/vim/snippets/k8s-configmap.yaml<CR>6jwf)a
 nnoremap ,k8secret :-1read $HOME/Dropbox/vim/snippets/k8s-secret.yaml<CR>6jwf)a
 
+" keyMaps
+nnoremap <esc><esc> :noh<return>
+
 if exists('$TMUX')
     let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
     let &t_EI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
