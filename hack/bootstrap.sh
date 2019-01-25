@@ -139,6 +139,11 @@ packages() {
     fi
 }
 
+git-submodule-init() {
+    git submodule init
+    git submodule update
+}
+
 kernel-modules() {
     if [ -z "$IN_DOCKER" ]; then
         sudo modprobe -r iwlwifi && sudo modprobe iwlwifi
@@ -344,6 +349,10 @@ firefox() {
     sudo ln -sf "$(pwd)"/firefox/firefox.desktop /usr/share/applications/firefox.desktop
 }
 
+kube-tmux() {
+    sudo ln -sf "$(pwd)"/modules/kube-tmux ~/.tmux/
+}
+
 autoremove() {
     sh -c 'sudo apt autoremove -y'
 }
@@ -355,6 +364,7 @@ repos-gpg
 update
 upgrade
 packages
+git-submodule-init
 tmux-plugins
 kernel-modules
 conf
@@ -385,4 +395,5 @@ git-bug
 gc-hooks
 wallpaper
 firefox
+kube-tmux
 autoremove
