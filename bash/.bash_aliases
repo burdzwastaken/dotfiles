@@ -69,3 +69,7 @@ eval "$(hub alias -s)"
 
 # firefox
 alias firefox-temp='/opt/firefox/firefox --new-instance --profile $(mktemp -d)'
+
+# kubes
+alias k='kubectl'
+alias k-set-namespace='kubectl config set-context $(kubectl config current-context) --namespace='
