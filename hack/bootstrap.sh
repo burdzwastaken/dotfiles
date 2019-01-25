@@ -350,7 +350,7 @@ firefox() {
 }
 
 kube-tmux() {
-    sudo ln -sf "$(pwd)/modules/kube-tmux ~/.tmux/"
+    sudo ln -sf "$(pwd)"/modules/kube-tmux ~/.tmux/
 }
 
 autoremove() {
