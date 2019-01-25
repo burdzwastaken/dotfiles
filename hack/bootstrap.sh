@@ -139,6 +139,11 @@ packages() {
     fi
 }
 
+git-submodule-init() {
+    git submodule init
+    git submodule update
+}
+
 kernel-modules() {
     if [ -z "$IN_DOCKER" ]; then
         sudo modprobe -r iwlwifi && sudo modprobe iwlwifi
@@ -359,6 +364,7 @@ repos-gpg
 update
 upgrade
 packages
+git-submodule-init
 tmux-plugins
 kernel-modules
 conf
