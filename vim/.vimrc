@@ -56,6 +56,7 @@ set showmatch
 set ruler
 set wrap
 set guicursor+=a:blinkon0
+set splitbelow splitright
 
 " auto
 set autoread
