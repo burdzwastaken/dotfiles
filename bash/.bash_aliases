@@ -75,4 +75,4 @@ alias k='kubectl'
 alias k-set-namespace='kubectl config set-context $(kubectl config current-context) --namespace='
 
 # gotop
-alias gotop='gotop -c solarized'
+alias gotop='gotop -b -c solarized'
