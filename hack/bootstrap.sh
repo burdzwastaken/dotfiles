@@ -26,6 +26,7 @@ env() {
     MINIKUBE_VERSION=0.33.1
     SLACK_VERSION=3.3.7
     WTF_VERSION=0.4.0
+    GOTOP_VERSION=2.0.1
     export DEBIAN_FRONTEND=noninteractive
 }
 
@@ -335,6 +336,13 @@ git-bug() {
     sudo rm -rf git-bug-*
 }
 
+gotop-install() {
+    curl -fsSL -o gotop-${GOTOP_VERSION}.tar.gz "https://github.com/cjbassi/gotop/releases/download/${GOTOP_VERSION}/gotop_${GOTOP_VERSION}_linux_amd64.tgz"
+    tar -zxvf gotop-${GOTOP_VERSION}.tar.gz
+    sudo mv gotop /usr/local/bin/gotop
+    sudo rm -rf gotop-*
+}
+
 gc-hooks() {
     sudo mkdir -p /etc/git/hooks
 }
@@ -392,6 +400,7 @@ hub
 bat
 wtf
 git-bug
+gotop-install
 gc-hooks
 wallpaper
 firefox
