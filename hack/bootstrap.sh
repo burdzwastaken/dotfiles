@@ -27,6 +27,7 @@ env() {
     SLACK_VERSION=3.3.7
     WTF_VERSION=0.4.0
     GOTOP_VERSION=2.0.1
+    K9S_VERION=0.1.3
     export DEBIAN_FRONTEND=noninteractive
 }
 
@@ -206,49 +207,49 @@ colours() {
 }
 
 dropbox() {
-    curl -fsSL -o dropbox_${DROPBOX_VERSION}_amd64.deb "https://www.dropbox.com/download?dl=packages/debian/dropbox_${DROPBOX_VERSION}_amd64.deb"
-    sudo dpkg -i dropbox_${DROPBOX_VERSION}_amd64.deb
+    curl -fsSL -o /tmp/dropbox_${DROPBOX_VERSION}_amd64.deb "https://www.dropbox.com/download?dl=packages/debian/dropbox_${DROPBOX_VERSION}_amd64.deb"
+    sudo dpkg -i /tmp/dropbox_${DROPBOX_VERSION}_amd64.deb
     sudo apt -f install -y
-    rm -rf dropbox_${DROPBOX_VERSION}_amd64.deb
+    rm -rf /tmp/dropbox_${DROPBOX_VERSION}_amd64.deb
 }
 
 golang() {
-    curl -fsSL -o go${GO_VERSION}.linux-amd64.tar.gz "https://storage.googleapis.com/golang/go${GO_VERSION}.linux-amd64.tar.gz"
-    sudo tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz
-    rm -rf go${GO_VERSION}.linux-amd64.tar.gz
+    curl -fsSL -o /tmp/go${GO_VERSION}.linux-amd64.tar.gz "https://storage.googleapis.com/golang/go${GO_VERSION}.linux-amd64.tar.gz"
+    sudo tar -C /usr/local -xzf /tmp/go${GO_VERSION}.linux-amd64.tar.gz
+    rm -rf /tmp/go${GO_VERSION}.linux-amd64.tar.gz
 }
 
 keybase() {
-    curl -fsSL -o keybase_amd64.deb "https://prerelease.keybase.io/keybase_amd64.deb"
-    sudo dpkg -i keybase_amd64.deb
+    curl -fsSL -o /tmp/keybase_amd64.deb "https://prerelease.keybase.io/keybase_amd64.deb"
+    sudo dpkg -i /tmp/keybase_amd64.deb
     sudo apt -f install -y
-    rm -rf keybase_amd64.deb
+    rm -rf /tmp/keybase_amd64.deb
 }
 
 kubectl() {
-    curl -fsSL -o kubectl "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
-    chmod +x ./kubectl
-    sudo mv ./kubectl /usr/local/bin/kubectl
+    curl -fsSL -o /tmp/kubectl "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+    chmod +x /tmp/kubectl
+    sudo mv /tmp/kubectl /usr/local/bin/kubectl
 }
 
 minikube() {
-    curl -fsSL -o minikube "https://storage.googleapis.com/minikube/releases/v${MINIKUBE_VERSION}/minikube-linux-amd64"
-    chmod +x ./minikube
-    sudo mv ./minikube /usr/local/bin/minikube
+    curl -fsSL -o /tmp/minikube "https://storage.googleapis.com/minikube/releases/v${MINIKUBE_VERSION}/minikube-linux-amd64"
+    chmod +x /tmp/minikube
+    sudo mv /tmp/minikube /usr/local/bin/minikube
 }
 
 spotify() {
-    curl -fsSL -o libssl1.0.0 "http://ftp.us.debian.org/debian/pool/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u8_amd64.deb"
-    sudo dpkg -i libssl1.0.0
-    rm -rf libssl1.0.0
+    curl -fsSL -o /tmp/libssl1.0.0 "http://ftp.us.debian.org/debian/pool/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u8_amd64.deb"
+    sudo dpkg -i /tmp/libssl1.0.0
+    rm -rf /tmp/libssl1.0.0
     sudo apt install -y spotify-client
 }
 
 slack() {
-    curl -fsSL -o slack-desktop-${SLACK_VERSION}-amd64.deb "https://downloads.slack-edge.com/linux_releases/slack-desktop-${SLACK_VERSION}-amd64.deb"
-    sudo dpkg -i slack-desktop-${SLACK_VERSION}-amd64.deb
+    curl -fsSL -o /tmp/slack-desktop-${SLACK_VERSION}-amd64.deb "https://downloads.slack-edge.com/linux_releases/slack-desktop-${SLACK_VERSION}-amd64.deb"
+    sudo dpkg -i /tmp/slack-desktop-${SLACK_VERSION}-amd64.deb
     sudo apt -f install -y
-    rm -rf slack-desktop-${SLACK_VERSION}-amd64.deb
+    rm -rf /tmp/slack-desktop-${SLACK_VERSION}-amd64.deb
 }
 
 aws-cli() {
@@ -286,10 +287,10 @@ rvm() {
 }
 
 discord() {
-    curl -fsSL -o discord.deb "https://discordapp.com/api/download?platform=linux&format=deb"
-    sudo dpkg -i discord.deb
+    curl -fsSL -o /tmp/discord.deb "https://discordapp.com/api/download?platform=linux&format=deb"
+    sudo dpkg -i /tmp/discord.deb
     sudo apt -f install -y
-    rm -rf discord.deb
+    rm -rf /tmp/discord.deb
 }
 
 vim-plugins() {
@@ -309,38 +310,45 @@ fzf() {
 }
 
 hub() {
-    curl -fsSL -o hub-${HUB_VERSION}.tgz "https://github.com/github/hub/releases/download/v${HUB_VERSION}/hub-linux-amd64-${HUB_VERSION}.tgz"
-    tar -zxvf hub-${HUB_VERSION}.tgz
-    sudo cp hub-linux-amd64-${HUB_VERSION}/bin/hub /usr/local/bin/
-    sudo cp hub-linux-amd64-${HUB_VERSION}/etc/hub.bash_completion.sh /etc/hub.bash_completion
-    sudo rm -rf hub-*
+    curl -fsSL -o /tmp/hub-${HUB_VERSION}.tgz "https://github.com/github/hub/releases/download/v${HUB_VERSION}/hub-linux-amd64-${HUB_VERSION}.tgz"
+    tar -zxvf /tmp/hub-${HUB_VERSION}.tgz -C /tmp
+    sudo cp /tmp/hub-linux-amd64-${HUB_VERSION}/bin/hub /usr/local/bin/
+    sudo cp /tmp/hub-linux-amd64-${HUB_VERSION}/etc/hub.bash_completion.sh /etc/hub.bash_completion
+    sudo rm -rf /tmp/hub-*
 }
 
 bat() {
-    curl -fsSL -o bat.deb "https://github.com/sharkdp/bat/releases/download/v${BAT_VERSION}/bat-musl_${BAT_VERSION}_amd64.deb"
-    sudo dpkg -i bat.deb
-    rm -rf bat.deb
+    curl -fsSL -o /tmp/bat.deb "https://github.com/sharkdp/bat/releases/download/v${BAT_VERSION}/bat-musl_${BAT_VERSION}_amd64.deb"
+    sudo dpkg -i /tmp/bat.deb
+    rm -rf /tmp/bat.deb
 }
 
 wtf() {
-    curl -fsSL -o wtf-${WTF_VERSION}.tar.gz "https://github.com/senorprogrammer/wtf/releases/download/${WTF_VERSION}/wtf_${WTF_VERSION}_linux_amd64.tar.gz"
-    tar -zxvf wtf-${WTF_VERSION}.tar.gz
-    sudo cp wtf_${WTF_VERSION}_linux_amd64/wtf /usr/local/bin/
+    curl -fsSL -o /tmp/wtf-${WTF_VERSION}.tar.gz "https://github.com/senorprogrammer/wtf/releases/download/${WTF_VERSION}/wtf_${WTF_VERSION}_linux_amd64.tar.gz"
+    tar -zxvf /tmp/wtf-${WTF_VERSION}.tar.gz -C /tmp
+    sudo cp /tmp/wtf_${WTF_VERSION}_linux_amd64/wtf /usr/local/bin/
     sudo rm -rf wtf-* wtf_*
 }
 
 git-bug() {
-    curl -fsSL -o git-bug-${GIT_BUG_VERSION} "https://github.com/MichaelMure/git-bug/releases/download/${GIT_BUG_VERSION}/git-bug_linux_amd64"
-    sudo cp git-bug-${GIT_BUG_VERSION} /usr/local/bin/git-bug
+    curl -fsSL -o /tmp/git-bug-${GIT_BUG_VERSION} "https://github.com/MichaelMure/git-bug/releases/download/${GIT_BUG_VERSION}/git-bug_linux_amd64"
+    sudo cp /tmp/git-bug-${GIT_BUG_VERSION} /usr/local/bin/git-bug
     sudo chmod +x /usr/local/bin/git-bug
-    sudo rm -rf git-bug-*
+    sudo rm -rf /tmp/git-bug-*
 }
 
 gotop-install() {
-    curl -fsSL -o gotop-${GOTOP_VERSION}.tar.gz "https://github.com/cjbassi/gotop/releases/download/${GOTOP_VERSION}/gotop_${GOTOP_VERSION}_linux_amd64.tgz"
-    tar -zxvf gotop-${GOTOP_VERSION}.tar.gz
-    sudo mv gotop /usr/local/bin/gotop
-    sudo rm -rf gotop-*
+    curl -fsSL -o /tmp/gotop-${GOTOP_VERSION}.tar.gz "https://github.com/cjbassi/gotop/releases/download/${GOTOP_VERSION}/gotop_${GOTOP_VERSION}_linux_amd64.tgz"
+    tar -zxvf /tmp/gotop-${GOTOP_VERSION}.tar.gz -C /tmp
+    sudo mv /tmp/gotop /usr/local/bin/gotop
+    sudo rm -rf /tmp/gotop-*
+}
+
+k9s-install() {
+    curl -fsSL -o /tmp/k9s-${K9S_VERION}.tar.gz "https://github.com/derailed/k9s/releases/download/${K9S_VERION}/k9s_${K9S_VERION}_Linux_x86_64.tar.gz"
+    tar -zxvf /tmp/k9s-${K9S_VERION}.tar.gz -C /tmp
+    sudo mv /tmp/k9s /usr/local/bin/k9s
+    sudo rm -rf /tmp/k9s-*
 }
 
 gc-hooks() {
@@ -401,6 +409,7 @@ bat
 wtf
 git-bug
 gotop-install
+k9s-install
 gc-hooks
 wallpaper
 firefox
