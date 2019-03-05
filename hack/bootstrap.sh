@@ -311,7 +311,7 @@ fzf() {
 
 hub() {
     curl -fsSL -o /tmp/hub-${HUB_VERSION}.tgz "https://github.com/github/hub/releases/download/v${HUB_VERSION}/hub-linux-amd64-${HUB_VERSION}.tgz"
-    tar -zxvf /tmp/hub-${HUB_VERSION}.tgz
+    tar -zxvf /tmp/hub-${HUB_VERSION}.tgz -C /tmp
     sudo cp /tmp/hub-linux-amd64-${HUB_VERSION}/bin/hub /usr/local/bin/
     sudo cp /tmp/hub-linux-amd64-${HUB_VERSION}/etc/hub.bash_completion.sh /etc/hub.bash_completion
     sudo rm -rf /tmp/hub-*
@@ -325,7 +325,7 @@ bat() {
 
 wtf() {
     curl -fsSL -o /tmp/wtf-${WTF_VERSION}.tar.gz "https://github.com/senorprogrammer/wtf/releases/download/${WTF_VERSION}/wtf_${WTF_VERSION}_linux_amd64.tar.gz"
-    tar -zxvf /tmp/wtf-${WTF_VERSION}.tar.gz
+    tar -zxvf /tmp/wtf-${WTF_VERSION}.tar.gz -C /tmp
     sudo cp /tmp/wtf_${WTF_VERSION}_linux_amd64/wtf /usr/local/bin/
     sudo rm -rf wtf-* wtf_*
 }
@@ -339,14 +339,14 @@ git-bug() {
 
 gotop-install() {
     curl -fsSL -o /tmp/gotop-${GOTOP_VERSION}.tar.gz "https://github.com/cjbassi/gotop/releases/download/${GOTOP_VERSION}/gotop_${GOTOP_VERSION}_linux_amd64.tgz"
-    tar -zxvf /tmp/gotop-${GOTOP_VERSION}.tar.gz
+    tar -zxvf /tmp/gotop-${GOTOP_VERSION}.tar.gz -C /tmp
     sudo mv /tmp/gotop /usr/local/bin/gotop
     sudo rm -rf /tmp/gotop-*
 }
 
 k9s-install() {
     curl -fsSL -o /tmp/k9s-${K9S_VERION}.tar.gz "https://github.com/derailed/k9s/releases/download/${K9S_VERION}/k9s_${K9S_VERION}_Linux_x86_64.tar.gz"
-    tar -zxvf /tmp/k9s-${K9S_VERION}.tar.gz
+    tar -zxvf /tmp/k9s-${K9S_VERION}.tar.gz -C /tmp
     sudo mv /tmp/k9s /usr/local/bin/k9s
     sudo rm -rf /tmp/k9s-*
 }
