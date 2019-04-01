@@ -139,3 +139,15 @@ function del-via-inode() {
 function ssh-htop() {
     ssh $@ -t 'htop'
 }
+
+function tarsend() {
+    tar -zcvf $@ | nc -q 10 -l -p 1337
+}
+
+function tarrcv() {
+    nc -w 10 $1 1337 > $2.tar
+}
+
+function k-events() {
+    kubectl -n $@ get events --sort-by=.metadata.creationTimestamp
+}
