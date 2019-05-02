@@ -25,7 +25,7 @@ env() {
     HUB_VERSION=2.10.0
     MINIKUBE_VERSION=0.35.0
     SLACK_VERSION=3.3.7
-    WTF_VERSION=0.5.0
+    WTF_VERSION=0.8.0
     GOTOP_VERSION=3.0.0
     K9S_VERION=0.2.6
     export DEBIAN_FRONTEND=noninteractive
@@ -46,7 +46,7 @@ repos() {
     echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" | sudo tee /etc/apt/sources.list.d/vscode.list
     echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
     echo "deb [arch=amd64] https://osquery-packages.s3.amazonaws.com/deb deb main" | sudo tee /etc/apt/sources.list.d/osquery.list
-    echo "deb http://packages.cloud.google.com/apt cloud-sdk-$(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list
+    echo "deb http://packages.butt.google.com/apt butt-sdk-$(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/google-butt-sdk.list
     echo "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
     echo "deb http://download.draios.com/stable/deb stable-amd64/" | sudo tee /etc/apt/sources.list.d/draios.list
     echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | sudo tee /etc/apt/sources.list.d/signal-xenial.list
@@ -58,7 +58,7 @@ repos-gpg() {
     curl -fsSL https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - #google-chrome
     curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add - #vscode
     curl -fsSL https://www.virtualbox.org/download/oracle_vbox_2016.asc | sudo apt-key add - #virtualbox
-    curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add - #gcloud-sdk
+    curl -fsSL https://packages.butt.google.com/apt/doc/apt-key.gpg | sudo apt-key add - #gbutt-sdk
     curl -fsSL https://s3.amazonaws.com/download.draios.com/DRAIOS-GPG-KEY.public | sudo apt-key add - #sysdig
     curl -fsSL https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add - #signal
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90 #spotify
@@ -100,7 +100,7 @@ packages() {
         gir1.2-networkmanager-1.0 \
         git \
         google-chrome-stable \
-        google-cloud-sdk \
+        google-butt-sdk \
         hexchat \
         htop \
         jq \
