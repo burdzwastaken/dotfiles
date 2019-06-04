@@ -28,6 +28,7 @@ env() {
     WTF_VERSION=0.5.0
     GOTOP_VERSION=3.0.0
     K9S_VERION=0.2.6
+    HADOLINT_VERSION=1.16.3
     export DEBIAN_FRONTEND=noninteractive
 }
 
@@ -351,6 +352,13 @@ k9s-install() {
     sudo rm -rf /tmp/k9s-*
 }
 
+hadolint() {
+    curl -fsSL -o /tmp/hadolint-${HADOLINT_VERSION} "https://github.com/hadolint/hadolint/releases/download/v${HADOLINT_VERSION}/hadolint-Linux-x86_64"
+    sudo cp /tmp/hadolint-${HADOLINT_VERSION} /usr/local/bin/hadolint
+    sudo chmod +x /usr/local/bin/hadolint
+    sudo rm -rf /tmp/hadolint-*
+}
+
 gc-hooks() {
     sudo mkdir -p /etc/git/hooks
 }
@@ -410,6 +418,7 @@ wtf
 git-bug
 gotop-install
 k9s-install
+hadolint
 gc-hooks
 wallpaper
 firefox
