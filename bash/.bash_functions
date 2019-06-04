@@ -140,7 +140,13 @@ function ssh-htop() {
     ssh $@ -t 'htop'
 }
 
+function dirreplace() {
+    # find $(pwd) -type f -print0 | xargs -0 sed -Ei $@
+    find ./ -type f -exec sed -i -e $@ {} \;
+}
+
 function tarsend() {
+    # tar -c $@ | nc -l -p 1337
     tar -zcvf $@ | nc -q 10 -l -p 1337
 }
 
