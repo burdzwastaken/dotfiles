@@ -141,7 +141,7 @@ function ssh-htop() {
 }
 
 function dirreplace() {
-    find $(pwd) -type f -print0 | xargs -0 sed -Ei $@
+    # find $(pwd) -type f -print0 | xargs -0 sed -Ei $@
     find ./ -type f -exec sed -i -e $@ {} \;
 }
 
