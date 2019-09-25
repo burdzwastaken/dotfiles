@@ -26,6 +26,9 @@ alias fuck='sudo $(history -p !!)'
 alias diskspace="du -S | sort -n -r |more"
 alias ip-address='curl -s -H "Accept: application/json" https://ipinfo.io/json | jq "del(.loc, .postal)"'
 
+# batzz
+alias bats="bat --plain"
+
 # conky
 alias conkyreset='killall -SIGUSR1 conky'
 alias conkyrc='(vi ~/.conkyrc)'

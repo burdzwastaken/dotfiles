@@ -31,7 +31,7 @@ shopt -s checkwinsize
 shopt -s cdspell
 
 # autocd into dirrrrrrrrectories
-shopt -s autocd
+# shopt -s autocd
 
 # viiiiiii4lyf
 set -o vi

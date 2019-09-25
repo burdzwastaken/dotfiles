@@ -17,17 +17,18 @@ ignore-errors() {
     set -e
 }
 
+# octant, kind, rg
 env() {
-    BAT_VERSION=0.10.0
+    BAT_VERSION=0.12.1
     DROPBOX_VERSION=2015.10.28
-    GIT_BUG_VERSION=0.4.0
-    GO_VERSION=1.11.5
-    HUB_VERSION=2.10.0
-    MINIKUBE_VERSION=0.35.0
-    SLACK_VERSION=3.3.7
-    WTF_VERSION=0.8.0
+    GIT_BUG_VERSION=0.5.0
+    GO_VERSION=1.13
+    HUB_VERSION=2.12.7
+    MINIKUBE_VERSION=1.4.0
+    SLACK_VERSION=4.0.2
+    WTF_VERSION=0.22.0
     GOTOP_VERSION=3.0.0
-    K9S_VERION=0.2.6
+    K9S_VERION=0.8.4
     HADOLINT_VERSION=1.16.3
     export DEBIAN_FRONTEND=noninteractive
 }
@@ -48,7 +49,6 @@ repos() {
     echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
     echo "deb [arch=amd64] https://osquery-packages.s3.amazonaws.com/deb deb main" | sudo tee /etc/apt/sources.list.d/osquery.list
     echo "deb http://packages.cloud.google.com/apt cloud-sdk-$(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list
-    echo "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
     echo "deb http://download.draios.com/stable/deb stable-amd64/" | sudo tee /etc/apt/sources.list.d/draios.list
     echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | sudo tee /etc/apt/sources.list.d/signal-xenial.list
 }
@@ -58,11 +58,10 @@ repos-gpg() {
     curl -fsSL https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add - #sublime
     curl -fsSL https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - #google-chrome
     curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add - #vscode
-    curl -fsSL https://www.virtualbox.org/download/oracle_vbox_2016.asc | sudo apt-key add - #virtualbox
     curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add - #gcloud-sdk
     curl -fsSL https://s3.amazonaws.com/download.draios.com/DRAIOS-GPG-KEY.public | sudo apt-key add - #sysdig
     curl -fsSL https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add - #signal
-    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90 #spotify
+    curl -fsSL https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add - #spotify
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 1484120AC4E9F8A1A577AEEE97A80C63C9D8B80B #osquery
     if [ -z "$IN_DOCKER" ]; then
         sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 #rvm
@@ -98,7 +97,7 @@ packages() {
         firmware-iwlwifi \
         gir1.2-clutter-1.0 \
         gir1.2-gtop-2.0 \
-        gir1.2-networkmanager-1.0 \
+        gir1.2-nm-1.0 \
         git \
         google-chrome-stable \
         google-cloud-sdk \
@@ -119,6 +118,7 @@ packages() {
         signal-desktop \
         sl \
         software-properties-common \
+        spotify-client \
         sublime-text \
         sysdig \
         tcpdump \
@@ -126,8 +126,7 @@ packages() {
         tree \
         unrar \
         uuid-runtime \
-        vim-gnome \
-        virtualbox-5.1 \
+        vim \
         vlc \
         wget \
         whois \
@@ -239,13 +238,6 @@ minikube() {
     sudo mv /tmp/minikube /usr/local/bin/minikube
 }
 
-spotify() {
-    curl -fsSL -o /tmp/libssl1.0.0 "http://ftp.us.debian.org/debian/pool/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u8_amd64.deb"
-    sudo dpkg -i /tmp/libssl1.0.0
-    rm -rf /tmp/libssl1.0.0
-    sudo apt install -y spotify-client
-}
-
 slack() {
     curl -fsSL -o /tmp/slack-desktop-${SLACK_VERSION}-amd64.deb "https://downloads.slack-edge.com/linux_releases/slack-desktop-${SLACK_VERSION}-amd64.deb"
     sudo dpkg -i /tmp/slack-desktop-${SLACK_VERSION}-amd64.deb
@@ -325,9 +317,9 @@ bat() {
 }
 
 wtf() {
-    curl -fsSL -o /tmp/wtf-${WTF_VERSION}.tar.gz "https://github.com/senorprogrammer/wtf/releases/download/${WTF_VERSION}/wtf_${WTF_VERSION}_linux_amd64.tar.gz"
+    curl -fsSL -o /tmp/wtf-${WTF_VERSION}.tar.gz "https://github.com/wtfutil/wtf/releases/download/v${WTF_VERSION}/wtf_${WTF_VERSION}_linux_amd64.tar.gz"
     tar -zxvf /tmp/wtf-${WTF_VERSION}.tar.gz -C /tmp
-    sudo cp /tmp/wtf_${WTF_VERSION}_linux_amd64/wtf /usr/local/bin/
+    sudo cp /tmp/wtf_${WTF_VERSION}_linux_amd64/wtfutil /usr/local/bin/
     sudo rm -rf wtf-* wtf_*
 }
 
@@ -399,7 +391,6 @@ golang
 ignore-errors keybase
 kubectl
 minikube
-spotify
 ignore-errors slack
 aws-cli
 virtualenvwrapper
