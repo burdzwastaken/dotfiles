@@ -25,6 +25,9 @@ alias xclip="xclip -selection c"
 alias fuck='sudo $(history -p !!)'
 alias diskspace="du -S | sort -n -r |more"
 
+# batzz
+alias bats="bat --plain"
+
 # conky
 alias conkyreset='killall -SIGUSR1 conky'
 alias conkyrc='(vi ~/.conkyrc)'

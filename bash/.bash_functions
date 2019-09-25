@@ -140,7 +140,13 @@ function ssh-htop() {
     ssh $@ -t 'htop'
 }
 
+function dirreplace() {
+    find $(pwd) -type f -print0 | xargs -0 sed -Ei $@
+    find ./ -type f -exec sed -i -e $@ {} \;
+}
+
 function tarsend() {
+    # tar -c $@ | nc -l -p 1337
     tar -zcvf $@ | nc -q 10 -l -p 1337
 }
 
@@ -150,4 +156,15 @@ function tarrcv() {
 
 function k-events() {
     kubectl -n $@ get events --sort-by=.metadata.creationTimestamp
+}
+
+function blockextract() {
+    # Usage: extract file "opening marker" "closing marker"
+    while IFS=$'\n' read -r line; do
+        [[ $extract && $line != "$3" ]] &&
+            printf '%s\n' "$line"
+
+        [[ $line == "$2" ]] && extract=1
+        [[ $line == "$3" ]] && extract=
+    done < "$1"
 }
