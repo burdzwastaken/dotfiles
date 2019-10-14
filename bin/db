@@ -1,0 +1,11 @@
+### Delete Branch
+# mnemonic: [D]elete [B]ranch
+# delete git branches in $PWD, press [tab] to select matches,
+# press [enter] on an entry to delete the selected branch(es).
+# press [escape] to exit completely.
+
+branches=$(git branch -a | eval "fzf ${FZF_DEFAULT_OPTS} -m --header='[delete:branch cwd:${PWD}]'")
+
+if [[ ! -z $branches ]]; then
+  echo $branches | xargs git branch -D
+fi
