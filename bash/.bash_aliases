@@ -29,9 +29,6 @@ alias ip-address='curl -s -H "Accept: application/json" https://ipinfo.io/json |
 # batzz
 alias bats="bat --plain"
 
-# batzz
-alias bats="bat --plain"
-
 # conky
 alias conkyreset='killall -SIGUSR1 conky'
 alias conkyrc='(vi ~/.conkyrc)'
