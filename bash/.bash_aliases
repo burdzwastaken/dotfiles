@@ -77,9 +77,13 @@ alias firefox-temp='/opt/firefox/firefox --new-instance --profile $(mktemp -d)'
 # kubes
 alias k='kubectl'
 alias k-set-namespace='kubectl config set-context $(kubectl config current-context) --namespace='
+alias knodes='k get nodes --sort-by=.metadata.creationTimestamp'
 
 # gotop
 alias gotop='gotop -b -c solarized'
 
 # watch
 alias watcha='watch '
+
+# fzf
+alias xray='fzf --preview "bat --color=always {} 2> /dev/null"'

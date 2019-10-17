@@ -1,0 +1,108 @@
+*cursor: #a8a19f
+*background: #0f0f0f
+*foreground: #c8c8c8
+*foreground_bold: #a8a19f
+
+!black
+*color0:  #251f1f
+*color8:  #5e5e5e
+!red
+*color1:  #eb4509
+*color9:  #eb4509
+!green
+*color2:  #94e76b
+*color10: #95e76b
+!yellow
+*color3:  #ffac18
+*color11: #ffac18
+!blue
+*color4:  #46aede
+*color12: #46aede
+!magenta
+*color5:  #e32c57
+*color13: #e32c57
+!cyan
+*color6:  #d6dbac
+*color14: #d6dbac
+!white
+*color7:  #efefef
+*color15: #efefef
+
+*fading:                 40
+*fadeColor:              S_base03
+*cursorColor:            S_base1
+*pointerColorBackground: S_base01
+*pointerColorForeground: S_base1
+
+URxvt.intensityStyles: false
+URxvt.scrollBar:       false
+URxvt.cursorColor:     magenta
+URxvt.cursorUnderline: true
+URxvt*inheritPixmap:   true
+URxvt*transparent:     true
+URxvt*shading:         20
+URxvt.letterSpace:     -1
+URxvt.saveLines:       10000
+
+!! URxvt.font: xft:monospace:size=8
+URxvt.font: xft:FuraCode Nerd Font:style=Regular:size=10, \
+            xft:Inconsolata Nerd Font Mono:size=10, \
+            xft:DejaVuSansMono Nerd Font:size=10, \
+            xft:DroidSansMono Nerd Font:size=10, \
+            xft:RobotoMono Nerd Font:size=10, \
+            xft:Noto Sans Mono:size=10, \
+            xft:Monospace:style=Medium:size=10
+URxvt.boldFont: xft:FuraCode Nerd Font:style=Regular:size=10, \
+            xft:Inconsolata Nerd Font Mono:size=10, \
+            xft:DejaVuSansMono Nerd Font:size=10, \
+            xft:DroidSansMono Nerd Font:size=10, \
+            xft:RobotoMono Nerd Font:size=10, \
+            xft:Noto Sans Mono:size=10, \
+            xft:Monospace:style=Medium:size=10
+
+!! extensions
+URxvt.perl-ext-common: default,matcher,resize-font,url-select,keyboard-select,clipboard,bell-command
+URxvt.colorUL:         #4682B4
+
+!! url-select
+URxvt.keysym.C-u:	    perl:url-select:select_next
+URxvt.url-launcher:	    google-chrome-stable
+URxvt.url-select.launcher:  google-chrome-stable
+URxvt.url-select.underline: true
+URxvt.matcher.button:	    1
+
+!! keyboard-select:
+URxvt.keysym.C-bracketleft: perl:keyboard-select:activate
+URxvt.keyboard-select.clipboard: true
+
+!! resize-font
+URxvt.resize-font.smaller: C-Down
+URxvt.resize-font.bigger:  C-Up
+
+!! disable ctrl-shift
+URxvt.iso14755:    false
+URxvt.iso14755_52: false
+
+!! copy pasta
+URxvt.clipboard.autocopy: true
+URxvt.keysym.Shift-Control-C: perl:clipboard:copy
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+URxvt.clipboard.copycmd: xclip -i -selection clipboard
+URxvt.clipboard.pastecmd: xclip -o -selection clipboard
+!! URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
+
+!! bell commandz
+! URxvt.bell-command: aplay ~/.config/dunst/lttp.wav
+
+!! rofi
+rofi.color-enabled:	true
+rofi.color-window:	#000, #000, #000
+rofi.color-normal:	#111, #819396, #222, #008ed4, #ffffff
+rofi.color-active:	#002b37, #008ed4, #003643, #008ed4, #66c6ff
+rofi.color-urgent:	#002b37, #da4281, #003643, #008ed4, #890661
+rofi.fake-transparency:	true
+rofi.lines:		3
+rofi.bw:		0
+rofi.opacity:		"10"
+rofi.hide-scrollbar:	true
+rofi.width:		30

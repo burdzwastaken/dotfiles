@@ -1,0 +1,35 @@
+{
+  "languageserver": {
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"]
+    },
+    "dockerfile": {
+      "command": "docker-langserver",
+      "filetypes": ["dockerfile"],
+      "args": ["--stdio"]
+    },
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
+    },
+    "terraform": {
+      "command": "terraform-lsp",
+      "filetypes": ["terraform"],
+      "initializationOptions": {}
+    },
+    "groovy": {
+      "command": "java",
+      "args" : ["-jar", "/usr/local/bin/groovy-language-server-all.jar"],
+      "filetypes": ["groovy"]
+     },
+    "efm": {
+      "command": "efm-langserver",
+      "args": ["-c", "/home/burdz/.config/efm-langserver/config.yaml"],
+      "filetypes": ["vim", "markdown", "yaml"]
+    }
+  }
+}
