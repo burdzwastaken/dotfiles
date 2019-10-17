@@ -2,7 +2,7 @@ version: 2
 
 defaults: &defaults
   docker:
-    - image: docker:17.05.0-ce-git
+    - image: docker:19.03.3-git
 
 jobs:
 
@@ -20,6 +20,7 @@ jobs:
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               docker tag $CIRCLE_SHA1 burdz/private:dotfilez
               docker login -u $DOCKER_USER -p $DOCKER_PASS
+              docker push burdz/private:$CIRCLE_SHA1
               docker push burdz/private:dotfilez
             fi
 
