@@ -6,7 +6,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: hadolint on pr
+    - name: shellcheck
+      uses: ludeeus/action-shellcheck@0.1.0
+    - name: bump git submodulez
+      uses: domdere/git-submodule-action@0.0.1
+    - name: hadolint
       uses: burdzwastaken/hadolint-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
