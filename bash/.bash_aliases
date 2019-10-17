@@ -80,3 +80,6 @@ alias k-set-namespace='kubectl config set-context $(kubectl config current-conte
 
 # gotop
 alias gotop='gotop -b -c solarized'
+
+# watch
+alias watcha='watch '
