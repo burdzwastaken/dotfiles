@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #------------------------------------------------------------------------------
 ## File:   $HOME/.bash_profile
 ## Author: Matt Burdan <burdz@burdz.net>
@@ -8,7 +9,7 @@
 ##------------------------------------------------------------------------------
 
 # python
-source $HOME/.local/bin/virtualenvwrapper.sh
+source "$HOME"/.local/bin/virtualenvwrapper.sh
 
 # golang
 export PATH=~/.local/bin:$PATH
@@ -26,4 +27,4 @@ export PATH="$PATH:$HOME/.rvm/bin"
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile"
 
 # load RVM into the shell sessions *as a function*
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" 
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"

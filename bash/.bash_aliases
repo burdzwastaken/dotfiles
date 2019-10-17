@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #------------------------------------------------------------------------------
 # File:   $HOME/.bash_aliases
 # Author: Matt Burdan <burdz@burdz.net>

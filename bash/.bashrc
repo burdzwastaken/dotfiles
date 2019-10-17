@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #------------------------------------------------------------------------------
 # File:   $HOME/.bashrc
 # Author: Matt Burdan <burdz@burdz.net>
@@ -64,7 +65,7 @@ unset color_prompt force_color_prompt
 # if this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    PS1="\\[\\e]0;${debian_chroot:+($debian_chroot)}\\u@\\h: \\w\\a\\]$PS1"
     ;;
 *)
     ;;
@@ -91,7 +92,7 @@ fi
 
 # colours for terminal https://github.com/Anthony25/gnome-terminal-colors-solarized
 if [ -f ~/.dir_colors/dircolors ]
-    then eval `dircolors ~/.dir_colors/dircolors`
+  then eval "$(dircolors ~/.dir_colors/dircolors)"
 fi
 
 # git-status
@@ -110,7 +111,7 @@ vim +TmuxLine +qall
 
 # invoke ssh-agent
 if [ -z "$SSH_AUTH_SOCK" ] ; then
-  eval `ssh-agent -s`
+  eval "$(ssh-agent -s)"
   ssh-add
 fi
 
