@@ -4,7 +4,7 @@ function usage()
 {
 	echo "creates a configmap from environment file"
 	echo ""
-	echo "try: ./configmap.sh $namespace ./super_secret_file"
+	echo "try: ./configmap.sh \$namespace ./super_secret_file"
 }
 
 if [ -z "$1" ] && [ -z "$2" ];
@@ -13,15 +13,15 @@ then
   	exit 0
 fi
 
-nameSpace=$1
-confipMap=$2
+nameSpace=${1:-}
+configMap=${2:-}
 
 append=" "
-while read line
+while read -r line
 do
-	append=""${append}""--from-literal="${line}"" "
-done < $2
+	append=$("${append}" --from-literal="${line} ")
+done < "$configMap"
 
-echo $append
+echo "$append"
 
-kubectl --namespace $nameSpace create configmap $nameSpace $append --dry-run -o yaml | kubectl --namespace $nameSpace replace configmap $nameSpace -f -
+kubectl --namespace "$nameSpace" create configmap "$nameSpace" "$append"--dry-run -o yaml | kubectl --namespace "$nameSpace" replace configmap "$nameSpace" -f -

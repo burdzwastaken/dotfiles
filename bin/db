@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 ### Delete Branch
 # mnemonic: [D]elete [B]ranch
 # delete git branches in $PWD, press [tab] to select matches,
@@ -6,6 +7,6 @@
 
 branches=$(git branch -a | eval "fzf ${FZF_DEFAULT_OPTS} -m --header='[delete:branch cwd:${PWD}]'")
 
-if [[ ! -z $branches ]]; then
-  echo $branches | xargs git branch -D
+if [[ ! -z "$branches" ]]; then
+  echo "$branches" | xargs git branch -D
 fi

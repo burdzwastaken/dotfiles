@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 ### Find Branch
 # mnemonic: [F]ind [B]ranch
 # list git branches in $PWD, press [enter] on an entry to change to the branch.
@@ -5,6 +6,6 @@
 
 branch=$(git branch -a | eval "fzf ${FZF_DEFAULT_OPTS} --cycle --header='[find:branch cwd:${PWD}]'")
 
-if [[ ! -z $branch ]]; then
-  echo $branch | xargs git checkout
+if [[ ! -z "$branch" ]]; then
+  echo "$branch" | xargs git checkout
 fi
