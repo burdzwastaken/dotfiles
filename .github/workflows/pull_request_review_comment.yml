@@ -1,4 +1,6 @@
-on: pull_request_review_comment
+on:
+  pull_request_review_comment:
+    types: [created]
 name: bump submodulez
 jobs:
   bumpModules:
