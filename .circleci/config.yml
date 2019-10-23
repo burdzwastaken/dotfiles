@@ -16,13 +16,16 @@ jobs:
           command: docker build -t dotfilez -t $CIRCLE_SHA1 .
       - run:
           name: tag and push docker image
+          environment:
+            DOCKER_ORG: burdz/private
+            REPO_TAG: dotfilez
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              docker tag $CIRCLE_SHA1 burdz/private:$CIRCLE_SHA1
-              docker tag $CIRCLE_SHA1 burdz/private:dotfilez
+              docker tag $CIRCLE_SHA1 $DOCKER_ORG:$CIRCLE_SHA1
+              docker tag $CIRCLE_SHA1 $DOCKER_ORG:$REPO_TAG
               docker login -u $DOCKER_USER -p $DOCKER_PASS
-              docker push burdz/private:$CIRCLE_SHA1
-              docker push burdz/private:dotfilez
+              docker push $DOCKER_ORG:$CIRCLE_SHA1
+              docker push $DOCKER_ORG:$REPO_TAG
             fi
 
 workflows:
