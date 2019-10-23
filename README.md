@@ -19,8 +19,7 @@ $ ./hack/bootstrap.sh
 ```
 
 ## pre-commit hookz
-this repo contains a shell lint pre commit hook. 
-install pre-commit and ze hook
+install pre-commit and ze hooks
 ```
 $ ./scripts/install-pre-commit-hooks.sh
 ```
