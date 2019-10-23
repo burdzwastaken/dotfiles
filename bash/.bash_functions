@@ -129,7 +129,7 @@ function passgen() {
 
 function up(){
     DEEP="$1";
-    for i in $(seq 1 "${DEEP:-"1"}");
+    for _ in $(seq 1 "${DEEP:-"1"}");
         do cd ../ || exit;
     done;
 }
