@@ -13,12 +13,13 @@ set -euo pipefail
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
+YELLOW='\e[1;33m'
 NC='\033[0m'
 
 echo -e "${GREEN}setting up pre-commit hook(s) in $(pwd | awk -F / '{ print $3; }')"
 
 if [ ! -x "$(command -v pre-commit)" ]; then
-    echo -e "${RED}pre-commit not found :(, installing via pip right meow!"
+    echo -e "${YELLOW}pre-commit not found :(, installing via pip right meow!"
     pip install pre-commit --upgrade --user
     echo -e "${GREEN}pre-commit installed!!"
 fi
