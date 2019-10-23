@@ -1,0 +1,12 @@
+on: issue_comment
+name: bump submodulez
+jobs:
+  OnPr:
+    name: bumpy
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: bump git submodulez
+      uses: domdere/git-submodule-action@0.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
