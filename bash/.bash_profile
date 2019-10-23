@@ -9,6 +9,7 @@
 ##------------------------------------------------------------------------------
 
 # python
+# shellcheck disable=SC1090
 source "$HOME"/.local/bin/virtualenvwrapper.sh
 
 # golang
@@ -34,7 +35,9 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'
 export PATH="$PATH:$HOME/.rvm/bin"
 
 # load default rvm profile
+# shellcheck disable=SC1090
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile"
 
 # load RVM into the shell sessions *as a function*
+# shellcheck disable=SC1090
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"

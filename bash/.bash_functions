@@ -80,6 +80,8 @@ upgrade-minikube() {
 }
 
 getcertnames() {
+    local tmp
+    local certText
     if [ -z "${1}" ]; then
         echo "ERROR: No domain specified.";
         return 1;
@@ -87,10 +89,10 @@ getcertnames() {
     local domain="${1}";
     echo "Testing ${domain}…";
     echo ""; # newline
-    local tmp=$(echo -e "GET / HTTP/1.0\\nEOT" \
+    tmp=$(echo -e "GET / HTTP/1.0\\nEOT" \
 	| openssl s_client -connect "${domain}:443" -servername "${domain}" 2>&1);
     if [[ "${tmp}" = *"-----BEGIN CERTIFICATE-----"* ]]; then
-        local certText=$(echo "${tmp}" \
+        certText=$(echo "${tmp}" \
             | openssl x509 -text -certopt "no_aux, no_header, no_issuer, no_pubkey, \
             no_serial, no_sigdump, no_signame, no_validity, no_version");
 	echo "Common Name:";

@@ -73,16 +73,19 @@ xterm*|rxvt*)
 esac
 
 # alias definitions.
+# shellcheck disable=SC1090
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
 # function definitions
+# shellcheck disable=SC1091,SC1090
 if [ -f ~/.bash_functions ]; then
     . ~/.bash_functions
 fi
 
 # enable programmable completion features
+# shellcheck disable=SC1091
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
@@ -97,12 +100,15 @@ if [ -f ~/.dir_colors/dircolors ]
 fi
 
 # git-status
+# shellcheck disable=SC1090
 source ~/.git-status.bash
 
 # kubectl completion
+# shellcheck disable=SC1090
 source <(kubectl completion bash)
 
 # hub completion
+# shellcheck disable=SC1091
 if [ -f /etc/hub.bash_completion ]; then
   . /etc/hub.bash_completion
 fi
