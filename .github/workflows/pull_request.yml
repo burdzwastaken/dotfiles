@@ -1,8 +1,8 @@
 on: pull_request
-name: hadolint action
+name: validation actions
 jobs:
-  hadolintOnPr:
-    name: hadolint on pr
+  OnPr:
+    name: validate PR
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
@@ -10,6 +10,8 @@ jobs:
       uses: ludeeus/action-shellcheck@0.1.0
     - name: bump git submodulez
       uses: domdere/git-submodule-action@0.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: hadolint
       uses: burdzwastaken/hadolint-action@master
       env:
