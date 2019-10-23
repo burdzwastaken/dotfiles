@@ -18,6 +18,7 @@ jobs:
           name: tag and push docker image
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              docker tag $CIRCLE_SHA1 burdz/private:$CIRCLE_SHA1
               docker tag $CIRCLE_SHA1 burdz/private:dotfilez
               docker login -u $DOCKER_USER -p $DOCKER_PASS
               docker push burdz/private:$CIRCLE_SHA1
