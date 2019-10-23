@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #------------------------------------------------------------------------------
 # File:   $HOME/.bash_aliases
 # Author: Matt Burdan <burdz@burdz.net>
@@ -8,11 +9,13 @@
 #------------------------------------------------------------------------------
 
 # enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    alias dir='dir --color=auto'
-    alias grep='grep --color=auto'
+if [[ -x /usr/bin/dircolors ]]; then
+    if test -r ~/.dircolors; then
+        eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+        alias ls='ls --color=auto'
+        alias dir='dir --color=auto'
+        alias grep='grep --color=auto'
+    fi
 fi
 
 # some more ls aliases

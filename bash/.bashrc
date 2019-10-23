@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #------------------------------------------------------------------------------
 # File:   $HOME/.bashrc
 # Author: Matt Burdan <burdz@burdz.net>
@@ -46,6 +47,7 @@ case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
 esac
 
+# shellcheck disable=SC2154
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
 	color_prompt=yes
@@ -64,23 +66,26 @@ unset color_prompt force_color_prompt
 # if this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    PS1="\\[\\e]0;${debian_chroot:+($debian_chroot)}\\u@\\h: \\w\\a\\]$PS1"
     ;;
 *)
     ;;
 esac
 
 # alias definitions.
+# shellcheck disable=SC1090
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
 # function definitions
+# shellcheck disable=SC1091,SC1090
 if [ -f ~/.bash_functions ]; then
     . ~/.bash_functions
 fi
 
 # enable programmable completion features
+# shellcheck disable=SC1091
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
@@ -91,16 +96,19 @@ fi
 
 # colours for terminal https://github.com/Anthony25/gnome-terminal-colors-solarized
 if [ -f ~/.dir_colors/dircolors ]
-    then eval `dircolors ~/.dir_colors/dircolors`
+  then eval "$(dircolors ~/.dir_colors/dircolors)"
 fi
 
 # git-status
+# shellcheck disable=SC1090
 source ~/.git-status.bash
 
 # kubectl completion
+# shellcheck disable=SC1090
 source <(kubectl completion bash)
 
 # hub completion
+# shellcheck disable=SC1091
 if [ -f /etc/hub.bash_completion ]; then
   . /etc/hub.bash_completion
 fi
@@ -110,27 +118,27 @@ vim +TmuxLine +qall
 
 # invoke ssh-agent
 if [ -z "$SSH_AUTH_SOCK" ] ; then
-  eval `ssh-agent -s`
+  eval "$(ssh-agent -s)"
   ssh-add
 fi
 
 # few colours
-BLACK='\e[0;30m'
-BLUE='\e[0;34m'
-GREEN='\e[0;32m'
-CYAN='\e[0;36m'
-RED='\e[0;31m'
-PURPLE='\e[0;35m'
-BROWN='\e[0;33m'
-LIGHTGRAY='\e[0;37m'
-DARKGRAY='\e[1;30m'
-LIGHTBLUE='\e[1;34m'
-LIGHTGREEN='\e[1;32m'
-LIGHTRED='\e[1;31m'
-LIGHTPURPLE='\e[1;35m'
-YELLOW='\e[1;33m'
-WHITE='\e[1;37m'
-NC='\e[0m' # no color
+export BLACK='\e[0;30m'
+export BLUE='\e[0;34m'
+export GREEN='\e[0;32m'
+export CYAN='\e[0;36m'
+export RED='\e[0;31m'
+export PURPLE='\e[0;35m'
+export BROWN='\e[0;33m'
+export LIGHTGRAY='\e[0;37m'
+export DARKGRAY='\e[1;30m'
+export LIGHTBLUE='\e[1;34m'
+export LIGHTGREEN='\e[1;32m'
+export LIGHTRED='\e[1;31m'
+export LIGHTPURPLE='\e[1;35m'
+export YELLOW='\e[1;33m'
+export WHITE='\e[1;37m'
+export NC='\e[0m' # no color
 
 # welcome burdz
 

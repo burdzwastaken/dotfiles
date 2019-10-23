@@ -4,5 +4,5 @@ set -e
 if (( $# == 0 )); then
   lsof -n -i4TCP | grep LISTEN
 else
-  lsof -n -i4TCP:$1 | grep LISTEN
+  lsof -n -i4TCP:"$1" | grep LISTEN
 fi
