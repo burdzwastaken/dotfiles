@@ -1,4 +1,4 @@
-on: issue_comment
+on: pull_request_review_comment
 name: bump submodulez
 jobs:
   bumpModules:
