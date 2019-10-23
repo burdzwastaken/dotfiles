@@ -1,7 +1,7 @@
 on: pull_request
 name: validation actions
 jobs:
-  OnPr:
+  onPr:
     name: validate PR
     runs-on: ubuntu-latest
     steps:
