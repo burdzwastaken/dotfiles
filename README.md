@@ -19,7 +19,7 @@ $ ./hack/bootstrap.sh
 ```
 
 ## pre-commit hookz
-install pre-commit and ze hooks
+install pre-commit and ze hooks!
 ```
 $ ./scripts/install-pre-commit-hooks.sh
 ```
