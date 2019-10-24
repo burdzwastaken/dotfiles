@@ -4,9 +4,17 @@ repos:
   hooks:
   - id: shell-lint
     args: [--color=always]
+- repo: https://github.com/stratasan/hadolint-pre-commit
+  rev: master
+  hooks:
+  - id: hadolint
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v2.3.0
   hooks:
   - id: check-yaml
-  - id: end-of-file-fixer
+  - id: detect-aws-credentials
+  - id: detect-private-key
   - id: trailing-whitespace
+  - id: end-of-file-fixer
+  - id: no-commit-to-branch
+    args: [--branch, master]
