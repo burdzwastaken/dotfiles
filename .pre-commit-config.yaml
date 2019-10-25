@@ -5,7 +5,7 @@ repos:
   - id: shell-lint
     args: [--color=always]
 - repo: https://github.com/stratasan/hadolint-pre-commit
-  rev: master
+  rev: cdefcb096e520a6daa9552b1d4636f5f1e1729cd
   hooks:
   - id: hadolint
 - repo: https://github.com/pre-commit/pre-commit-hooks
