@@ -1,0 +1,56 @@
+# -- feeds ---------------------------------------------------------------------
+
+auto-reload yes
+reload-time 120
+reload-threads 4
+download-retries 4
+download-timeout 10
+prepopulate-query-feeds yes
+
+
+# -- display -------------------------------------------------------------------
+
+show-read-feeds no
+feed-sort-order unreadarticlecount-asc
+
+color info default default reverse
+color listnormal_unread yellow default
+color listfocus blue default reverse bold
+color listfocus_unread blue default reverse bold
+
+text-width 80
+
+
+# -- navigation ----------------------------------------------------------------
+
+goto-next-feed no
+
+browser "/usr/bin/google-chrome-stable %u"
+
+bind-key j down feedlist
+bind-key k up feedlist
+bind-key j next articlelist
+bind-key k prev articlelist
+bind-key J next-feed articlelist
+bind-key K prev-feed articlelist
+bind-key j down article
+bind-key k up article
+bind-key l open
+bind-key h quit
+
+# colours
+color background          color229   default
+color listnormal          color229   default
+color listnormal_unread   color229   default
+color listfocus           color229   color61 bold
+color listfocus_unread    color229   color61 bold
+color info                color247   color235
+color article             color229   default
+
+# highlights
+highlight article "^(Feed|Link):.*$" color46 default bold
+highlight article "^(Title|Date|Author):.*$" color39 default bold
+highlight article "https?://[^ ]+" color46 default underline
+highlight article "\\[[0-9]+\\]" color63 default bold
+highlight article "\\[image\\ [0-9]+\\]" color63 default bold
+highlight feedlist "^─.*$" color61 color235 bold
