@@ -30,6 +30,10 @@ env() {
     GOTOP_VERSION=3.0.0
     K9S_VERION=0.9.3
     HADOLINT_VERSION=1.17.2
+    CONFTEST_VERSION=0.15.0
+    OCTANT_VERSION=0.9.0
+    KIND_VERSION=0.5.1
+    RG_VERSION=11.0.2
     export DEBIAN_FRONTEND=noninteractive
 }
 
@@ -351,6 +355,37 @@ hadolint() {
     sudo rm -rf /tmp/hadolint-*
 }
 
+conftest-install() {
+    curl -fsSL -o /tmp/conftest-${CONFTEST_VERSION}.tar.gz "https://github.com/instrumenta/conftest/releases/download/v${CONFTEST_VERSION}/conftest_${CONFTEST_VERSION}_Linux_x86_64.tar.gz"
+    tar -zxvf /tmp/conftest-${CONFTEST_VERSION}.tar.gz -C /tmp
+    sudo mv /tmp/conftest /usr/local/bin/conftest
+    sudo chmod +x /usr/local/bin/conftest
+    sudo rm -rf /tmp/conftest-*
+}
+
+octant-install() {
+    curl -fsSL -o /tmp/octant-${OCTANT_VERSION}.tar.gz "https://github.com/vmware-tanzu/octant/releases/download/v${OCTANT_VERSION}/octant_${OCTANT_VERSION}_Linux-64bit.tar.gz"
+    tar -zxvf /tmp/octant-${OCTANT_VERSION}.tar.gz -C /tmp
+    sudo mv /tmp/octant_${OCTANT_VERSION}_Linux-64bit/octant /usr/local/bin/octant
+    sudo chmod +x /usr/local/bin/octant
+    sudo rm -rf /tmp/octant-*
+}
+
+kind-install() {
+    curl -fsSL -o /tmp/kind-${KIND_VERSION} "https://github.com/kubernetes-sigs/kind/releases/download/v${KIND_VERSION}/kind-linux-amd64"
+    sudo cp /tmp/kind-${KIND_VERSION} /usr/local/bin/kind
+    sudo chmod +x /usr/local/bin/kind
+    sudo rm -rf /tmp/kind-*
+}
+
+rg-install() {
+    curl -fsSL -o /tmp/rg-${RG_VERSION}.tar.gz "https://github.com/BurntSushi/ripgrep/releases/download/${RG_VERSION}/ripgrep-${RG_VERSION}-x86_64-unknown-linux-musl.tar.gz"
+    tar -zxvf /tmp/rg-${RG_VERSION}.tar.gz -C /tmp
+    sudo mv /tmp/ripgrep-${RG_VERSION}-x86_64-unknown-linux-musl/rg /usr/local/bin/rg
+    sudo chmod +x /usr/local/bin/rg
+    sudo rm -rf /tmp/rg-*
+}
+
 gc-hooks() {
     sudo mkdir -p /etc/git/hooks
 }
@@ -410,6 +445,10 @@ git-bug
 gotop-install
 k9s-install
 hadolint
+conftest-install
+octant-install
+kind-install
+rg-install
 gc-hooks
 wallpaper
 firefox
