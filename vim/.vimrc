@@ -113,6 +113,7 @@ hi SpellCap term=underline cterm=underline
 hi SpellRare term=underline cterm=underline
 hi SpellLocal term=underline cterm=underline
 hi CursorLine gui=NONE cterm=NONE ctermbg=236 guibg=#32322f
+hi CursorLineNr term=bold cterm=bold ctermfg=012 gui=bold
 
 " vim-move
 let g:move_key_modifier = 'C'
