@@ -42,6 +42,7 @@ Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'zah/nim.vim'
+Plug 'Chiel92/vim-autoformat'
 
 call plug#end()
 
@@ -195,6 +196,14 @@ let g:go_highlight_functions = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_contrants = 1
 let g:go_def_mapping_enabled = 0
+
+" oPa
+let g:formatdef_rego = '"opa fmt"'
+let g:formatters_rego = ['rego']
+let g:autoformat_autoindent = 0
+let g:autoformat_retab = 0
+au BufWritePre *.rego Autoformat
+let g:autoformat_verbosemode = 1
 
 " tmux statusbar
 let g:tmuxline_powerline_separators = 0

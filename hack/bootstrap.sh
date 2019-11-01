@@ -34,6 +34,7 @@ env() {
     OCTANT_VERSION=0.9.0
     KIND_VERSION=0.5.1
     RG_VERSION=11.0.2
+    OPA_VERSION=0.15.0
     export DEBIAN_FRONTEND=noninteractive
 }
 
@@ -386,6 +387,13 @@ rg-install() {
     sudo rm -rf /tmp/rg-*
 }
 
+opa-install() {
+    curl -fsSL -o /tmp/opa-${OPA_VERSION} "https://github.com/open-policy-agent/opa/releases/download/v${OPA_VERSION}/opa_linux_amd64"
+    sudo cp /tmp/opa-${OPA_VERSION} /usr/local/bin/opa
+    sudo chmod +x /usr/local/bin/opa
+    sudo rm -rf /tmp/opa-*
+}
+
 gc-hooks() {
     sudo mkdir -p /etc/git/hooks
 }
@@ -449,6 +457,7 @@ conftest-install
 octant-install
 kind-install
 rg-install
+opa-install
 gc-hooks
 wallpaper
 firefox
