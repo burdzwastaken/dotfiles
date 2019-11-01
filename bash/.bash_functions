@@ -44,6 +44,10 @@ dockerrm() {
     docker rmi "$(docker images --filter dangling=true -q 2>/dev/null)" 2>/dev/null
 }
 
+docker-clean() {
+    docker run --rm -v /var/run/docker.sock:/var/run/docker.sock zzrot/docker-clean "$@"
+}
+
 chromepdf() {
     chrome --headless --disable-gpu --print-to-pdf="$1" "$2"
 }
