@@ -53,6 +53,7 @@ set undolevels=1000
 filetype plugin indent on
 syntax on
 " syntax enable
+au FileType gitcommit setlocal tw=72
 
 let g:solarized_termcolors=256
 set background=dark
