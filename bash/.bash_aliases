@@ -56,6 +56,7 @@ alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %
 alias gc='git commit -S'
 alias gca='git commit --amend'
 alias gco='git checkout'
+alias gprco='git pr checkout'
 alias gd='git diff'
 alias gdom='git diff origin/master'
 alias grm='git rm `git ls-files --deleted`'
