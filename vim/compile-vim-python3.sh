@@ -36,7 +36,7 @@
       --enable-multibyte \
       --with-x \
       --with-compiledby="burdz@burdz.net" \
-      --with-python3-config-dir=/usr/lib/python3.4/config-3.4m-x86_64-linux-gnu \
+      --with-python3-config-dir=/usr/lib/python3.7/config-3.7m-x86_64-linux-gnu \
       --prefix=/usr/local
 
   make VIMRUNTIMEDIR=/usr/share/vim/vim81
