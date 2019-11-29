@@ -8,3 +8,21 @@
 	gpgsign = true
 [url "git@github.com:"]
 	insteadOf = https://github.com/
+[diff "sopsdiffer"]
+	textconv = sops -d
+[fetch]
+	prune = true
+[diff]
+	tool = vimdiff
+[merge]
+	tool = vimdiff
+[difftool]
+	prompt = false
+	trustExitCode = true
+[mergetool]
+	trustExitCode = true
+[push]
+	followTags = true
+[alias]
+	pushup = "!git push --set-upstream origin $(git symbolic-ref --short HEAD)"
+	subranch = "!git branch --set-upstream-to=origin/$(git symbolic-ref --short HEAD) $(git symbolic-ref --short HEAD)"

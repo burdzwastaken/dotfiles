@@ -56,6 +56,7 @@ syntax on
 " syntax enable
 au FileType gitcommit setlocal tw=72
 au BufNewFile,BufRead Jenkinsfile setf groovy
+au BufNewFile,BufRead *.tpl setlocal filetype=mustache
 
 let g:solarized_termcolors=256
 set background=dark
