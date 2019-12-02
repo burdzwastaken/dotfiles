@@ -45,6 +45,7 @@ alias openports='netstat -nape --inet'
 
 # tree
 alias tree='tree -CAhF --dirsfirst'
+alias treeh='tree -CAhFa --dirsfirst'
 
 # git stuff
 alias ga='git add -A'
