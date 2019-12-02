@@ -91,3 +91,6 @@ alias watcha='watch '
 
 # fzf
 alias xray='fzf --preview "bat --color=always {} 2> /dev/null"'
+
+# no urxvt
+alias watnourxvt='echo export TERM=xterm-256color'
