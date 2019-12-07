@@ -198,6 +198,8 @@ let g:go_highlight_functions = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_contrants = 1
 let g:go_def_mapping_enabled = 0
+let g:go_fmt_command = "goimports"
+let g:go_auto_type_info= 1
 
 " oPa
 let g:formatdef_rego = '"opa fmt"'
