@@ -17,7 +17,6 @@ ignore-errors() {
     set -e
 }
 
-# octant, kind, rg
 env() {
     BAT_VERSION=0.12.1
     DROPBOX_VERSION=2015.10.28
@@ -32,10 +31,10 @@ env() {
     HADOLINT_VERSION=1.17.3
     CONFTEST_VERSION=0.15.0
     OCTANT_VERSION=0.9.1
-    KIND_VERSION=0.6.0
+    KIND_VERSION=0.6.1
     RG_VERSION=11.0.2
     OPA_VERSION=0.15.1
-    # SOPS_VERSION=0.3.4
+    # SOPS_VERSION=0.3.5
     export DEBIAN_FRONTEND=noninteractive
 }
 
