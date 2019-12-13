@@ -18,4 +18,4 @@ if [[ -z "${CURRENTVERSION}" ]] || [[ -z "${NEWVERSION}" ]]; then
     die "$0 <currentversion> <newversion>"
 fi
 
-find "$ROOT" -type f -exec sed -i -e "s/v${CURRENTVERSION}/v${NEWVERSION}/g" {} \;
+find "$ROOT" -type f -exec sed -i -e "s/${CURRENTVERSION}/${NEWVERSION}/g" {} \;
