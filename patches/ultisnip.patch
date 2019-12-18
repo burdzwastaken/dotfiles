@@ -1,0 +1,13 @@
+diff --git a/UltiSnips/all.snippets b/UltiSnips/all.snippets
+index 84ddaa4..1a19dad 100644
+--- a/UltiSnips/all.snippets
++++ b/UltiSnips/all.snippets
+@@ -100,7 +100,7 @@ snippet datetime "YYYY-MM-DD hh:mm" w
+ endsnippet
+
+ snippet todo "TODO comment" bw
+-`!p snip.rv=get_comment_format()[0]` ${2:TODO}: $0${3: <${4:`!v strftime('%d-%m-%y')`}${5:, `!v g:snips_author`}>} `!p snip.rv=get_comment_format()[2]`
++`!p snip.rv=get_comment_format()[0]` ${2:TODO}(`!v g:snips_author`): $0${3: <${4:`!v strftime('%d-%m-%y')`}>} `!p snip.rv=get_comment_format()[2]`
+ endsnippet
+
+ ##########
