@@ -1,6 +1,9 @@
 on:
   pull_request_review_comment:
-    types: [created]
+    types: [created, edited]
+  # https://github.community/t5/GitHub-Actions/GitHub-Actions-Manual-Trigger-Approvals/m-p/40714/highlight/true#M4336
+  issue_comment:
+    types: [created, edited]
 name: bump submodulez
 jobs:
   bumpModules:
