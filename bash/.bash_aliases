@@ -15,6 +15,7 @@ if [[ -x /usr/bin/dircolors ]]; then
         alias ls='ls --color=auto'
         alias dir='dir --color=auto'
         alias grep='grep --color=auto'
+        alias ip='ip --color=auto'
     fi
 fi
 
