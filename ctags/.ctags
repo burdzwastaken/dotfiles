@@ -7,6 +7,12 @@
 --exclude=*.md
 --exclude=*.mkd
 
+--langmap=Perl:.pl.pm.plx.perl.cgi
+
+--langmap=Sh:.csh.zsh.sh.bash
+
+--langmap=C:.c.m
+
 --langmap=Go:.go
 --regex-Go=/func([ \t]+\([^)]+\))?[ \t]+([a-zA-Z0-9_]+)/\2/d,func/
 --regex-Go=/var[ \t]+([a-zA-Z_][a-zA-Z0-9_]+)/\1/d,var/
@@ -27,3 +33,11 @@
 --regex-markdown=/^#[ \t]+(.*)/\1/h,heading1/
 --regex-markdown=/^##[ \t]+(.*)/\1/h,heading2/
 --regex-markdown=/^###[ \t]+(.*)/\1/h,heading3/
+
+--langdef=shellscript
+--langmap=shellscript:.sh(.*)
+--regex-shellscript=/function[ \t]*([^ \t]*)/\1/f,Function/
+--regex-shellscript=/alias[ \t]*([^=]*)/\1/a,Alias/
+
+--regex-perl=/^[ \t]*package[ \t]+([^\ \t;]+)\s*;/\1/package/
+--regex-perl=/^[ \t]*sub[ \t]+(\:\:[^\ \t;\(]+)/\1/subroutine/
