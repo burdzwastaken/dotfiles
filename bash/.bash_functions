@@ -176,3 +176,7 @@ function blockextract() {
         [[ $line == "$3" ]] && extract=
     done < "$1"
 }
+
+function cidrnotation() {
+    echo "2^(32-$1)" | bc
+}
