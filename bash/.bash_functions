@@ -180,3 +180,24 @@ function blockextract() {
 function cidrnotation() {
     echo "2^(32-$1)" | bc
 }
+
+# c map
+# LESS_TERMCAP_mb=$'\e[1;31m' \     # begin bold
+# LESS_TERMCAP_md=$'\e[1;33m' \     # begin blink
+# LESS_TERMCAP_so=$'\e[01;44;37m' \ # begin reverse video
+# LESS_TERMCAP_us=$'\e[01;37m' \    # begin underline
+# LESS_TERMCAP_me=$'\e[0m' \        # reset bold/blink
+# LESS_TERMCAP_se=$'\e[0m' \        # reset reverse video
+# LESS_TERMCAP_ue=$'\e[0m' \        # reset underline
+# less with more
+# from: https://wiki.archlinux.org/index.php/Color_output_in_console#man
+function man() {
+    LESS_TERMCAP_mb=$'\e[1;31m' \
+    LESS_TERMCAP_md=$'\e[1;33m' \
+    LESS_TERMCAP_so=$'\e[01;44;37m' \
+    LESS_TERMCAP_us=$'\e[01;37m' \
+    LESS_TERMCAP_me=$'\e[0m' \
+    LESS_TERMCAP_se=$'\e[0m' \
+    LESS_TERMCAP_ue=$'\e[0m' \
+    command man "$@"
+}
