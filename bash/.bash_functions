@@ -162,12 +162,16 @@ function tarrcv() {
     nc -w 10 "$1" 1337 > "$2".tar
 }
 
+function kraw() {
+    kubectl get --raw "$@"
+}
+
 function kevents() {
     kubectl -n "$@" get events --sort-by=.metadata.creationTimestamp
 }
 
 function ketcdmetrics() {
-    kubectl get --raw /metrics | grep ^etcd | grep object
+    kraw "/metrics" | grep ^etcd | grep object
 }
 
 function blockextract() {
