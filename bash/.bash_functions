@@ -166,6 +166,10 @@ function kevents() {
     kubectl -n "$@" get events --sort-by=.metadata.creationTimestamp
 }
 
+function ketcdmetrics() {
+    kubectl get --raw /metrics | grep ^etcd | grep object
+}
+
 function blockextract() {
     # Usage: extract file "opening marker" "closing marker"
     while IFS=$'\n' read -r line; do
