@@ -275,6 +275,10 @@ grip() {
     pip install grip --upgrade --user
 }
 
+yamllint() {
+    pip install yamllint --upgrade --user
+}
+
 rvm() {
     if [ -z "$IN_DOCKER" ]; then
         curl -fsSL https://get.rvm.io | bash
@@ -439,6 +443,7 @@ yq
 hax0r-news
 tmuxp
 grip
+yamllint
 rvm
 ignore-errors discord
 vim-plugins
