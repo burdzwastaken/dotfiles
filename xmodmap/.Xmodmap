@@ -247,6 +247,6 @@ keycode 253 =
 keycode 254 =
 keycode 255 =
 
-! setxkbmap -layout us -option ctrl:nocaps
+! setxkbmap -layout us -option ctrl:nocaps,compose:ralt
 remove mod4 = Super_L
 add control = Super_L
