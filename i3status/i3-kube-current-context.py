@@ -11,19 +11,30 @@
 import os
 import sys
 import json
+import subprocess
 from kubernetes import config
 
 def get_context():
     """ Get the current Kubernetes context. """
-    config.load_kube_config(
-        os.path.join(os.environ["HOME"], '.kube/config'))
-
-    currentContext = config.list_kube_config_contexts()[1]['name']
     colour = "#46aede"
-    if 'prod' in currentContext:
-        colour = "#eb4509"
+    try:
+        config.load_kube_config(
+            os.path.join(os.environ["HOME"], '.kube/config'))
+        currentContext = config.list_kube_config_contexts()[1]['name']
+        if 'prod' in currentContext:
+            colour = "#eb4509"
+        return currentContext, colour
+    except Exception:
+        return "context.TODO()", "#5fffaf"
 
-    return currentContext, colour
+# TODO(burdz): add support for multiple KinD clusters <09-01-20> #
+def get_kind_cluster():
+    """ Is KinD running? :>? """
+    kindCluster = subprocess.check_output("kind get clusters", shell=True).strip().decode('utf-8')
+    if not kindCluster:
+        return "not your kind :>", "#5fffaf"
+    else:
+        return kindCluster, "#46aede"
 
 def print_line(message):
     """ Non-buffered printing to stdout. """
@@ -59,8 +70,10 @@ if __name__ == '__main__':
         j = json.loads(line)
         # insert information into the start of the json, but could be anywhere
         # CHANGE THIS LINE TO INSERT SOMETHING ELSE
-        currentContext, colour = get_context()
+        currentContext, contextColour = get_context()
+        kindCluster, kindColour = get_kind_cluster()
         # j.insert(0, {'full_text' : '' , 'name' : '', 'color' : ''})
-        j.insert(0, {'full_text' : '☸ %s' % currentContext, 'name' : '☸', 'color' : '%s' % colour})
+        j.insert(0, {'full_text' : '☸ %s' % currentContext, 'name' : '☸', 'color' : '%s' % contextColour})
+        j.insert(0, {'full_text' : '☸ %s' % kindCluster, 'name' : '☸', 'color' : '%s' % kindColour})
         # and echo back new encoded json
         print_line(prefix+json.dumps(j))
