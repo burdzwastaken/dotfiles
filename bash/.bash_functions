@@ -170,6 +170,10 @@ function kevents() {
     kubectl -n "$@" get events --sort-by=.metadata.creationTimestamp
 }
 
+function kindcreateversion() {
+    kind create cluster --image=kindest/node:"$@"
+}
+
 function ketcdmetrics() {
     kraw "/metrics" | grep ^etcd | grep object
 }
