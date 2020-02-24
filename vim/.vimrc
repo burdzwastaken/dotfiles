@@ -57,6 +57,7 @@ syntax on
 au FileType gitcommit setlocal tw=72
 au BufNewFile,BufRead Jenkinsfile setf groovy
 au BufNewFile,BufRead *.tpl setlocal filetype=mustache
+hi MatchParen cterm=bold ctermbg=none ctermfg=blue
 
 let g:solarized_termcolors=256
 set background=dark
