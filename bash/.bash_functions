@@ -193,6 +193,10 @@ function cidrnotation() {
     echo "2^(32-$1)" | bc
 }
 
+function psf-hr() {
+	ps afux | awk 'NR>1 {$6=int($6/1024)"M";$5=int($5/1024)"M"}{ print;}'
+}
+
 # c map
 # LESS_TERMCAP_mb=$'\e[1;31m' \     # begin bold
 # LESS_TERMCAP_md=$'\e[1;33m' \     # begin blink
