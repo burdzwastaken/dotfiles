@@ -177,6 +177,10 @@ map ;t :Filetypes<CR>
 map ;s :Snippets<CR>
 map ;a :Locate<space>
 
+" winsert
+map <F2> i<CR>
+map ;i i<CR><ESC>
+
 " SUPAtab
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
