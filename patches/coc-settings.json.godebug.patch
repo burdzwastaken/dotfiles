@@ -1,0 +1,12 @@
+diff --git a/coc/coc-settings.json b/coc/coc-settings.json
+index 70c2f6c..30e878d 100644
+--- a/coc/coc-settings.json
++++ b/coc/coc-settings.json
+@@ -3,6 +3,7 @@
+     "golang": {
+       "command": "gopls",
+       "rootPatterns": ["go.mod", "Gopkg.toml"],
++      "args": ["serve", "-debug", "0.0.0.0:8484", "-rpc.trace"],
+       "filetypes": ["go"]
+     },
+     "dockerfile": {
