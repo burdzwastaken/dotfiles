@@ -23,7 +23,7 @@ div > .vimiumHintMarker > .matchingCharacter {
 }
 
 input#vomnibarInput.vimiumReset {
-	color: #FFF !important;
+  color: #FFF !important;
   background-color: #111 !important;
 }
 
