@@ -58,12 +58,19 @@ au FileType gitcommit setlocal tw=72
 au BufNewFile,BufRead Jenkinsfile setf groovy
 au BufNewFile,BufRead *.tpl setlocal filetype=mustache
 hi MatchParen cterm=bold ctermbg=none ctermfg=blue
+hi LineNr ctermfg=grey
+hi CursorColumn ctermbg=magenta
 
 let g:solarized_termcolors=256
 set background=dark
 if &diff
     colorscheme solarized
 endif
+
+" gitGUTTER
+hi GitGutterAdd    guifg=#009900 guibg=NONE ctermfg=2 ctermbg=NONE
+hi GitGutterChange guifg=#bbbb00 guibg=NONE ctermfg=3 ctermbg=NONE
+hi GitGutterDelete guifg=#ff2222 guibg=NONE ctermfg=1 ctermbg=NONE
 
 " backspace
 set backspace=indent,eol,start

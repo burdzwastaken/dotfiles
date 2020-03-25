@@ -97,3 +97,9 @@ alias xray='fzf --preview "bat --color=always {} 2> /dev/null"'
 
 # no urxvt
 alias watnourxvt='echo export TERM=xterm-256color'
+
+# present
+alias gopresent='present -notes'
+
+# vim
+alias vimascii='vim -c "e ++enc=latin1"'
