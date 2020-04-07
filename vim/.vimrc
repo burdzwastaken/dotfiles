@@ -36,13 +36,15 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'zah/nim.vim'
 Plug 'Chiel92/vim-autoformat'
+Plug 'mhinz/vim-startify'
+Plug 'iamcco/markdown-preview.nvim', {'do': 'cd app & yarn install'}
 
 call plug#end()
 
@@ -160,6 +162,7 @@ nnoremap <F5> :UndotreeToggle<cr>
 " markDOWN
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_autowrite = 1
+nmap <F7> <Plug>MarkdownPreviewToggle
 
 " tMUX
 " 1 :update, 2 :wall
