@@ -8,6 +8,9 @@
 #------------------------------------------------------------------------------
 # compile vim
 #------------------------------------------------------------------------------
+# lua:
+# sudo cp /usr/include/lua5.3/ /usr/include/lua5.3/include/
+# sudo ln -s /usr/lib/x86_64-linux-gnu/liblua5.3.so /usr/local/lib/liblua.so
 
 (
   git clone https://github.com/vim/vim.git
@@ -16,6 +19,8 @@
   sudo apt-get install -y \
       python-dev \
       python3-dev \
+      liblua5.3-dev \
+      libperl-dev \
       ruby \
       ruby-dev \
       libx11-dev \
@@ -25,19 +30,22 @@
       ncurses-dev
 
   ./configure \
-      --enable-perlinterp \
-      --enable-python3interp \
-      --enable-rubyinterp \
       --enable-cscope \
-      --enable-gui=auto \
-      --enable-gtk2-check \
-      --enable-gnome-check \
-      --with-features=huge \
+      --enable-perlinterp \
+      --enable-rubyinterp \
+      --enable-python3interp \
+      --with-python3-config-dir=/usr/lib/python3.7/config-3.7m-x86_64-linux-gnu \
+      --enable-luainterp \
+      --with-lua-prefix=/usr/include/lua5.3 \
       --enable-multibyte \
+      --with-features=huge \
+      --enable-largefile \
+      --disable-netbeans \
       --with-x \
       --with-compiledby="burdz@burdz.net" \
-      --with-python3-config-dir=/usr/lib/python3.7/config-3.7m-x86_64-linux-gnu \
-      --prefix=/usr/local
+      --prefix=/usr/local \
+      --enable-gui=auto \
+      --enable-fontset
 
   make VIMRUNTIMEDIR=/usr/share/vim/vim81
   ./vim --version

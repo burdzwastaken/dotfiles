@@ -79,6 +79,10 @@ upgrade() {
     sh -c 'sudo apt upgrade -y'
 }
 
+clean-apt() {
+    sh -c 'sudo rm -rf /var/lib/apt/lists/*'
+}
+
 packages() {
     sudo apt install -y \
         asciinema \
@@ -465,3 +469,4 @@ wallpaper
 firefox
 kube-tmux
 autoremove
+clean-apt
