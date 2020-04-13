@@ -36,7 +36,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
-Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'SirVer/ultisnips'
@@ -136,9 +136,10 @@ let g:move_key_modifier = 'C'
 let g:EditorConfig_exec_path = '/usr/bin/editorconfig'
 
 " nerdTREE
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
 let NERDTreeShowHidden=1
 let NERDTreeIgnore=['\.vim$', '\~$', '\.pyo$', '\.pyc$', '\.svn[\//]$', '\.swp$']
-
 let g:NERDTreeIndicatorMapCustom = {
     \ "Modified"  : "✹",
     \ "Staged"    : "✚",
@@ -152,9 +153,8 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Unknown"   : "?"
     \ }
 
-nnoremap <F6> :NERDTreeToggle<CR>
 nmap <C-p> :NERDTreeToggle<CR>
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+nnoremap <F6> :NERDTreeToggle<CR>
 
 " undoTREE
 nnoremap <F5> :UndotreeToggle<cr>
@@ -162,6 +162,7 @@ nnoremap <F5> :UndotreeToggle<cr>
 " markDOWN
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_autowrite = 1
+
 nmap <F7> <Plug>MarkdownPreviewToggle
 
 " tMUX
@@ -170,22 +171,33 @@ let g:tmux_navigator_save_on_switch = 1
 let g:tmux_navigator_disable_when_zoomed = 1
 
 " fzf
+autocmd! FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
+let g:fzf_command_prefix = 'Fzf'
 let $FZF_DEFAULT_COMMAND = 'rg --files --no-ignore --hidden --follow --glob "!.git/*"'
-let $FZF_DEFAULT_OPTS = '--bind up:preview-up,down:preview-down'
+let $FZF_DEFAULT_OPTS = '--info=inline --bind up:preview-up,down:preview-down'
+
+command! -bang FzfDotfiles call fzf#vim#files('~/code/dotfiles', fzf#vim#with_preview(), <bang>0)
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \ 'rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1,
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
+
 map ;f :FZF<CR>
-map ;w :Rg<CR>
-map ;b :Buffers<CR>
-map ;c :Commits<CR>
-map ;h :History:<CR>
-map ;t :Filetypes<CR>
-map ;s :Snippets<CR>
-map ;a :Locate<space>
+map ;w :FzfRg<CR>
+map ;b :FzfBuffers<CR>
+map ;c :FzfCommits<CR>
+map ;h :FzfHistory:<CR>
+map ;t :FzfFiletypes<CR>
+map ;s :FzfSnippets<CR>
+map ;a :FzfLocate<space>
+map ;/ :FzfHistory/<CR>
+map ;m :FzfMaps<CR>
+map ;d :FzfDotfiles<CR>
+map ;j :FzfTags<CR>
 
 " winsert
 map <F2> i<CR>
@@ -217,11 +229,12 @@ let g:go_fmt_command = "goimports"
 let g:go_auto_type_info = 1
 
 " oPa
+au BufWritePre *.rego Autoformat
+
 let g:formatdef_rego = '"opa fmt"'
 let g:formatters_rego = ['rego']
 let g:autoformat_autoindent = 0
 let g:autoformat_retab = 0
-au BufWritePre *.rego Autoformat
 let g:autoformat_verbosemode = 1
 
 " tmux statusbar
@@ -235,7 +248,6 @@ let g:tmuxline_preset = {
     \ 'x': '%a',
     \ 'y': ['%b %d', '%R'],
     \ 'z': '#H'}
-
 let g:tmuxline_theme = {
     \   'a'    : [ 236, 103 ],
     \   'b'    : [ 253, 239 ],
