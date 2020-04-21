@@ -209,7 +209,7 @@ function assrole() {
 function install-man-pages() {
     local MAN_PAGE="$1"
     local MAN_TYPE="${2:-1}"
-    sudo cp "$1" "/usr/local/share/man/man$MAN_TYPE/"
+    sudo cp "$MAN_PAGE" "/usr/local/share/man/man$MAN_TYPE/"
     sudo mandb
 }
 
