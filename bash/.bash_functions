@@ -29,8 +29,8 @@ extract() { # extract files.
 		* )                  echo "'$1' cannot be extracted via extract()"
             esac
         else
-	    echo "'$1' is not a valid file for extraction!"
-	fi
+            echo "'$1' is not a valid file for extraction!"
+        fi
     done
 }
 
@@ -198,12 +198,19 @@ function psf-hr() {
 }
 
 function assrole() {
-  (
-    local profile="$1"
-    export $(aws-keycloak -p "$profile" env);
-    shift
-    "$@"
-  )
+    (
+      local profile="$1"
+      export $(aws-keycloak -p "$profile" env);
+      shift
+      "$@"
+    )
+}
+
+function install-man-pages() {
+    local MAN_PAGE="$1"
+    local MAN_TYPE="${2:-1}"
+    sudo cp "$1" "/usr/local/share/man/man$MAN_TYPE/"
+    sudo mandb
 }
 
 # c map
