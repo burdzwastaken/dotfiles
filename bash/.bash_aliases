@@ -97,6 +97,7 @@ alias xray='fzf --preview "bat --color=always {} 2> /dev/null"'
 
 # no urxvt
 alias watnourxvt='echo export TERM=xterm-256color'
+alias watnocolumns='stty rows 50 cols 400'
 
 # present
 alias gopresent='present -notes'
