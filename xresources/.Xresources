@@ -61,7 +61,7 @@ URxvt.boldFont: xft:FuraCode Nerd Font:style=Regular:size=10, \
             xft:Monospace:style=Medium:size=10
 
 !! extensions
-URxvt.perl-ext-common: default,matcher,resize-font,url-select,keyboard-select,clipboard,bell-command
+URxvt.perl-ext-common: default,matcher,resize-font,url-select,keyboard-select,clipboard,bell-command,urxvt-gist
 URxvt.colorUL:         #4682B4
 
 !! url-select
@@ -90,6 +90,9 @@ URxvt.keysym.Shift-Control-V: perl:clipboard:paste
 URxvt.clipboard.copycmd: xclip -i -selection clipboard
 URxvt.clipboard.pastecmd: xclip -o -selection clipboard
 !! URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
+
+!! gist upload
+URxvt.keysym.C-bracketright: perl:urxvt-gist
 
 !! bell commandz
 ! URxvt.bell-command: aplay ~/.config/dunst/lttp.wav
