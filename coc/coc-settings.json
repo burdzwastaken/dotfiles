@@ -30,6 +30,11 @@
       "command": "efm-langserver",
       "args": ["-c", "/home/burdz/.config/efm-langserver/config.yaml"],
       "filetypes": ["vim", "markdown"]
+    },
+    "rust": {
+      "command": "rust-analyzer",
+      "filetypes": ["rust"],
+      "rootPatterns": ["Cargo.toml"]
     }
   },
   "yaml.schemas": {
