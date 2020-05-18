@@ -95,7 +95,7 @@ alias watcha='watch '
 # fzf
 alias xray='fzf --preview "bat --color=always {} 2> /dev/null"'
 
-# no urxvt
+# wat no?
 alias watnourxvt='echo export TERM=xterm-256color'
 alias watnocolumns='stty rows 50 cols 400'
 
@@ -104,3 +104,6 @@ alias gopresent='present -notes'
 
 # vim
 alias vimascii='vim -c "e ++enc=latin1"'
+
+# urxvt
+alias testurxvt='urxvt -pe'
