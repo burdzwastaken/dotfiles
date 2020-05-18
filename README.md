@@ -25,3 +25,15 @@ install pre-commit and ze hooks!
 $ ./scripts/install-pre-commit-hooks.sh
 ```
 *NOTE*: this requires the [following](https://github.com/burdzwastaken/dotfiles/blob/master/git/.gitconfig#L6) line to be removed from `~/.gitconfig`
+
+## submodulez
+```
+# add
+$ git submodule add $repo
+
+# init
+$ git submodule init
+
+# update
+$ git submodule update --recursive
+```
