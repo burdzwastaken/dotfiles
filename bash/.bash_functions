@@ -213,6 +213,14 @@ function install-man-pages() {
     sudo mandb
 }
 
+function childpids() {
+    ps -fp $(pgrep -f $1)
+}
+
+function findclibs() {
+    echo "#include <$1>" | cpp -H -o /dev/null 2>&1 | head -n1
+}
+
 # c map
 # LESS_TERMCAP_mb=$'\e[1;31m' \     # begin bold
 # LESS_TERMCAP_md=$'\e[1;33m' \     # begin blink
