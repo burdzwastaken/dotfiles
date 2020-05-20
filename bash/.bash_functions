@@ -214,7 +214,7 @@ function install-man-pages() {
 }
 
 function childpids() {
-     ps -fp $(pgrep -f $1)
+    ps -fp $(pgrep -f $1)
 }
 
 function findclibs() {
