@@ -51,14 +51,16 @@ URxvt.font: xft:FuraCode Nerd Font:style=Regular:size=10, \
             xft:DroidSansMono Nerd Font:size=10, \
             xft:RobotoMono Nerd Font:size=10, \
             xft:Noto Sans Mono:size=10, \
-            xft:Monospace:style=Medium:size=10
+            xft:Monospace:style=Medium:size=10, \
+            xft:Symbola:style=Medium:pixelsize=12
 URxvt.boldFont: xft:FuraCode Nerd Font:style=Regular:size=10, \
             xft:Inconsolata Nerd Font Mono:size=10, \
             xft:DejaVuSansMono Nerd Font:size=10, \
             xft:DroidSansMono Nerd Font:size=10, \
             xft:RobotoMono Nerd Font:size=10, \
             xft:Noto Sans Mono:size=10, \
-            xft:Monospace:style=Medium:size=10
+            xft:Monospace:style=Medium:size=10, \
+            xft:Symbola:style=Medium:pixelsize=12
 
 !! extensions
 URxvt.perl-ext-common: default,matcher,resize-font,url-select,keyboard-select,clipboard,bell-command,urxvt-gist
