@@ -85,6 +85,7 @@ alias firefox-temp='/opt/firefox/firefox --new-instance --profile $(mktemp -d)'
 alias k='kubectl'
 alias k-set-namespace='kubectl config set-context $(kubectl config current-context) --namespace='
 alias knodes='k get nodes --sort-by=.metadata.creationTimestamp'
+alias kalias='complete -F __start_kubectl k'
 
 # gotop
 alias gotop='gotop -b -c solarized'
