@@ -120,6 +120,7 @@ packages() {
         python-pip \
         qemu \
         rkhunter \
+        rlwrap \
         shellcheck \
         signal-desktop \
         sl \
