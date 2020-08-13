@@ -24,7 +24,8 @@
     line_height = 0
     markup = full
     # format = "<span foreground='#f3f4f5'><b>%s %p</b></span>\n%b"
-    format = "<span size='x-large' font_desc='FuraCode Nerd Font 8' weight='bold' foreground='#edfefe'>%s</span>\n%b"
+    # format = "<span size='x-large' font_desc='FuraCode Nerd Font 8' weight='bold' foreground='#edfefe'>%s</span>\n%b"
+    format = "<span size='x-large' font_desc='FuraCode Nerd Font 8' weight='bold' foreground='#e32c57'>%s</span>\n%b"
     alignment = center
     # alignment = left
     show_age_threshold = 60
