@@ -349,7 +349,7 @@ gotop-install() {
 }
 
 k9s-install() {
-    curl -fsSL -o /tmp/k9s-${K9S_VERION}.tar.gz "https://github.com/derailed/k9s/releases/download/${K9S_VERION}/k9s_${K9S_VERION}_Linux_x86_64.tar.gz"
+    curl -fsSL -o /tmp/k9s-${K9S_VERION}.tar.gz "https://github.com/derailed/k9s/releases/download/v${K9S_VERION}/k9s_Linux_x86_64.tar.gz"
     tar -zxvf /tmp/k9s-${K9S_VERION}.tar.gz -C /tmp
     sudo mv /tmp/k9s /usr/local/bin/k9s
     sudo rm -rf /tmp/k9s-*
