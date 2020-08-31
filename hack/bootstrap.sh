@@ -18,22 +18,22 @@ ignore-errors() {
 }
 
 env() {
-    BAT_VERSION=0.12.1
+    BAT_VERSION=0.15.4
     DROPBOX_VERSION=2015.10.28
     GIT_BUG_VERSION=0.5.0
-    GO_VERSION=1.13.8
-    HUB_VERSION=2.14.1
+    GO_VERSION=1.15
+    HUB_VERSION=2.14.2
     MINIKUBE_VERSION=1.6.1
     SLACK_VERSION=4.0.2
-    WTF_VERSION=0.27.0
+    WTF_VERSION=0.31.0
     GOTOP_VERSION=3.0.0
-    K9S_VERION=0.9.3
-    HADOLINT_VERSION=1.17.5
-    CONFTEST_VERSION=0.17.0
-    OCTANT_VERSION=0.10.2
-    KIND_VERSION=0.7.0
-    RG_VERSION=11.0.2
-    OPA_VERSION=0.17.2
+    K9S_VERION=0.21.7
+    HADOLINT_VERSION=1.18.0
+    CONFTEST_VERSION=0.20.0
+    OCTANT_VERSION=0.15.0
+    KIND_VERSION=0.8.1
+    RG_VERSION=12.1.1
+    OPA_VERSION=0.23.2
     # SOPS_VERSION=0.3.5
     export DEBIAN_FRONTEND=noninteractive
 }
@@ -349,7 +349,7 @@ gotop-install() {
 }
 
 k9s-install() {
-    curl -fsSL -o /tmp/k9s-${K9S_VERION}.tar.gz "https://github.com/derailed/k9s/releases/download/${K9S_VERION}/k9s_${K9S_VERION}_Linux_x86_64.tar.gz"
+    curl -fsSL -o /tmp/k9s-${K9S_VERION}.tar.gz "https://github.com/derailed/k9s/releases/download/v${K9S_VERION}/k9s_Linux_x86_64.tar.gz"
     tar -zxvf /tmp/k9s-${K9S_VERION}.tar.gz -C /tmp
     sudo mv /tmp/k9s /usr/local/bin/k9s
     sudo rm -rf /tmp/k9s-*
