@@ -217,6 +217,7 @@ map ;/ :FzfHistory/<CR>
 map ;m :FzfMaps<CR>
 map ;d :FzfDotfiles<CR>
 map ;j :FzfTags<CR>
+map ;r :FzfCommands<CR>
 
 " winsert
 map <F2> i<CR>
@@ -395,6 +396,7 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent> gb <C-o>
+nmap <silent> gn <C-i>
 
 " Use U to show documentation in preview window
 nnoremap <silent> U :call <SID>show_documentation()<CR>
@@ -405,6 +407,19 @@ nmap <leader>rn <Plug>(coc-rename)
 " Remap for format selected region
 vmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
+
+command! -nargs=0 Format :call CocAction('format')
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
 " Show all diagnostics
 nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions
@@ -438,6 +453,18 @@ nn <M-g> :call JumpToDef()<cr>
 ino <M-g> <esc>:call JumpToDef()<cr>i
 
 " shift + 8 to search for selected text: https://salferrarello.com/vim-visual-mode-search-selection/
+"
+" opa
+let g:formatdef_rego = '"opa fmt"'
+let g:formatters_rego = ['rego']
+let g:autoformat_autoindent = 0
+let g:autoformat_retab = 0
+au BufWritePre *.rego Autoformat
+let g:autoformat_verbosemode = 1
+
+" snippets
+let g:snips_author = "burdz"
+
 set laststatus=2
 set statusline=
 set statusline+=%#PmenuSel#
