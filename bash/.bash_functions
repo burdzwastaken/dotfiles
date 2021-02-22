@@ -140,6 +140,7 @@ function up(){
     done;
 }
 
+# inodes: ls -li
 function del-via-inode() {
     find . -inum "$@" -exec rm -i {} \;
 }
