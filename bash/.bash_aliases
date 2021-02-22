@@ -110,4 +110,4 @@ alias vimascii='vim -c "e ++enc=latin1"'
 alias testurxvt='urxvt -pe'
 
 # yaml/json
-alias yaml2js="python -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)'"
+alias yaml2js="python -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=2)'"
