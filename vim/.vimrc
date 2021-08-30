@@ -179,6 +179,7 @@ map <Leader>th <C-w>t<C-w>K
 " markDOWN
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_autowrite = 1
+au BufRead,BufNewFile *.md setlocal textwidth=80
 
 nmap <F7> <Plug>MarkdownPreviewToggle
 
@@ -461,6 +462,9 @@ let g:autoformat_autoindent = 0
 let g:autoformat_retab = 0
 au BufWritePre *.rego Autoformat
 let g:autoformat_verbosemode = 1
+
+" terraForm
+autocmd BufWritePre *.hcl,*.tf call terraform#fmt()
 
 " snippets
 let g:snips_author = "burdz"
