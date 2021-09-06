@@ -440,6 +440,17 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " Enter = Ctrl + Y
 inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<CR>"
 
+" \ 'coc-git',
+" coc extensions
+let g:coc_global_extensions = [
+  \ 'coc-json',
+  \ 'coc-yaml',
+  \ 'coc-lists',
+  \ 'coc-snippets',
+  \ 'coc-highlight',
+  \ 'coc-pyright'
+  \ ]
+
 " nim
 fun! JumpToDef()
   if exists("*GotoDefinition_" . &filetype)
