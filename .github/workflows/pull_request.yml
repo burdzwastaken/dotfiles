@@ -7,7 +7,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: shellcheck
-      uses: ludeeus/action-shellcheck@94e0aab03ca135d11a35e5bfc14e6746dc56e7e9
+      uses: ludeeus/action-shellcheck@43d591f97276cf3883b8d6fd0341ecb1cc67142f
     - name: hadolintz
       uses: burdzwastaken/hadolint-action@master
       env:
