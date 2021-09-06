@@ -1,12 +1,11 @@
 on:
-  pull_request_review_comment:
-    types: [created, edited]
   issue_comment:
     types: [created, edited]
 name: bump submodulez
 jobs:
   bumpModules:
     name: bumpy
+    if: contains(github.event.comment.html_url, '/pull/')
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
