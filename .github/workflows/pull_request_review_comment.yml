@@ -1,7 +1,6 @@
 on:
   pull_request_review_comment:
     types: [created, edited]
-  # https://github.community/t5/GitHub-Actions/GitHub-Actions-Manual-Trigger-Approvals/m-p/40714/highlight/true#M4336
   issue_comment:
     types: [created, edited]
 name: bump submodulez
@@ -12,6 +11,13 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: bump git submodulez
-      uses: domdere/git-submodule-action@0.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        git submodule update --init --recursive
+        git submodule update --recursive --remote
+    - name: commit deez submodulez
+      run: |
+        git config user.email "actions@github.com"
+        git config user.name "GitHub Actions - update submodules"
+        git add --all
+        git commit -m "Update submodules" || echo "No changes to commit"
+        git push
