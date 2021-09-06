@@ -27,15 +27,15 @@ alias l='ls -CF'
 # even more aliasessss
 alias c='clear'
 alias mount='mount | column -t'
-alias xclip="xclip -selection c"
+alias xclip='xclip -selection c'
 alias fuck='sudo $(history -p !!)'
-alias diskspace="du -S | sort -n -r |more"
+alias diskspace='du -S | sort -n -r |more'
 alias ip-address='curl -s -H "Accept: application/json" https://ipinfo.io/json | jq "del(.loc, .postal)"'
 alias diff='colordiff'
 alias meminfo='free -m -l -t'
 
 # batzz
-alias bats="bat --plain"
+alias bats='bat --plain'
 
 # conky
 alias conkyreset='killall -SIGUSR1 conky'
@@ -75,7 +75,7 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
-alias cdroot="cd $(git rev-parse --show-toplevel)"
+alias cdroot='cd $(git rev-parse --show-toplevel)'
 
 # sublime
 alias st='subl .'

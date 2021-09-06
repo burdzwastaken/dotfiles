@@ -172,7 +172,7 @@ function kevents() {
 }
 
 function kindcreateversion() {
-    kind create cluster --image=kindest/node:"$@"
+    kind create cluster --image=kindest/node:"$1"
 }
 
 function ketcdmetrics() {
@@ -198,6 +198,7 @@ function psf-hr() {
     ps afux | awk 'NR>1 {$6=int($6/1024)"M";$5=int($5/1024)"M"}{ print;}'
 }
 
+# shellcheck disable=SC2046
 function assrole() {
     (
       local profile="$1"
@@ -214,6 +215,7 @@ function install-man-pages() {
     sudo mandb
 }
 
+# shellcheck disable=SC2046,SC2086
 function childpids() {
     ps -fp $(pgrep -f $1)
 }
