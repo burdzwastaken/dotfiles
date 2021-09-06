@@ -32,4 +32,5 @@ export PATH="$PATH:$HOME/.rvm/bin"
 # shellcheck disable=SC1090
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
-export PYTHONPATH=$(python3 -c "import site; print(site.USER_SITE)"):$PYTHONPATH
+# shellcheck disable=SC2155
+export PYTHONPATH="$(python3 -c 'import site; print(site.USER_SITE)'):$PYTHONPATH"
