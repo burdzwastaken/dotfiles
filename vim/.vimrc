@@ -21,6 +21,7 @@ Plug 'fatih/vim-go'
 Plug 'matze/vim-move'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-abolish'
 Plug 'tomtom/tcomment_vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'hashivim/vim-terraform'
@@ -44,6 +45,7 @@ Plug 'honza/vim-snippets'
 Plug 'zah/nim.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'mhinz/vim-startify'
+Plug 'LnL7/vim-nix'
 Plug 'iamcco/markdown-preview.nvim', {'do': 'cd app & yarn install'}
 
 call plug#end()
@@ -74,6 +76,14 @@ highlight! link SignColumn LineNr
 hi GitGutterAdd    guifg=#009900 guibg=NONE ctermfg=2 ctermbg=NONE
 hi GitGutterChange guifg=#bbbb00 guibg=NONE ctermfg=3 ctermbg=NONE
 hi GitGutterDelete guifg=#ff2222 guibg=NONE ctermfg=1 ctermbg=NONE
+
+nmap ]c <Plug>(GitGutterNextHunk)
+nmap [c <Plug>(GitGutterPrevHunk)
+
+function! GitStatus()
+  let [a,m,r] = GitGutterGetHunkSummary()
+  return printf('+%d ~%d -%d', a, m, r)
+endfunction
 
 " backspace
 set backspace=indent,eol,start
@@ -489,6 +499,7 @@ set statusline+=\ %f
 set statusline+=%m\
 set statusline+=%=
 set statusline+=%#CursorColumn#
+set statusline+=%{GitStatus()}
 set statusline+=\ %y
 set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
 set statusline+=\[%{&fileformat}\]
