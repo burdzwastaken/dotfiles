@@ -66,9 +66,12 @@ alias gco='git checkout'
 alias gprco='git pr checkout'
 alias gprls='git pr list'
 alias gd='git diff'
+alias gds='git diff --staged'
 alias gdom='git diff origin/master'
 alias grm='git rm `git ls-files --deleted`'
 alias gpom='git remote prune origin'
+alias gr='git restore'
+alias grs='git restore --staged'
 
 # movement
 alias cd..='cd ..'
