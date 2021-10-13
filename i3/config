@@ -516,4 +516,3 @@ exec_always --no-startup-id setxkbmap -option caps:super
 # remap menu button to super:
 #exec_always --no-startup-id xmodmap -e 'keycode 135 = Super_R'
 bindsym Menu exec --no-startup-id xmodmap -e 'keycode 135 = Super_R'
-
