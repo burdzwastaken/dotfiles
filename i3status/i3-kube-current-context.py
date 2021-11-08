@@ -14,6 +14,18 @@ import json
 import subprocess
 from kubernetes import config
 
+# Used for when gcloud or another credentials provider is used :(
+# def get_context():
+#     """ Get the current Kubernetes context. """
+#     colour = "#46aede"
+#     currentContext = subprocess.check_output("kubectl config current-context", shell=True).strip().decode('utf-8')
+#     if not currentContext:
+#         return "context.TODO()", "#5fffaf"
+#     else:
+#         if 'prod' in currentContext:
+#             colour = "#eb4509"
+#         return currentContext, colour
+
 def get_context():
     """ Get the current Kubernetes context. """
     colour = "#46aede"
