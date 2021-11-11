@@ -104,6 +104,8 @@ set showcmd
 set cursorline
 set wildmenu
 set wildmode=list:full
+set wim=longest:full,full
+hi StatusLine ctermfg=magenta ctermbg=NONE cterm=NONE
 set wildignore=*.swp,*.bak,*.pyc,*.class,~*
 set lazyredraw
 set showmatch
@@ -492,6 +494,7 @@ autocmd BufWritePre *.hcl,*.tf call terraform#fmt()
 " snippets
 let g:snips_author = "burdz"
 
+" statuslinez
 set laststatus=2
 set statusline=
 set statusline+=%#PmenuSel#
@@ -500,7 +503,7 @@ set statusline+=%#LineNr#
 set statusline+=\ %f
 set statusline+=%m\
 set statusline+=%=
-set statusline+=%#CursorColumn#
+set statusline+=%#StatusLine#
 set statusline+=%{GitStatus()}
 set statusline+=\ %y
 set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
