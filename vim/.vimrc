@@ -495,7 +495,6 @@ autocmd BufWritePre *.hcl,*.tf call terraform#fmt()
 let g:snips_author = "burdz"
 
 " statuslinez
-hi StatusLine ctermfg=magenta ctermbg=NONE cterm=NONE
 set laststatus=2
 set statusline=
 set statusline+=%#PmenuSel#
