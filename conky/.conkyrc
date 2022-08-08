@@ -41,9 +41,9 @@ ${alignc}${color #66FFFF}${battery_bar 8,300}
 ${color #656565}$stippled_hr$color
 ${alignc}${color} $wireless_essid${alignr}${color lightgrey}
 
-${color lightgrey}    Down:${color}${downspeedf wlp3s0} KB/s${alignr}${color lightgrey}Up:${color}${upspeedf wlp3s0} KB/s  
+${color lightgrey}    Down:${color}${downspeedf wlp3s0} KB/s${alignr}${color lightgrey}Up:${color}${upspeedf wlp3s0} KB/s
 ${color #000000}${downspeedgraph wlp3s0 12,140 000000 66FFFF}${alignr}${color #000000}${upspeedgraph wlp3s0 12,140 000000 66FFFF}
-${color lightgrey}       Total: $color${totaldown wlp3s0}${alignr}${color lightgrey}Total: ${color}${totalup wlp3s0}  
+${color lightgrey}       Total: $color${totaldown wlp3s0}${alignr}${color lightgrey}Total: ${color}${totalup wlp3s0}
 
 ${color lightgrey}Wireless Bitrate: ${color}${wireless_bitrate wlp3s0}${color lightgrey} | ${color lightgrey}${alignr}Signal Quality:${color}${wireless_link_qual_perc wlp3s0}%
 ${color #656565}$stippled_hr$color
@@ -72,7 +72,7 @@ ${alignc}${color lightgrey} Processes
 
 ${color lightgrey}Processes: ${color}$running_processes${color lightgrey} / ${color}$processes${alignr}${color lightgrey}Threads: ${color}$running_threads${color lightgrey} / ${color}$threads
 
-${color lightgrey}  PID            Process${alignr}Memory   CPU   
+${color lightgrey}  PID            Process${alignr}Memory   CPU
 ${color}${top pid 1}          ${top name 1}${alignr}${top mem_res 1} ${top cpu 1}%
 ${color}${top pid 2}          ${top name 2}${alignr}${top mem_res 2} ${top cpu 2}%
 ${color}${top pid 3}          ${top name 3}${alignr}${top mem_res 3} ${top cpu 3}%

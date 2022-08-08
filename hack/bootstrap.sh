@@ -64,7 +64,7 @@ repos-gpg() {
     curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add - #gcloud-sdk
     curl -fsSL https://s3.amazonaws.com/download.draios.com/DRAIOS-GPG-KEY.public | sudo apt-key add - #sysdig
     curl -fsSL https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add - #signal
-    curl -fsSL https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add - #spotify
+    curl -fsSL https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add - #spotify
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 1484120AC4E9F8A1A577AEEE97A80C63C9D8B80B #osquery
     if [ -z "$IN_DOCKER" ]; then
         sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 #rvm
@@ -182,7 +182,7 @@ conf() {
     ln -sf "$(pwd)"/wget/.wgetrc ~/.wgetrc
     ln -sf "$(pwd)"/wtf ~/.config/wtf
 
-    if [ ! -z "$IN_DOCKER" ]; then
+    if [ -n "$IN_DOCKER" ]; then
         rm -rf ~/.gitconfig
     fi
 }
@@ -341,6 +341,7 @@ git-bug() {
     sudo rm -rf /tmp/git-bug-*
 }
 
+# https://github.com/cjbassi/gotop/issues/18
 gotop-install() {
     curl -fsSL -o /tmp/gotop-${GOTOP_VERSION}.tar.gz "https://github.com/cjbassi/gotop/releases/download/${GOTOP_VERSION}/gotop_${GOTOP_VERSION}_linux_amd64.tgz"
     tar -zxvf /tmp/gotop-${GOTOP_VERSION}.tar.gz -C /tmp

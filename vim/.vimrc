@@ -26,7 +26,7 @@ Plug 'tomtom/tcomment_vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'hashivim/vim-terraform'
 Plug 'hashivim/vim-packer'
-Plug 'townk/vim-autoclose'
+" Plug 'townk/vim-autoclose' closing due to not working with coc.nvim
 Plug 'vim-scripts/ZoomWin'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
@@ -46,6 +46,8 @@ Plug 'zah/nim.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'mhinz/vim-startify'
 Plug 'LnL7/vim-nix'
+Plug 'cespare/vim-toml', { 'branch': 'main' }
+Plug 'tsandall/vim-rego'
 Plug 'iamcco/markdown-preview.nvim', {'do': 'cd app & yarn install'}
 
 call plug#end()
@@ -200,6 +202,9 @@ nmap <F7> <Plug>MarkdownPreviewToggle
 let g:tmux_navigator_save_on_switch = 1
 let g:tmux_navigator_disable_when_zoomed = 1
 
+" xRAYz
+let g:xray_force_redraw = 1
+
 " fzf
 let g:fzf_layout = { 'down': '~40%' }
 
@@ -207,7 +212,7 @@ autocmd! FileType fzf set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 let g:fzf_command_prefix = 'Fzf'
-let $FZF_DEFAULT_COMMAND = 'rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+let $FZF_DEFAULT_COMMAND = 'rg --files --no-ignore --hidden --follow --glob "!.git/*" --glob "!*.swp"'
 let $FZF_DEFAULT_OPTS = '--info=inline --bind up:preview-up,down:preview-down'
 
 command! -bang FzfDotfiles call fzf#vim#files('~/code/dotfiles', fzf#vim#with_preview(), <bang>0)
@@ -330,6 +335,7 @@ nnoremap ,k8secret :-1read $HOME/Dropbox/vim/snippets/k8s-secret.yaml<CR>6jwf)a
 nnoremap ; :
 nnoremap <esc><esc> :noh<return>
 vnoremap <C-c> "+y
+vnoremap <leader>64 y:echo system('base64 --decode', @")<cr>
 
 if exists('$TMUX')
     let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
@@ -387,11 +393,11 @@ set signcolumn=yes
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -452,7 +458,22 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " Enter = Ctrl + Y
-inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<CR>"
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <C-x><C-z> coc#pum#visible() ? coc#pum#stop() : "\<C-x>\<C-z>"
+" remap for complete to use tab and <cr>
+inoremap <silent><expr> <TAB>
+\ coc#pum#visible() ? coc#pum#next(1):
+\ <SID>check_back_space() ? "\<Tab>" :
+\ coc#refresh()
+inoremap <expr> <S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+" inoremap <expr> <up> coc#pum#visible() ? coc#pum#prev(1) : "\<up>"
+" inoremap <expr> <down> coc#pum#visible() ? coc#pum#next(1) : "\<down>"
+inoremap <silent><expr> <c-space> coc#refresh()
+
+hi CocSearch ctermfg=12 guifg=#18A3FF
+hi CocMenuSel gui=NONE cterm=NONE ctermbg=236 guibg=#32322f
+hi link CocFloating Normal
+
 
 " \ 'coc-git',
 " coc extensions

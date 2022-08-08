@@ -34,6 +34,8 @@ alias ip-address='curl -s -H "Accept: application/json" https://ipinfo.io/json |
 alias diff='colordiff'
 alias meminfo='free -m -l -t'
 alias dfh='df -Tha --total'
+alias cleancache='find ~/.cache/ -type f -atime +365 -delete'
+alias sorthome='sudo du -a ./ | sort -n -r | head -n 40'
 
 # batzz
 alias bats='bat --plain'
