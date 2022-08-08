@@ -7,6 +7,6 @@
 
 branches=$(git branch -a | eval "fzf ${FZF_DEFAULT_OPTS} -m --header='[delete:branch cwd:${PWD}]'")
 
-if [[ ! -z "$branches" ]]; then
+if [[ -n "$branches" ]]; then
   echo "$branches" | xargs git branch -D
 fi

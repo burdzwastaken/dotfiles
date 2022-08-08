@@ -1,8 +1,8 @@
-cyan=`tput setaf 6`
-c_red=`tput setaf 1`
-c_green=`tput setaf 2`
-c_sgr0=`tput sgr0`
- 
+c_red=$(tput setaf 1)
+c_green=$(tput setaf 2)
+c_sgr0=$(tput sgr0)
+# cyan=$(tput setaf 6)
+
 parse_git_branch ()
 {
   if git rev-parse --git-dir >/dev/null 2>&1
@@ -11,7 +11,7 @@ parse_git_branch ()
   else
     return 0
   fi
-  echo -e $gitver
+  echo -e "$gitver"
 }
 
 branch_color ()
@@ -19,8 +19,8 @@ branch_color ()
   if git rev-parse --git-dir >/dev/null 2>&1
   then
     color=""
-    #if git diff --quiet 2>/dev/null >&2 
-    if git status | grep "nothing to commit" >/dev/null 2>&1 
+    #if git diff --quiet 2>/dev/null >&2
+    if git status | grep "nothing to commit" >/dev/null 2>&1
     then
       color="${c_green}"
     else
@@ -29,7 +29,7 @@ branch_color ()
   else
     return 0
   fi
-  echo -ne $color
+  echo -ne "$color"
 }
 
 PS1='[\[$(branch_color)\]$(parse_git_branch)\[${c_sgr0}\]] \u@\[${c_red}\]\w\[${c_sgr0}\]: '

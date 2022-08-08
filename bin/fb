@@ -6,6 +6,6 @@
 
 branch=$(git branch -a | eval "fzf ${FZF_DEFAULT_OPTS} --cycle --header='[find:branch cwd:${PWD}]'")
 
-if [[ ! -z "$branch" ]]; then
+if [[ -n "$branch" ]]; then
   echo "$branch" | xargs git checkout
 fi

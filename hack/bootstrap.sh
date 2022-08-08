@@ -182,7 +182,7 @@ conf() {
     ln -sf "$(pwd)"/wget/.wgetrc ~/.wgetrc
     ln -sf "$(pwd)"/wtf ~/.config/wtf
 
-    if [ ! -z "$IN_DOCKER" ]; then
+    if [ -n "$IN_DOCKER" ]; then
         rm -rf ~/.gitconfig
     fi
 }
