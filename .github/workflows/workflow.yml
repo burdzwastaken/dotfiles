@@ -1,0 +1,30 @@
+name: Check NixOS Config
+
+on:
+  pull_request:
+    branches: [ master ]
+  push:
+    branches: [ master ]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Nix
+      uses: cachix/install-nix-action@v24
+      with:
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+    - name: Check flake
+      run: nix flake check
+
+    - name: Build NixOS config (dry-run)
+      run: nix build .#nixosConfigurations.kernelpanic.config.system.build.toplevel --dry-run
+
+    - name: Build home-manager config (dry-run)
+      run: nix build .#homeConfigurations.burdz.activationPackage --dry-run

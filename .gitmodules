@@ -1,9 +1,0 @@
-[submodule "modules/kube-tmux"]
-	path = modules/kube-tmux
-	url = https://github.com/jonmosco/kube-tmux
-[submodule "modules/urxvt-perls"]
-	path = modules/urxvt-perls
-	url = https://github.com/muennich/urxvt-perls
-[submodule "modules/urxvt-resize-font"]
-	path = modules/urxvt-resize-font
-	url = https://github.com/simmel/urxvt-resize-font
