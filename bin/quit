@@ -1,5 +1,0 @@
-#!/bin/bash
-
-quit() {
-    pkill -HUP "$1"
-}

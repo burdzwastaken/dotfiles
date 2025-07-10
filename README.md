@@ -1,39 +1,43 @@
 # dotfiles (aka soupfiles)
-a collection of my dotfilez; built for debian (10) buster
+a collection of my dotfilez
 
-[![build passing](https://circleci.com/gh/burdzwastaken/dotfiles.svg?style=shield&circle-token=35f048165f31188eb400922f7ceb8e944b123d98)](https://circleci.com/gh/burdzwastaken/dotfiles)<br />
-![](https://github.com/burdzwastaken/dotfiles/workflows/.github/workflows/pull_request.yml/badge.svg)
+## usage
 
-## install
-install prerequisites
-```
-$ su
-$ ./hack/prepare.sh # or just install git, sudo and include burdz into the `/etc/sudoers.d/burdz`
-$ exit
-```
-clone and bootstrap
-```
-$ git clone https://github.com/burdzwastaken/dotfiles
-$ chown burdz:burdz -R dotfiles/
-$ cd dotfiles
-$ ./hack/bootstrap.sh
+### new install
+```bash
+git clone https://github.com/burdzwastaken/dotfiles ~/src/dotfiles
+cd ~/src/dotfiles
+
+# enable flakes (if not already enabled on a new machine)
+# add to /etc/nixos/configuration.nix:
+# nix.settings.experimental-features = [ "nix-command" "flakes" ];
+# sudo nixos-rebuild switch
+
+# switch to flake config (machine based)
+sudo nixos-rebuild switch --flake .#kernelpanic
 ```
 
-## pre-commit hookz
-install pre-commit and ze hooks!
+### update flake inputs
+```bash
+nix flake update
 ```
-$ ./scripts/install-pre-commit-hooks.sh
+
+### test flake
+```bash
+sudo nixos-rebuild build --flake .#kernelpanic
 ```
-*NOTE*: this requires the [following](https://github.com/burdzwastaken/dotfiles/blob/master/git/.gitconfig#L6) line to be removed from `~/.gitconfig`
 
-## submodulez
+### update system
+```bash
+sudo nixos-rebuild switch --flake .#kernelpanic
 ```
-# add
-$ git submodule add $repo
 
-# init
-$ git submodule init
+### just home-manager (work f.ex)
+```bash
+sudo nixos-rebuild switch --flake .#burdz@work
+```
 
-# update
-$ git submodule update --recursive
+### rollback if needed
+```bash
+sudo nixos-rebuild switch --rollback
 ```
