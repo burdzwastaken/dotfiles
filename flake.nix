@@ -13,8 +13,16 @@
   outputs = { nixpkgs, home-manager, ... }:
   let
     system = "x86_64-linux";
+
+    overlays = [
+      (final: prev: {
+        codex-cli = prev.callPackage ./home/packages/codex-cli.nix {};
+      })
+    ];
+
     pkgs = import nixpkgs {
       inherit system;
+      inherit overlays;
       config.allowUnfree = true;
     };
   in {
@@ -24,6 +32,8 @@
         modules = [
           ./hosts/kernelpanic/default.nix
           ./hosts/kernelpanic/hardware.nix
+
+          { nixpkgs.overlays = overlays; }
 
           home-manager.nixosModules.home-manager
           {

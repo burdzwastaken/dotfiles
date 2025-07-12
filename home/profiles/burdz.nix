@@ -36,6 +36,7 @@
     bat
     bc
     brightnessctl
+    codex-cli
     colordiff
     curl
     direnv
@@ -47,6 +48,7 @@
     feh
     font-awesome
     fzf
+    gemini-cli
     ghostty
     git
     gnumake
