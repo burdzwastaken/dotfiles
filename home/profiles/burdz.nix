@@ -42,6 +42,7 @@
     colordiff
     curl
     direnv
+    discord
     dnsutils
     dropbox
     dunst
