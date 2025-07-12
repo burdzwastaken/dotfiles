@@ -11,42 +11,41 @@
       color_degraded = "#B58900";
     };
     modules = {
-      "disk /" = {
-        position = 1;
-        settings = {
-          format = " Root: %avail/%total";
-        };
+      "wireless _first_" = {
+        enable = false;
       };
-      "disk /home" = {
-        position = 2;
-        settings = {
-          format = " Home: %avail/%total";
-        };
-      };
-      "disk /nix" = {
-        position = 3;
-        settings = {
-          format = " Nix: %avail/%total";
-        };
+      "ipv6" = {
+        enable = false;
       };
       "ethernet _first_" = {
-        position = 4;
+        position = 1;
         settings = {
           format_up = "󰈀 %ip (%speed)";
           format_down = "󰈀 down";
+        };
+      };
+      "disk /" = {
+        position = 2;
+        settings = {
+          format = " root: %avail/%total";
+        };
+      };
+      "disk /home" = {
+        position = 3;
+        settings = {
+          format = " home: %avail/%total";
+        };
+      };
+      "disk /nix" = {
+        position = 4;
+        settings = {
+          format = " nix: %avail/%total";
         };
       };
       "load" = {
         position = 5;
         settings = {
           format = " %1min %5min %15min";
-        };
-      };
-      "cpu_temperature 0" = {
-        position = 6;
-        settings = {
-          format = " %degrees°C";
-          path = "/sys/class/thermal/thermal_zone0/temp";
         };
       };
       "memory" = {
