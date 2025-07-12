@@ -18,6 +18,8 @@
       mirroredBoots = [
         { devices = [ "nodev" ]; path = "/boot"; }
       ];
+      # useful for debugging
+      useOSProber = false;
       extraEntries = ''
         menuentry "Windows" {
           insmod part_gpt
