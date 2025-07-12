@@ -293,7 +293,8 @@
 
       " Key mappings
       nnoremap <esc><esc> :noh<return>
-      vnoremap <C-c> "+y
+      " vnoremap <C-c> "+y (nonwayland)
+      vnoremap <C-c> :w !wl-copy<CR><CR>
       vnoremap <leader>64 y:echo system('base64 --decode', @")<cr>
 
       " File type settings
@@ -551,6 +552,10 @@
               "formatting": { "command": ["nixfmt"] }
             }
           }
+        },
+        "zig": {
+          "command": "zls",
+          "filetypes": ["zig","zon"],
         }
       }
     }

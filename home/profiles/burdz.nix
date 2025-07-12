@@ -36,6 +36,8 @@
     bat
     bc
     brightnessctl
+    btop
+    cargo
     codex-cli
     colordiff
     curl
@@ -45,7 +47,6 @@
     dunst
     editorconfig-checker
     fastfetch
-    feh
     font-awesome
     fzf
     gemini-cli
@@ -58,7 +59,6 @@
     gopls
     gotools
     grim
-    htop
     jq
     kanshi
     keepassxc
@@ -84,6 +84,7 @@
     python3
     ripgrep
     rust-analyzer
+    rustc
     shellcheck
     slack
     slurp
@@ -100,6 +101,8 @@
     whois
     wl-clipboard
     zathura
+    zig
+    zls
   ];
 
   xdg.portal = {
