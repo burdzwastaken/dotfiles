@@ -218,7 +218,7 @@
       let $FZF_DEFAULT_OPTS = '--info=inline --marker=">" --pointer=">" --no-multi-line --bind up:preview-up,down:preview-down '
 
       " Custom FZF commands
-      command! -bang FzfDotfiles call fzf#vim#files('~/code/dotfiles', fzf#vim#with_preview(), <bang>0)
+      command! -bang FzfDotfiles call fzf#vim#files('~/src/dotfiles', fzf#vim#with_preview(), <bang>0)
       command! -bang -nargs=* Rg
         \ call fzf#vim#grep(
         \ 'rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1,
