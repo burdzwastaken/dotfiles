@@ -67,6 +67,7 @@
     keybase
     imagemagick
     keybase-gui
+    kubecolor
     kubectl
     lsof
     netcat
