@@ -23,6 +23,9 @@
     initExtra = ''
       eval "$(starship init bash)"
       eval "$(direnv hook bash)"
+      source <(kubectl completion bash)
+      complete -o default -F __start_kubectl k
+
       set -o vi
 
       export HISTTIMEFORMAT="%Y-%m-%d %T "
