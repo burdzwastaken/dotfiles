@@ -39,6 +39,7 @@
     brightnessctl
     btop
     cargo
+    codefresh
     codex-cli
     colordiff
     curl
