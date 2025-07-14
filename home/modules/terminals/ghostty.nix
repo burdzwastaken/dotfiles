@@ -5,7 +5,7 @@
     enable = true;
     settings = {
       font-family = "FiraCode Nerd Font Mono";
-      font-size = 10;
+      font-size = 9;
 
       background = "#121015";
       foreground = "#d8d8de";
