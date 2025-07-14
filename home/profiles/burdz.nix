@@ -151,6 +151,7 @@
 
   home.file."Pictures/screenshots/.keep".text = "";
   home.file."Pictures/wallpapers/.keep".text = "";
+  home.file.".terraform.d/plugin-cache/.keep".text = "";
 
   services.keybase.enable = true;
   services.kbfs.enable = true;
