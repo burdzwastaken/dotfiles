@@ -13,40 +13,42 @@
         size = 9.0;
       };
 
-      keybindings = let
-        modifier = "Mod1";
-      in lib.mkOptionDefault {
-        "${modifier}+Return" = "exec ghostty";
+      keybindings =
+        let
+          modifier = "Mod1";
+        in
+        lib.mkOptionDefault {
+          "${modifier}+Return" = "exec ghostty";
 
-        "${modifier}+d" = "exec rofi -show drun";
+          "${modifier}+d" = "exec rofi -show drun";
 
-        "${modifier}+Shift+q" = "kill";
+          "${modifier}+Shift+q" = "kill";
 
-        "${modifier}+x" = "exec ~/.local/bin/lock-screen.sh";
+          "${modifier}+x" = "exec ~/.local/bin/lock-screen.sh";
 
-        "Print" = "exec grim ~/Pictures/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png";
-        "Shift+Print" = "exec grim -g \"$(slurp)\" ~/Pictures/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png";
+          "Print" = "exec grim ~/Pictures/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png";
+          "Shift+Print" = "exec grim -g \"$(slurp)\" ~/Pictures/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png";
 
-        "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
-        "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%";
-        "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
-        "XF86AudioMicMute" = "exec pactl set-source-mute @DEFAULT_SOURCE@ toggle";
-        "XF86MonBrightnessDown" = "exec brightnessctl set 5%-";
-        "XF86MonBrightnessUp" = "exec brightnessctl set 5%+";
+          "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
+          "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%";
+          "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
+          "XF86AudioMicMute" = "exec pactl set-source-mute @DEFAULT_SOURCE@ toggle";
+          "XF86MonBrightnessDown" = "exec brightnessctl set 5%-";
+          "XF86MonBrightnessUp" = "exec brightnessctl set 5%+";
 
-        "${modifier}+w" = "exec google-chrome-stable";
-        "${modifier}+c" = "exec slack";
-        "${modifier}+shift+p" = "exec keepassxc";
-        "${modifier}+m" = "exec pavucontrol";
+          "${modifier}+w" = "exec google-chrome-stable";
+          "${modifier}+c" = "exec slack";
+          "${modifier}+shift+p" = "exec keepassxc";
+          "${modifier}+m" = "exec pavucontrol";
 
-        "${modifier}+b" = "move container to output DP-2";  # move window to bottom monitor
-        "${modifier}+Shift+b" = "move container to output HDMI-A-2";  # move window to top monitor
-        "Alt+Tab" = "workspace back_and_forth";
+          "${modifier}+b" = "move container to output DP-2"; # move window to bottom monitor
+          "${modifier}+Shift+b" = "move container to output HDMI-A-2"; # move window to top monitor
+          "Alt+Tab" = "workspace back_and_forth";
 
-        "ctrl+space" = "exec dunstctl close";
-        "ctrl+shift+space" = "exec dunstctl close-all";
-        "ctrl+grave" = "exec dunstctl history-pop";
-      };
+          "ctrl+space" = "exec dunstctl close";
+          "ctrl+shift+space" = "exec dunstctl close-all";
+          "ctrl+grave" = "exec dunstctl history-pop";
+        };
 
       colors = {
         focused = {
@@ -107,7 +109,7 @@
       output = {
         "DP-2" = {
           resolution = "3440x1440@59.973Hz";
-          position = "0,0";  # top monitor
+          position = "0,0"; # top monitor
         };
         "HDMI-A-2" = {
           resolution = "3440x1440@49.987Hz";

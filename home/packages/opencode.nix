@@ -1,9 +1,6 @@
-{ nixpkgs-unstable, opencode-src, system }:
+{ unstable, opencode-src }:
 
-let
-  pkgs = nixpkgs-unstable.legacyPackages.${system};
-in
-pkgs.opencode.overrideAttrs (old: {
+unstable.opencode.overrideAttrs (old: {
   version = "0.3.9";
   src = opencode-src;
   node_modules = old.node_modules.overrideAttrs (nmOld: {
