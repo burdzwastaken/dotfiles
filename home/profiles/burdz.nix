@@ -79,6 +79,7 @@
     nodePackages.npm
     nodePackages.yarn
     nodejs
+    opencode
     openssl
     p7zip
     pamixer
