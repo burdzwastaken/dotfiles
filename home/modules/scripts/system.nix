@@ -9,7 +9,7 @@
       pkill -f swaylock || true
 
       ${pkgs.swayidle}/bin/swayidle \
-        timeout 5 'swaymsg "output * dpms off"' \
+        timeout 30 'swaymsg "output * dpms off"' \
         resume 'swaymsg "output * dpms on"' &
 
       SWAYIDLE_PID=$!
