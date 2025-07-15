@@ -113,6 +113,8 @@
     udisks2.enable = true;
     upower.enable = true;
 
+    getty.autologinUser = "burdz";
+
     displayManager = {
       defaultSession = "sway";
       autoLogin = {
@@ -121,12 +123,13 @@
       };
     };
 
-    logind = {
-      lidSwitch = "suspend";
-      extraConfig = ''
-        HandlePowerKey=suspend
-      '';
-    };
+    # reference for logind configuration
+    # logind = {
+    #   lidSwitch = "suspend";
+    #   extraConfig = ''
+    #     HandlePowerKey=suspend
+    #   '';
+    # };
 
     pipewire = {
       enable = true;
