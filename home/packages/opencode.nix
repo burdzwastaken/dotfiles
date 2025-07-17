@@ -1,7 +1,7 @@
 { unstable, opencode-src }:
 
 unstable.opencode.overrideAttrs (old: {
-  version = "0.3.9";
+  version = "0.3.17";
   src = opencode-src;
   node_modules = old.node_modules.overrideAttrs (nmOld: {
     outputHash = "sha256-YqSGiikWLErq//RKC3Qcf0aGNFncs3Qx33E8sdKYJ5o=";
