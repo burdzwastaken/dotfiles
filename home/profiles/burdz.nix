@@ -136,8 +136,12 @@
       XDG_SESSION_TYPE = "wayland";
       XDG_CURRENT_DESKTOP = "sway";
 
+      # save the cursor
       WLR_NO_HARDWARE_CURSORS = "1";
       WLR_RENDERER = "vulkan";
+
+      # electron apps
+      NIXOS_OZONE_WL = "1";
     };
 
     file."Pictures/screenshots/.keep".text = "";
