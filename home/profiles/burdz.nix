@@ -124,7 +124,7 @@
     sessionVariables = {
       EDITOR = "vim";
       TERMINAL = "ghostty";
-      BROWSER = "google-chrome";
+      BROWSER = "google-chrome-stable";
       PAGER = "less";
 
       # Wayland environment
