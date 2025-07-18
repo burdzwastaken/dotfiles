@@ -45,6 +45,7 @@
       set nocompatible
       set number
       set cursorline
+      set ignorecase
       set ruler
       set wrap
       set showmode
