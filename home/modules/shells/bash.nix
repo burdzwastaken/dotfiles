@@ -21,7 +21,18 @@
     shellAliases = import ./aliases.nix;
 
     initExtra = ''
+      sync_history() {
+        history -a  # Append current session to history file
+        history -c  # Clear current session history
+        history -r  # Read history file into current session
+      }
+
+      trap 'history -a' EXIT
+
       eval "$(starship init bash)"
+
+      PROMPT_COMMAND="sync_history; $PROMPT_COMMAND"
+
       eval "$(direnv hook bash)"
       source <(kubectl completion bash)
       complete -o default -F __start_kubectl k
