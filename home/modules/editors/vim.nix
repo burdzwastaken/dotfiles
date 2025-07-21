@@ -556,7 +556,7 @@
         },
         "zig": {
           "command": "zls",
-          "filetypes": ["zig","zon"],
+          "filetypes": ["zig","zon"]
         }
       }
     }
