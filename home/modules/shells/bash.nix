@@ -41,6 +41,9 @@
 
       export HISTTIMEFORMAT="%Y-%m-%d %T "
 
+      export MANPAGER='sh -c "col -bx | bat -l man -p"'
+      export MANROFFOPT="-c"
+
       if [ "$(tty)" = "/dev/tty1" ]; then
         exec sway --unsupported-gpu
       fi
