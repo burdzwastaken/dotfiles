@@ -19,6 +19,7 @@
     ../modules/scripts/development.nix
     ../modules/scripts/fzf.nix
     ../modules/scripts/git.nix
+    ../modules/scripts/kubernetes.nix
     ../modules/scripts/system.nix
 
     ../modules/shells/bash.nix
