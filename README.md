@@ -41,3 +41,8 @@ sudo nixos-rebuild switch --flake .#burdz
 ```bash
 sudo nixos-rebuild switch --rollback
 ```
+
+### develop
+```bash
+nix develop .#libgitew
+```

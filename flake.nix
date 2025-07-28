@@ -33,6 +33,29 @@
             unstable = final.unstable;
             opencode-src = opencode;
           };
+          libgit2_1_1 = prev.libgit2.overrideAttrs (old: {
+            version = "1.1.1";
+            src = prev.fetchFromGitHub {
+              owner = "libgit2";
+              repo = "libgit2";
+              rev = "v1.1.1";
+              sha256 = "sha256-SxceIxT0aeiiiZCeSIe6EOa+MyVpQVaiv/ZZn6fkwIc=";
+            };
+            patches = [ ];
+            doCheck = false;
+          });
+          # keep for future bump?
+          # libgit2_1_3 = prev.libgit2.overrideAttrs (old: {
+          #   version = "1.3.0";
+          #   src = prev.fetchFromGitHub {
+          #     owner = "libgit2";
+          #     repo = "libgit2";
+          #     rev = "v1.3.0";
+          #     sha256 = "sha256-7atNkOBzX+nU1gtFQEaE+EF1L+eex+Ajhq2ocoJY920=";
+          #   };
+          #   patches = [ ];
+          #   doCheck = false;
+          # });
         })
       ];
 
@@ -67,6 +90,16 @@
           inherit pkgs;
           modules = [ ./home/profiles/burdz.nix ];
         };
+      };
+
+      # the "libgit2 witness protection program" development environment
+      devShells.${system}.libgitew = pkgs.mkShell {
+        buildInputs = [
+          pkgs.go
+          pkgs.libgit2_1_1
+          pkgs.pkg-config
+        ];
+        CGO_ENABLED = "1";
       };
 
       formatter.${system} = pkgs.nixpkgs-fmt;
