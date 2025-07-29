@@ -28,6 +28,8 @@
 
           "Print" = "exec grim ~/Pictures/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png";
           "Shift+Print" = "exec grim -g \"$(slurp)\" ~/Pictures/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png";
+          "${modifier}+s" = "exec grim ~/Pictures/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png";
+          "${modifier}+shift+s" = "exec grim -g \"$(slurp)\" ~/Pictures/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png";
 
           "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
           "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%";
