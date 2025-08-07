@@ -7,6 +7,6 @@ unstable.opencode.overrideAttrs (old: {
     outputHash = "sha256-oZa8O0iK5uSJjl6fOdnjqjIuG//ihrj4six3FUdfob8=";
   });
   tui = old.tui.overrideAttrs (tuiOld: {
-    vendorHash = "sha256-nBwYVaBau1iTnPY3d5F/5/ENyjMCikpQYNI5whEJwBk=";
+    vendorHash = "sha256-qsOL6gsZwEm7YcYO/zoyJAnVmciCjPYqPavV77psybU=";
   });
 })

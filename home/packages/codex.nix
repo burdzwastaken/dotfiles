@@ -4,8 +4,8 @@ let
   codexRepo = fetchFromGitHub {
     owner = "openai";
     repo = "codex";
-    rev = "e3565a3f438c30c9d36412d2817346c7accd487c";
-    sha256 = "sha256-Y2I8YhL0BWRAZB9B1ll0Ox7HCxnLsJgTMx8xGRxlTrg=";
+    rev = "f23c3066c898d7eb1e1637b7eefe640808ba4234";
+    sha256 = "sha256-wstAfG+m4xxInByG2PgFeuRYLA7WYrNhTAlLQuKS3AA=";
     # sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
   };
 in
