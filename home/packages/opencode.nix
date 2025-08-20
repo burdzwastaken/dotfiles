@@ -1,12 +1,12 @@
 { unstable, opencode-src }:
 
 unstable.opencode.overrideAttrs (old: {
-  version = "0.4.26";
+  version = "0.5.6";
   src = opencode-src;
   node_modules = old.node_modules.overrideAttrs (nmOld: {
-    outputHash = "sha256-ql4qcMtuaRwSVVma3OeKkc9tXhe21PWMMko3W3JgpB0=";
+    outputHash = "sha256-hznCg/7c9uNV7NXTkb6wtn3EhJDkGI7yZmSIA2SqX7g=";
   });
   tui = old.tui.overrideAttrs (tuiOld: {
-    vendorHash = "sha256-jINbGug/SPGBjsXNsC9X2r5TwvrOl5PJDL+lrOQP69Q=";
+    vendorHash = "sha256-acDXCL7ZQYW5LnEqbMgDwpTbSgtf4wXnMMVtQI1Dv9s=";
   });
 })
