@@ -24,7 +24,7 @@
       };
       git_status = {
         style = "bold #ce4a4a";
-        stashed = " ";
+        stashed = "⟐";
         ahead = "⇡";
         behind = "⇣";
         diverged = "⇕";
