@@ -12,7 +12,7 @@
 
     # use an overridden version for now https://github.com/sst/opencode/issues/462
     opencode = {
-      url = "github:sst/opencode/v0.5.6";
+      url = "github:sst/opencode/v0.6.8";
       flake = false;
     };
   };
@@ -28,7 +28,9 @@
             system = prev.system;
             config.allowUnfree = true;
           };
-          codex-cli = prev.callPackage ./home/packages/codex.nix { };
+          codex = prev.callPackage ./home/packages/codex.nix {
+            unstable = final.unstable;
+          };
           opencode = prev.callPackage ./home/packages/opencode.nix {
             unstable = final.unstable;
             opencode-src = opencode;

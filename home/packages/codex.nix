@@ -1,52 +1,35 @@
-{ stdenv, fetchFromGitHub, nodejs, pnpm, makeWrapper, ... }:
+{ unstable }:
 
-let
-  codexRepo = fetchFromGitHub {
+unstable.rustPlatform.buildRustPackage rec {
+  pname = "codex";
+  version = "0.31.0";
+
+  src = unstable.fetchFromGitHub {
     owner = "openai";
     repo = "codex";
-    rev = "f23c3066c898d7eb1e1637b7eefe640808ba4234";
-    sha256 = "sha256-wstAfG+m4xxInByG2PgFeuRYLA7WYrNhTAlLQuKS3AA=";
-    # sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+    tag = "rust-v${version}";
+    hash = "sha256-BGrSArFU/wl47Xad7dzOCL8aNgvISwF5gXUNTpKDBMY=";
   };
-in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "codex-cli";
-  version = "0.1.0";
-  src = codexRepo;
-  sourceRoot = finalAttrs.src.name;
-  nativeBuildInputs = [
-    nodejs
-    pnpm
-    pnpm.configHook
-    makeWrapper
+
+  sourceRoot = "${src.name}/codex-rs";
+  cargoHash = "sha256-54eCWW+XJIiMbChvJ06o7SlFq7ZZVgovw2lUXUJem18=";
+
+  nativeBuildInputs = with unstable; [
+    installShellFiles
+    pkg-config
   ];
-  pnpmDeps = pnpm.fetchDeps {
-    inherit (finalAttrs) pname version src;
-    hash = "sha256-SyKP++eeOyoVBFscYi+Q7IxCphcEeYgpuAj70+aCdNA=";
-    # hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+
+  buildInputs = with unstable; [
+    openssl
+  ];
+
+  doCheck = false;
+
+  meta = with unstable.lib; {
+    description = "OpenAI Codex CLI";
+    homepage = "https://github.com/openai/codex";
+    license = licenses.mit;
+    maintainers = [ ];
+    platforms = platforms.unix;
   };
-  buildPhase = ''
-    cd codex-cli
-    pnpm install --frozen-lockfile
-    pnpm run build
-  '';
-  installPhase = ''
-    runHook preInstall
-    mkdir -p $out/bin
-    mkdir -p $out/lib
-
-    install -Dm644 dist/cli.js $out/lib/cli.js
-
-    install -Dm644 package.json $out/package.json
-
-    if [ -d node_modules ]; then
-      cp -r node_modules $out/node_modules
-    fi
-
-    makeWrapper ${nodejs}/bin/node $out/bin/codex \
-      --add-flags "$out/lib/cli.js" \
-      --set NODE_PATH "$out/node_modules"
-
-    runHook postInstall
-  '';
-})
+}

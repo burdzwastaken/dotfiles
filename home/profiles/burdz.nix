@@ -43,7 +43,7 @@
       btop
       cargo
       codefresh
-      codex-cli
+      codex
       colordiff
       curl
       direnv
@@ -73,6 +73,7 @@
       keybase-gui
       kubecolor
       kubectl
+      kubernetes-helm
       lsof
       netcat
       nil
@@ -114,6 +115,7 @@
       zls
 
       unstable.claude-code
+      # unstable.go_1_25
     ];
 
     sessionPath = [
