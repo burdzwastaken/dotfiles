@@ -12,7 +12,7 @@
 
     # use an overridden version for now https://github.com/sst/opencode/issues/462
     opencode = {
-      url = "github:sst/opencode/v0.6.8";
+      url = "github:sst/opencode/v0.15.0";
       flake = false;
     };
   };

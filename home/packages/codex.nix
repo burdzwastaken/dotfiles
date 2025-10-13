@@ -2,17 +2,17 @@
 
 unstable.rustPlatform.buildRustPackage rec {
   pname = "codex";
-  version = "0.31.0";
+  version = "0.346";
 
   src = unstable.fetchFromGitHub {
     owner = "openai";
     repo = "codex";
     tag = "rust-v${version}";
-    hash = "sha256-BGrSArFU/wl47Xad7dzOCL8aNgvISwF5gXUNTpKDBMY=";
+    hash = "sha256-o898VjjPKevr1VRlRhJUNWsrHEGEn7jkdzWBj+DpbCs=";
   };
 
   sourceRoot = "${src.name}/codex-rs";
-  cargoHash = "sha256-54eCWW+XJIiMbChvJ06o7SlFq7ZZVgovw2lUXUJem18=";
+  cargoHash = "sha256-Qp5zezXjVdOp8OylLgUZRLc0HQlgII6nOZodnOrok6U=";
 
   nativeBuildInputs = with unstable; [
     installShellFiles
