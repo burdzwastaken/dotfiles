@@ -6,6 +6,7 @@
     settings = {
       add_newline = false;
       format = lib.concatStrings [
+        "$nix_shell"
         "$git_branch"
         "$git_status"
         "$directory"
