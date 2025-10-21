@@ -109,6 +109,7 @@
       vlc
       wget
       whois
+      winboat
       wl-clipboard
       zathura
       zig

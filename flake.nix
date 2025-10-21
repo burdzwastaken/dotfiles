@@ -15,10 +15,12 @@
       url = "github:sst/opencode/v0.15.10";
       flake = false;
     };
+
+    winboat.url = "github:TibixDev/winboat/v0.8.7";
   };
 
   # with imports `{ self, ... }@inputs: `
-  outputs = { nixpkgs, nixpkgs-unstable, opencode, home-manager, ... }:
+  outputs = { nixpkgs, nixpkgs-unstable, opencode, home-manager, winboat, ... }:
     let
       system = "x86_64-linux";
 
@@ -34,6 +36,9 @@
           opencode = prev.callPackage ./home/packages/opencode.nix {
             unstable = final.unstable;
             opencode-src = opencode;
+          };
+          winboat = prev.callPackage ./home/packages/winboat.nix {
+            winboat-flake = winboat;
           };
           libgit2_1_3 = prev.libgit2.overrideAttrs (old: {
             version = "1.3.0";

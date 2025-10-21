@@ -53,6 +53,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1758690382,
+        "narHash": "sha256-NY3kSorgqE5LMm1LqNwGne3ZLMF2/ILgLpFr1fS4X3o=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "e643668fd71b949c53f8626614b21ff71a07379d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "opencode": {
       "flake": false,
       "locked": {
@@ -75,7 +91,27 @@
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "opencode": "opencode"
+        "opencode": "opencode",
+        "winboat": "winboat"
+      }
+    },
+    "winboat": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1759908992,
+        "narHash": "sha256-30WzvdY8Zn4CAj76bbC0bevuTeOSfDo40FPWof/39Es=",
+        "owner": "TibixDev",
+        "repo": "winboat",
+        "rev": "a641ec8b0de1140c1cd7d0f40a37eea0e63494b4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "TibixDev",
+        "ref": "v0.8.7",
+        "repo": "winboat",
+        "type": "github"
       }
     }
   },
