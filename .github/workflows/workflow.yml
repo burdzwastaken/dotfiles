@@ -31,3 +31,6 @@ jobs:
 
     - name: Build home-manager config (dry-run)
       run: nix build .#homeConfigurations.burdz.activationPackage --dry-run
+
+    - name: Build matt_burdan home-manager config (dry-run)
+      run: nix build .#homeConfigurations.matt_burdan.activationPackage --dry-run

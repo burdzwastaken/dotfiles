@@ -85,6 +85,10 @@
           inherit pkgs;
           modules = [ ./home/profiles/burdz.nix ];
         };
+        "matt_burdan" = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [ ./home/profiles/matt_burdan.nix ];
+        };
       };
 
       # the "libgit2 witness protection program" development environment

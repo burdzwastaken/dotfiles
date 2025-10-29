@@ -32,9 +32,14 @@ sudo nixos-rebuild build --flake .#kernelpanic
 sudo nixos-rebuild switch --flake .#kernelpanic
 ```
 
-### just home-manager (work f.ex)
+### just home-manager
 ```bash
 sudo nixos-rebuild switch --flake .#burdz
+```
+
+### just home-manager (work f.ex)
+```bash
+home-manager switch --flake .#matt_burdan
 ```
 
 ### rollback if needed
