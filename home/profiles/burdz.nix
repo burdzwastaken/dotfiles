@@ -37,6 +37,7 @@
     packages = with pkgs; [
       (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.gke-gcloud-auth-plugin ])
       argo
+      asciinema
       bat
       bc
       brightnessctl
@@ -45,6 +46,7 @@
       codefresh
       codex
       colordiff
+      croc
       curl
       direnv
       discord
@@ -53,9 +55,12 @@
       dunst
       editorconfig-checker
       fastfetch
+      fd
+      figlet
       font-awesome
       fzf
       gemini-cli
+      gh
       ghostty
       git
       gnumake
@@ -64,12 +69,14 @@
       google-chrome
       gopls
       gotools
+      grex
       grim
+      imagemagick
       jq
+      jrnl
       kanshi
       keepassxc
       keybase
-      imagemagick
       keybase-gui
       kubecolor
       kubectl
@@ -77,6 +84,7 @@
       lsof
       netcat
       nil
+      nix-search-tv
       nmap
       nodePackages.bash-language-server
       nodePackages.dockerfile-language-server-nodejs
@@ -114,9 +122,18 @@
       zathura
       zig
       zls
+      zoxide
 
       unstable.claude-code
       # unstable.go_1_25
+
+      (pkgs.writeShellApplication {
+        name = "ns";
+        runtimeInputs = with pkgs; [
+          fzf
+        ];
+        text = builtins.readFile "${pkgs.nix-search-tv.src}/nixpkgs.sh";
+      })
     ];
 
     sessionPath = [
@@ -159,6 +176,8 @@
     home-manager.enable = true;
     jq.enable = true;
     man.enable = true;
+    zoxide.enable = true;
+    zoxide.enableBashIntegration = true;
   };
 
   services = {
