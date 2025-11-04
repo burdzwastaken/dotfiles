@@ -10,17 +10,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # use an overridden version for now https://github.com/sst/opencode/issues/462
-    opencode = {
-      url = "github:sst/opencode/v0.15.29";
-      flake = false;
-    };
-
     winboat.url = "github:TibixDev/winboat/v0.8.7";
   };
 
   # with imports `{ self, ... }@inputs: `
-  outputs = { nixpkgs, nixpkgs-unstable, opencode, home-manager, winboat, ... }:
+  outputs = { nixpkgs, nixpkgs-unstable, home-manager, winboat, ... }:
     let
       system = "x86_64-linux";
 
@@ -32,10 +26,6 @@
           };
           codex = prev.callPackage ./home/packages/codex.nix {
             unstable = final.unstable;
-          };
-          opencode = prev.callPackage ./home/packages/opencode.nix {
-            unstable = final.unstable;
-            opencode-src = opencode;
           };
           winboat = prev.callPackage ./home/packages/winboat.nix {
             winboat-flake = winboat;

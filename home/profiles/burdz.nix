@@ -91,7 +91,6 @@
       nodePackages.npm
       nodePackages.yarn
       nodejs
-      opencode
       openssl
       p7zip
       pamixer
@@ -125,6 +124,7 @@
       zoxide
 
       unstable.claude-code
+      unstable.opencode
       # unstable.go_1_25
 
       (pkgs.writeShellApplication {

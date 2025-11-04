@@ -39,11 +39,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1761907660,
-        "narHash": "sha256-kJ8lIZsiPOmbkJypG+B5sReDXSD1KGu2VEPNqhRa/ew=",
+        "lastModified": 1762111121,
+        "narHash": "sha256-4vhDuZ7OZaZmKKrnDpxLZZpGIJvAeMtK6FKLJYUtAdw=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "2fb006b87f04c4d3bdf08cfdbc7fab9c13d94a15",
+        "rev": "b3d51a0365f6695e7dd5cdf3e180604530ed33b4",
         "type": "github"
       },
       "original": {
@@ -69,29 +69,11 @@
         "type": "github"
       }
     },
-    "opencode": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1761806974,
-        "narHash": "sha256-L3IcADx0fbtnqlf8Ysc1J5DVJp6ZQtN2faBJqAFMD3g=",
-        "owner": "sst",
-        "repo": "opencode",
-        "rev": "4b3a841dd95d67b7176351314571eb0de276aea1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "sst",
-        "ref": "v0.15.29",
-        "repo": "opencode",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "opencode": "opencode",
         "winboat": "winboat"
       }
     },
