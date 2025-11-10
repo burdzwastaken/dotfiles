@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [
@@ -169,6 +169,10 @@
     file."Pictures/screenshots/.keep".text = "";
     file."Pictures/wallpapers/.keep".text = "";
     file.".terraform.d/plugin-cache/.keep".text = "";
+
+    file.".npmrc".text = ''
+      prefix=${config.home.homeDirectory}/.npm-global
+    '';
   };
 
   programs = {
