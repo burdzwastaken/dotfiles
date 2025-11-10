@@ -38,6 +38,7 @@
       (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.gke-gcloud-auth-plugin ])
       argo
       asciinema
+      bash-language-server
       bat
       bc
       brightnessctl
@@ -86,7 +87,6 @@
       nil
       nix-search-tv
       nmap
-      nodePackages.bash-language-server
       nodePackages.dockerfile-language-server-nodejs
       nodePackages.npm
       nodePackages.yarn
