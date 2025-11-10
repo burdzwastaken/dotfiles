@@ -7,9 +7,12 @@
       font-family = "FiraCode Nerd Font Mono";
       font-size = 9;
 
+      background-opacity = 0.95;
+
+      theme = "tokyonight_night";
       background = "#121015";
       foreground = "#d8d8de";
-      background-opacity = 0.95;
+      cursor-color = "#c0caf5";
 
       cursor-style = "bar";
 

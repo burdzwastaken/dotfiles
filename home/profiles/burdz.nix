@@ -14,7 +14,7 @@
     ../modules/desktops/rofi.nix
     ../modules/desktops/sway.nix
 
-    ../modules/editors/vim.nix
+    ../modules/editors/neovim.nix
 
     ../modules/scripts/development.nix
     ../modules/scripts/fzf.nix
@@ -144,7 +144,7 @@
     ];
 
     sessionVariables = {
-      EDITOR = "vim";
+      EDITOR = "nvim";
       TERMINAL = "ghostty";
       BROWSER = "google-chrome-stable";
       PAGER = "less";

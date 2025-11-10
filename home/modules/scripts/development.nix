@@ -49,6 +49,15 @@
     executable = true;
   };
 
+  home.file.".local/bin/go-work-init.sh" = {
+    text = ''
+      #!/usr/bin/env bash
+      go work init
+      find . -name "go.mod" -exec dirname {} \; | xargs -I {} go work use {}
+    '';
+    executable = true;
+  };
+
   home.file.".local/bin/get-latest-github-release" = {
     text = ''
       #!/usr/bin/env bash
