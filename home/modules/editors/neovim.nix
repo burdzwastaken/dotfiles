@@ -39,6 +39,7 @@
       vim-eunuch
       vim-fugitive
       vim-rhubarb
+      vim-visual-multi
       which-key-nvim
     ];
 
@@ -148,8 +149,22 @@
       vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
       vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
       vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+      vim.keymap.set("i", "<C-h>", "<Left>", { desc = "Left in insert mode" })
+      vim.keymap.set("i", "<C-j>", "<Down>", { desc = "Down in insert mode" })
+      vim.keymap.set("i", "<C-k>", "<Up>", { desc = "Up in insert mode" })
+      vim.keymap.set("i", "<C-l>", "<Right>", { desc = "Right in insert mode" })
 
-      vim.keymap.set('v', '<C-c>', ':w !wl-copy<CR><CR>', { desc = 'Copy to clipboard' })
+      vim.api.nvim_create_user_command('E', 'e<bang>', { bang = true })
+      vim.api.nvim_create_user_command('Q', 'q<bang>', { bang = true })
+      vim.api.nvim_create_user_command('W', 'w<bang>', { bang = true })
+      vim.api.nvim_create_user_command('QA', 'qa<bang>', { bang = true })
+      vim.api.nvim_create_user_command('Qa', 'qa<bang>', { bang = true })
+      vim.api.nvim_create_user_command('Wa', 'wa<bang>', { bang = true })
+      vim.api.nvim_create_user_command('WA', 'wa<bang>', { bang = true })
+      vim.api.nvim_create_user_command('Wq', 'wq<bang>', { bang = true })
+      vim.api.nvim_create_user_command('WQ', 'wq<bang>', { bang = true })
+
+      vim.keymap.set('v', '<C-c>', 'y', { desc = 'Copy to clipboard' })
       vim.api.nvim_create_autocmd('TextYankPost', {
         desc = 'Highlight when yanking (copying) text',
         group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
@@ -702,6 +717,14 @@
           border = border
         },
       })
+
+      vim.g.VM_maps = {
+        ['Find Under'] = '<C-n>',
+        ['Find Subword Under'] = '<C-n>',
+        ['Select All'] = '<C-n>',
+        ['Skip Region'] = '<C-x>',
+        ['Remove Region'] = '<C-p>',
+      }
 
       vim.g.copilot_no_tab_map = true
       vim.keymap.set('i', '<C-j>', 'copilot#Next()', { expr = true, silent = true })
