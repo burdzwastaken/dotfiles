@@ -164,6 +164,7 @@
     LANG = "en_US.UTF-8";
     LC_ALL = "en_US.UTF-8";
     XDG_CURRENT_DESKTOP = "sway";
+    ELECTRON_OZONE_PLATFORM_HINT = "x11";
   };
 
   programs = {
