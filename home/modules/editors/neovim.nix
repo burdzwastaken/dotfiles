@@ -726,6 +726,9 @@
         ['Remove Region'] = '<C-p>',
       }
 
+      vim.keymap.set('n', '<C-d>', '<C-d>zz')
+      vim.keymap.set('n', '<C-b>', '<C-b>zz')
+
       vim.g.copilot_no_tab_map = true
       vim.keymap.set('i', '<C-j>', 'copilot#Next()', { expr = true, silent = true })
       vim.keymap.set('i', '<C-k>', 'copilot#Previous()', { expr = true, silent = true })
