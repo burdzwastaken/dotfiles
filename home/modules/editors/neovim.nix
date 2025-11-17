@@ -35,6 +35,7 @@
       tabout-nvim
       telescope-fzf-native-nvim
       telescope-nvim
+      treesj
       tokyonight-nvim
       vim-eunuch
       vim-fugitive
@@ -189,6 +190,10 @@
           enable = true,
         },
       })
+
+      local treesj = require('treesj')
+      treesj.setup({})
+      vim.keymap.set('n', '<space>m', treesj.toggle, { desc = 'Toggle Treesj split/join' })
 
       require('fidget').setup({})
 
