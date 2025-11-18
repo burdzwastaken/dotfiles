@@ -442,6 +442,16 @@
       vim.keymap.set('n', '<F6>', ':NvimTreeToggle<CR>', { desc = 'Toggle file tree' })
       vim.keymap.set('n', '<C-p>', ':NvimTreeToggle<CR>', { desc = 'Toggle file tree' })
 
+      vim.api.nvim_create_autocmd('BufEnter', {
+        group = vim.api.nvim_create_augroup('close-nvim-tree-when-alone', { clear = true }),
+        nested = true,
+        callback = function()
+          if vim.bo.filetype == 'NvimTree' and #vim.api.nvim_list_wins() == 1 then
+            vim.cmd('quit')
+          end
+        end,
+      })
+
       require('gitsigns').setup({
         signs = {
           add = { text = '+' },
