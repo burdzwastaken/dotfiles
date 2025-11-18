@@ -88,6 +88,7 @@
       kubectl
       kubernetes-helm
       lsof
+      magika
       netcat
       nil
       nix-search-tv
@@ -125,6 +126,7 @@
       wget
       whois
       winboat
+      wireshark
       wl-clipboard
       yazi
       zathura
