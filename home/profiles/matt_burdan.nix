@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [
@@ -159,7 +159,7 @@
     file."Pictures/screenshots/.keep".text = "";
 
     file.".npmrc".text = ''
-      prefix=''${config.home.homeDirectory}/.npm-global
+      prefix=${config.home.homeDirectory}/.npm-global
     '';
   };
 

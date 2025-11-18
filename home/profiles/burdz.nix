@@ -44,6 +44,7 @@
       brightnessctl
       btop
       cargo
+      cloc
       codefresh
       codex
       colordiff
@@ -55,6 +56,7 @@
       dropbox
       dunst
       editorconfig-checker
+      exiftool
       fastfetch
       fd
       figlet
@@ -75,10 +77,13 @@
       imagemagick
       jq
       jrnl
+      k6
       kanshi
       keepassxc
       keybase
       keybase-gui
+      kind
+      krew
       kubecolor
       kubectl
       kubernetes-helm
@@ -98,9 +103,11 @@
       playerctl
       podman
       python3
+      qemu
       ripgrep
       rust-analyzer
       rustc
+      semgrep
       shellcheck
       sl
       slack
@@ -108,6 +115,7 @@
       spotify
       starship
       swaylock-effects
+      tcpdump
       terraform
       terraform-ls
       tree
@@ -118,6 +126,7 @@
       whois
       winboat
       wl-clipboard
+      yazi
       zathura
       zig
       zls
