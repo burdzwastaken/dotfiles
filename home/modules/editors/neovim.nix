@@ -442,11 +442,21 @@
       vim.keymap.set('n', '<F6>', ':NvimTreeToggle<CR>', { desc = 'Toggle file tree' })
       vim.keymap.set('n', '<C-p>', ':NvimTreeToggle<CR>', { desc = 'Toggle file tree' })
 
+      local close_tree_group = vim.api.nvim_create_augroup('close-nvim-tree-when-alone', { clear = true })
+      local has_seen_non_tree_buffer = false
+
       vim.api.nvim_create_autocmd('BufEnter', {
-        group = vim.api.nvim_create_augroup('close-nvim-tree-when-alone', { clear = true }),
+        group = close_tree_group,
         nested = true,
         callback = function()
-          if vim.bo.filetype == 'NvimTree' and #vim.api.nvim_list_wins() == 1 then
+          local is_tree = vim.bo.filetype == 'NvimTree'
+
+          if not is_tree then
+            has_seen_non_tree_buffer = true
+            return
+          end
+
+          if has_seen_non_tree_buffer and #vim.api.nvim_list_wins() == 1 then
             vim.cmd('quit')
           end
         end,
@@ -593,6 +603,9 @@
           enabled = true,
           show_start = false,
           show_end = false,
+        },
+        exclude = {
+          filetypes = { 'dashboard' },
         },
       })
 
