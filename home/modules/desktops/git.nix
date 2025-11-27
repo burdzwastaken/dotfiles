@@ -73,6 +73,17 @@
         algorithm = "patience";
         compactionHeuristic = true;
         colormoved = "zebra";
+        external = "difft";
+        tool = "difftastic";
+      };
+      difftool = {
+        difftastic = {
+          cmd = "difft --display inline \"$LOCAL\" \"$REMOTE\" | less -R";
+        };
+        prompt = false;
+      };
+      pager = {
+        difftool = true;
       };
       checkout = {
         defaultRemote = "origin";

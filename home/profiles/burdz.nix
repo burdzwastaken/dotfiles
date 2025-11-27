@@ -50,6 +50,7 @@
       colordiff
       croc
       curl
+      difftastic
       direnv
       discord
       dnsutils
