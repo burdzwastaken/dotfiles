@@ -5,6 +5,7 @@
     ../modules/applications/zathura.nix
 
     ../modules/configs/clis.nix
+    ../modules/configs/direnv.nix
     ../modules/configs/terraform.nix
 
     ../modules/desktops/dunst.nix
