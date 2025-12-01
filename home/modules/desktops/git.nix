@@ -3,8 +3,6 @@
 {
   programs.git = {
     enable = true;
-    userName = "Matt Burdan";
-    userEmail = "burdz@burdz.net";
     signing = {
       key = "381991A48A07E6599716B2F5AAAD9B134D3AC027";
       signByDefault = true;
@@ -27,21 +25,24 @@
       }
     ];
 
-    aliases = {
-      pushup = "!git push --set-upstream origin $(git symbolic-ref --short HEAD)";
-      subranch = "!git branch --set-upstream-to=origin/$(git symbolic-ref --short HEAD) $(git symbolic-ref --short HEAD)";
-      resignmaster = "!git rebase -i master --exec 'git commit --amend --no-edit --no-verify -S --reset-author'";
-      wip = "for-each-ref --sort='-authordate:iso8601' --count 20 --format=' %(color:green)%(authordate:relative)%09%(color:white)%(refname:short)' refs/heads";
+    settings = {
+      user = {
+        name = "Matt Burdan";
+        email = "burdz@burdz.net";
+      };
+      alias = {
+        pushup = "!git push --set-upstream origin $(git symbolic-ref --short HEAD)";
+        subranch = "!git branch --set-upstream-to=origin/$(git symbolic-ref --short HEAD) $(git symbolic-ref --short HEAD)";
+        resignmaster = "!git rebase -i master --exec 'git commit --amend --no-edit --no-verify -S --reset-author'";
+        wip = "for-each-ref --sort='-authordate:iso8601' --count 20 --format=' %(color:green)%(authordate:relative)%09%(color:white)%(refname:short)' refs/heads";
 
-      ga = "add -A";
-      gs = "status";
-      gc = "commit -S";
-      gco = "checkout";
-      gd = "diff";
-      gl = "log --oneline --graph";
-    };
-
-    extraConfig = {
+        ga = "add -A";
+        gs = "status";
+        gc = "commit -S";
+        gco = "checkout";
+        gd = "diff";
+        gl = "log --oneline --graph";
+      };
       core = {
         editor = "vim";
         autocrlf = "input";

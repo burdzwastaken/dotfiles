@@ -48,7 +48,7 @@
     nerd-fonts.fira-code
     noto-fonts
     noto-fonts-cjk-sans
-    noto-fonts-emoji
+    noto-fonts-color-emoji
   ];
 
   hardware = {
@@ -78,7 +78,7 @@
       enable = true;
       wrapperFeatures.gtk = true;
       extraPackages = with pkgs; [
-        rofi-wayland
+        rofi
         sway
         swaybg
         swayidle

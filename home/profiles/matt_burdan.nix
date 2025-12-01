@@ -82,7 +82,7 @@
       swayidle
       swaybg
       wl-clipboard
-      rofi-wayland
+      rofi
       grim
       slurp
       kanshi
@@ -109,7 +109,7 @@
       zls
       gotools
       go-outline
-      nodePackages.dockerfile-language-server-nodejs
+      dockerfile-language-server
       (google-cloud-sdk.withExtraComponents [
         google-cloud-sdk.components.gke-gcloud-auth-plugin
         google-cloud-sdk.components.cloud-firestore-emulator
@@ -128,7 +128,7 @@
       lm_sensors
       zoom
       nil
-      argo
+      argo-workflows
       tree
       parallel
       trivy

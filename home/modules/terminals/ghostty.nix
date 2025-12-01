@@ -9,7 +9,7 @@
 
       background-opacity = 0.95;
 
-      theme = "tokyonight_night";
+      theme = "TokyoNight Night";
       background = "#121015";
       foreground = "#d8d8de";
       cursor-color = "#c0caf5";
@@ -21,6 +21,8 @@
       window-decoration = false;
 
       clipboard-paste-protection = false;
+
+      window-inherit-working-directory = false;
 
       keybind = [
         "ctrl+shift+c=copy_to_clipboard"

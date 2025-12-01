@@ -37,7 +37,7 @@
 
     packages = with pkgs; [
       (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.gke-gcloud-auth-plugin ])
-      argo
+      argo-workflows
       asciinema
       bash-language-server
       bat
@@ -95,10 +95,9 @@
       nil
       nix-search-tv
       nmap
-      nodePackages.dockerfile-language-server-nodejs
-      nodePackages.npm
-      nodePackages.yarn
+      dockerfile-language-server
       nodejs
+      nodejs.pkgs.yarn
       openssl
       p7zip
       pamixer
@@ -145,6 +144,7 @@
         runtimeInputs = with pkgs; [
           fzf
         ];
+        excludeShellChecks = [ "SC2016" ];
         text = builtins.readFile "${pkgs.nix-search-tv.src}/nixpkgs.sh";
       })
     ];

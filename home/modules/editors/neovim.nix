@@ -50,7 +50,7 @@
       gopls
       nil
       nodePackages.bash-language-server
-      nodePackages.dockerfile-language-server-nodejs
+      dockerfile-language-server
       ripgrep
       rust-analyzer
       terraform-ls
@@ -197,8 +197,82 @@
 
             require('fidget').setup({})
 
-            local lspconfig = require('lspconfig')
             local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+            vim.lsp.config('gopls', {
+              cmd = { 'gopls' },
+              filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
+              root_markers = { 'go.work', 'go.mod', '.git' },
+              capabilities = capabilities,
+              settings = {
+                gopls = {
+                  buildFlags = { '-tags=integration,infra,paasmutable,paasimmutable,promotion' },
+                  analyses = {
+                    unusedparams = true,
+                  },
+                  gofumpt = true,
+                  staticcheck = true,
+                  usePlaceholders = true,
+                },
+              },
+            })
+
+            vim.lsp.config('rust_analyzer', {
+              cmd = { 'rust-analyzer' },
+              filetypes = { 'rust' },
+              root_markers = { 'Cargo.toml', 'rust-project.json', '.git' },
+              capabilities = capabilities,
+            })
+
+            vim.lsp.config('terraformls', {
+              cmd = { 'terraform-ls', 'serve' },
+              filetypes = { 'terraform', 'terraform-vars', 'hcl' },
+              root_markers = { '.terraform', '.git' },
+              capabilities = capabilities,
+            })
+
+            vim.lsp.config('bashls', {
+              cmd = { 'bash-language-server', 'start' },
+              filetypes = { 'sh', 'bash' },
+              root_markers = { '.git' },
+              capabilities = capabilities,
+            })
+
+            vim.lsp.config('dockerls', {
+              cmd = { 'docker-langserver', '--stdio' },
+              filetypes = { 'dockerfile' },
+              root_markers = { 'Dockerfile', '.git' },
+              capabilities = capabilities,
+            })
+
+            vim.lsp.config('nil_ls', {
+              cmd = { 'nil' },
+              filetypes = { 'nix' },
+              root_markers = { 'flake.nix', '.git' },
+              capabilities = capabilities,
+              settings = {
+                ['nil'] = {
+                  formatting = {
+                    command = { 'nixfmt' },
+                  },
+                },
+              },
+            })
+
+            vim.lsp.config('zls', {
+              cmd = { 'zls' },
+              filetypes = { 'zig', 'zon' },
+              root_markers = { 'build.zig', 'zls.json', '.git' },
+              capabilities = capabilities,
+            })
+
+            vim.lsp.enable('gopls')
+            vim.lsp.enable('rust_analyzer')
+            vim.lsp.enable('terraformls')
+            vim.lsp.enable('bashls')
+            vim.lsp.enable('dockerls')
+            vim.lsp.enable('nil_ls')
+            vim.lsp.enable('zls')
 
             vim.api.nvim_create_autocmd('LspAttach', {
               group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
@@ -252,54 +326,6 @@
             })
 
             vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.handlers.signature_help
-
-            lspconfig.gopls.setup({
-              capabilities = capabilities,
-              init_options = {
-                buildFlags = {'-tags=integration,infra,paasmutable,paasimmutable,promotion'},
-              },
-              settings = {
-                gopls = {
-                  analyses = {
-                    unusedparams = true,
-                  },
-                  gofumpt = true,
-                  staticcheck = true,
-                  usePlaceholders = true,
-                },
-              },
-            })
-
-            lspconfig.rust_analyzer.setup({
-              capabilities = capabilities,
-            })
-
-            lspconfig.terraformls.setup({
-              capabilities = capabilities,
-            })
-
-            lspconfig.bashls.setup({
-              capabilities = capabilities,
-            })
-
-            lspconfig.dockerls.setup({
-              capabilities = capabilities,
-            })
-
-            lspconfig.nil_ls.setup({
-              capabilities = capabilities,
-              settings = {
-                ['nil'] = {
-                  formatting = {
-                    command = { 'nixfmt' },
-                  },
-                },
-              },
-            })
-
-            lspconfig.zls.setup({
-              capabilities = capabilities,
-            })
 
             vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, { desc = '[F]ormat buffer' })
             vim.keymap.set('v', '<leader>f', vim.lsp.buf.format, { desc = '[F]ormat selection' })

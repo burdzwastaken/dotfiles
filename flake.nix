@@ -2,11 +2,11 @@
   description = "Personal NixOS and Home Manager configurations";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -21,7 +21,7 @@
       overlays = [
         (final: prev: {
           unstable = import nixpkgs-unstable {
-            system = prev.system;
+            system = prev.stdenv.hostPlatform.system;
             config.allowUnfree = true;
           };
           codex = prev.callPackage ./home/packages/codex.nix {
