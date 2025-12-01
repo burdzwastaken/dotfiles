@@ -63,6 +63,7 @@
       figlet
       font-awesome
       fzf
+      gcc
       gemini-cli
       gh
       ghostty
