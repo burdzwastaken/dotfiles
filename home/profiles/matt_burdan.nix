@@ -96,7 +96,6 @@
       jq
       nodejs
       cloc
-      nodejs.pkgs.npm
       nodejs.pkgs.yarn
       mdbook
       rustc
