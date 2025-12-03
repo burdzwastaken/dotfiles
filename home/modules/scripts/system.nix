@@ -6,7 +6,6 @@
       #!/usr/bin/env bash
       set -e
 
-      swaymsg "reload"
       swaymsg "output * dpms on"
       swaymsg "output * enable"
       swaymsg "output DP-2 power on"
@@ -24,7 +23,7 @@
 
       ${pkgs.swayidle}/bin/swayidle \
         timeout 30 'swaymsg "output * dpms off"' \
-        resume '~/.local/bin/swayidle-resume.sh' &
+        resume 'swaymsg "output * dpms on, output * enable, output DP-2 power on, output DP-2 mode 3440x1440@59.973Hz pos 0 0"' &
 
       SWAYIDLE_PID=$!
 

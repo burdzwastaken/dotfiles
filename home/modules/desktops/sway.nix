@@ -110,7 +110,8 @@
 
       output = {
         "DP-2" = {
-          resolution = "3440x1440@59.973Hz";
+          resolution = "3440x1440@49.987Hz";
+          # resolution = "3440x1440@59.973Hz";
           position = "0,0"; # top monitor
         };
         "HDMI-A-2" = {
