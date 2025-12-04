@@ -132,4 +132,6 @@
   bigfilez = "sudo find \"\$@\" -type f -size +10M -exec ls -lh {} \\;";
   go-dep-imports = "go list -f '{{join .Deps \"\\n\"}}'";
   findclibs = "echo \"#include <\$1>\" | cpp -H -o /dev/null 2>&1 | head -n1";
+
+  hl = "rg --passthru";
 }
