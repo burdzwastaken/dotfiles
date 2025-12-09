@@ -2,7 +2,7 @@
 
 unstable.rustPlatform.buildRustPackage rec {
   pname = "codex";
-  version = "0.63.0";
+  version = "0.66.0";
 
   src = unstable.fetchFromGitHub {
     owner = "openai";
