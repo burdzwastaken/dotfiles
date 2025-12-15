@@ -45,7 +45,7 @@
 
       export $(systemctl --user show-environment 2>/dev/null | grep -E '^(SSH_AUTH_SOCK|DISPLAY|WAYLAND_DISPLAY|XDG_.*|DBUS_.*)') || true
 
-      eval $(keychain --eval -q --agents ssh --inherit any --systemd)
+      eval $(keychain --eval -q --ssh-allow-forwarded --systemd)
 
       export LESS_TERMCAP_mb=$'\e[1;91m'
       export LESS_TERMCAP_md=$'\e[1;97m'

@@ -5,7 +5,7 @@
     # ghostty configuration
 
     font-family = "FiraCode Nerd Font Mono"
-    font-size = 10
+    font-size = 9
 
     # --- Appearance & Theme (Retrowave) ---
     # Background color - very dark
@@ -57,6 +57,8 @@
     clipboard-paste-protection = false
 
     window-decoration = false
+
+    window-inherit-working-directory = false
 
     keybind = ctrl+u=copy_url_to_clipboard
     keybind = ctrl+[=scroll_page_fractional:0.5

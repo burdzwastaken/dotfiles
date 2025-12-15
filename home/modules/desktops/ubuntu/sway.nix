@@ -180,8 +180,8 @@ in
     }
 
     exec --no-startup-id bash -c 'swaybg -i /home/matt_burdan/src/dotfiles/misc/wp3839746-prism-razer-wallpapers.png -m fill'
-    exec --no-startup-id ghostty -T "dropdown tmux" -e tmux
-    exec --no-startup-id slack --no-sandbox
+    # exec --no-startup-id ghostty -T "dropdown tmux" -e tmux
+    exec --no-startup-id slack --ozone-platform=x11 --no-sandbox
     exec --no-startup-id keybase-gui --no-sandbox
     exec_always --no-startup-id ~/.local/bin/start-dunst.sh
 
