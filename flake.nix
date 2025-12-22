@@ -10,11 +10,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    opencode = {
+      url = "github:sst/opencode/v1.0.185";
+      flake = false;
+    };
+
     winboat.url = "github:TibixDev/winboat/v0.8.7";
   };
 
   # with imports `{ self, ... }@inputs: `
-  outputs = { nixpkgs, nixpkgs-unstable, home-manager, winboat, ... }:
+  outputs = { nixpkgs, nixpkgs-unstable, opencode, home-manager, winboat, ... }:
     let
       system = "x86_64-linux";
 
@@ -26,6 +31,10 @@
           };
           codex = prev.callPackage ./home/packages/codex.nix {
             unstable = final.unstable;
+          };
+          opencode = prev.callPackage ./home/packages/opencode.nix {
+            unstable = final.unstable;
+            opencode-src = opencode;
           };
           winboat = prev.callPackage ./home/packages/winboat.nix {
             winboat-flake = winboat;

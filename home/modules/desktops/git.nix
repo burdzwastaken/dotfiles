@@ -158,5 +158,6 @@
     *~
 
     .claude/
+    .opencode/
   '';
 }

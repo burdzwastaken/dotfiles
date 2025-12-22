@@ -134,10 +134,12 @@
       kustomize
       ipcalc
       codefresh
+      gh
 
       codex
       unstable.claude-code
-      unstable.opencode
+      # unstable.opencode
+      opencode
     ];
 
     sessionPath = [
