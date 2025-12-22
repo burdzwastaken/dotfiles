@@ -89,6 +89,7 @@
       kubecolor
       kubectl
       kubernetes-helm
+      libnotify
       lsof
       magika
       netcat
@@ -136,7 +137,8 @@
       zoxide
 
       unstable.claude-code
-      unstable.opencode
+      # unstable.opencode
+      opencode
       # unstable.go_1_25
 
       (pkgs.writeShellApplication {

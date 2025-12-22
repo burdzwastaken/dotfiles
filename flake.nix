@@ -11,7 +11,7 @@
     };
 
     opencode = {
-      url = "github:sst/opencode/v1.0.185";
+      url = "github:sst/opencode/v1.0.186";
       flake = false;
     };
 
