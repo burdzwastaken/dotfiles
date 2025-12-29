@@ -51,6 +51,7 @@
       nil
       nodePackages.bash-language-server
       dockerfile-language-server
+      nodePackages.typescript-language-server
       ripgrep
       rust-analyzer
       terraform-ls
@@ -266,6 +267,13 @@
               capabilities = capabilities,
             })
 
+            vim.lsp.config('ts_ls', {
+              cmd = { 'typescript-language-server', '--stdio' },
+              filetypes = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' },
+              root_markers = { 'tsconfig.json', 'jsconfig.json', 'package.json', '.git' },
+              capabilities = capabilities,
+            })
+
             vim.lsp.enable('gopls')
             vim.lsp.enable('rust_analyzer')
             vim.lsp.enable('terraformls')
@@ -273,6 +281,7 @@
             vim.lsp.enable('dockerls')
             vim.lsp.enable('nil_ls')
             vim.lsp.enable('zls')
+            vim.lsp.enable('ts_ls')
 
             vim.api.nvim_create_autocmd('LspAttach', {
               group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),

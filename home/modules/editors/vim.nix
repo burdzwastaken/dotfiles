@@ -438,7 +438,8 @@
         \ 'coc-lists',
         \ 'coc-snippets',
         \ 'coc-highlight',
-        \ 'coc-pyright'
+        \ 'coc-pyright',
+        \ 'coc-tsserver'
         \ ]
 
       " Jump to tag
