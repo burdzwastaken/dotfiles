@@ -11,7 +11,7 @@
     };
 
     # opencode = {
-    #   url = "github:sst/opencode/v1.0.186";
+    #   url = "github:anomalyco/opencode/v1.1.3";
     #   flake = false;
     # };
 
