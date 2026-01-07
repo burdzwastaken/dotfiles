@@ -47,7 +47,7 @@
       cargo
       cloc
       codefresh
-      codex
+      # codex
       colordiff
       croc
       curl
@@ -137,8 +137,8 @@
       zoxide
 
       unstable.claude-code
-      # unstable.opencode
-      opencode
+      unstable.opencode
+      # opencode
       # unstable.go_1_25
 
       (pkgs.writeShellApplication {

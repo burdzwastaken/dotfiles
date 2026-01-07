@@ -136,7 +136,7 @@
       codefresh
       gh
 
-      codex
+      # codex
       unstable.claude-code
       # unstable.opencode
       opencode
