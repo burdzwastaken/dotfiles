@@ -47,6 +47,8 @@
 
       eval $(keychain --eval -q --ssh-allow-forwarded --systemd)
 
+      eval "$(zoxide init bash)"
+
       export LESS_TERMCAP_mb=$'\e[1;91m'
       export LESS_TERMCAP_md=$'\e[1;97m'
       export LESS_TERMCAP_me=$'\e[0m'
