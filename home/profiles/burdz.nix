@@ -197,6 +197,18 @@
     man.enable = true;
     zoxide.enable = true;
     zoxide.enableBashIntegration = true;
+
+    obs-studio = {
+      enable = true;
+      package = pkgs.obs-studio.override { cudaSupport = true; };
+      plugins = with pkgs.obs-studio-plugins; [
+        wlrobs
+        obs-backgroundremoval
+        obs-pipewire-audio-capture
+        obs-gstreamer
+        obs-vkcapture
+      ];
+    };
   };
 
   services = {
