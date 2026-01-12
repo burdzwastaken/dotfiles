@@ -78,7 +78,7 @@
       grim
       imagemagick
       jq
-      jrnl
+      # jrnl
       k6
       kanshi
       keepassxc
@@ -137,8 +137,8 @@
       zoxide
 
       unstable.claude-code
-      unstable.opencode
-      # opencode
+      # unstable.opencode
+      opencode
       # unstable.go_1_25
 
       (pkgs.writeShellApplication {
