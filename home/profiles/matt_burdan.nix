@@ -139,8 +139,8 @@
 
       # codex
       unstable.claude-code
-      unstable.opencode
-      # opencode
+      # unstable.opencode
+      opencode
     ];
 
     sessionPath = [
