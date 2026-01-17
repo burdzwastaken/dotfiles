@@ -11,7 +11,7 @@
     };
 
     opencode = {
-      url = "github:anomalyco/opencode/v1.1.14";
+      url = "github:anomalyco/opencode/v1.1.23";
     };
 
     winboat.url = "github:TibixDev/winboat/v0.8.7";
