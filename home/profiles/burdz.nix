@@ -138,7 +138,7 @@
 
       unstable.claude-code
       # unstable.opencode
-      opencode
+      unstable.opencode
       # unstable.go_1_25
 
       (pkgs.writeShellApplication {
