@@ -137,6 +137,8 @@
       codefresh
       gh
       zoxide
+      gatekeeper
+      socat
 
       # codex
       unstable.claude-code
