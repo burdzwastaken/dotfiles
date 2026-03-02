@@ -51,3 +51,10 @@ sudo nixos-rebuild switch --rollback
 ```bash
 nix develop .#libgitew
 ```
+
+### troubleshooting
+no space left on /boot
+```
+sudo nix-collect-garbage --delete-older-than 5d
+sudo nix-env -p /nix/var/nix/profiles/system --delete-generations +2
+```

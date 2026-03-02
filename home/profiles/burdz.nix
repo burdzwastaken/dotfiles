@@ -36,7 +36,7 @@
     stateVersion = "24.11";
 
     packages = with pkgs; [
-      (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.gke-gcloud-auth-plugin ])
+      (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.gke-gcloud-auth-plugin google-cloud-sdk.components.local-extract ])
       argo-workflows
       asciinema
       bash-language-server

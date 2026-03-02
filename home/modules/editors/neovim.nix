@@ -207,7 +207,7 @@
               capabilities = capabilities,
               settings = {
                 gopls = {
-                  buildFlags = { '-tags=integration,infra,paasmutable,paasimmutable,promotion' },
+                  buildFlags = { '-tags=integration,infra,paasmutable,paasimmutable,promotion,mrpostinstall,mrpostfailover,mrpostfailback' },
                   analyses = {
                     unusedparams = true,
                   },
