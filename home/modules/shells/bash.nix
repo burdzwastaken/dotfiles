@@ -5,8 +5,8 @@
     enable = true;
     enableCompletion = true;
     historyControl = [ "ignoreboth" "erasedups" ];
-    historySize = 10000000;
-    historyFileSize = 2000000;
+    historySize = 100000000;
+    historyFileSize = 20000000;
     historyIgnore = [ "ls" "cd" "exit" ];
 
     shellOptions = [
@@ -31,7 +31,17 @@
 
       eval "$(starship init bash)"
 
-      PROMPT_COMMAND="sync_history; $PROMPT_COMMAND"
+      __eternal_last=""
+      __eternal_log() {
+        local cmd
+        cmd=$(history 1 | sed 's/^ *[0-9]* *[0-9-]* [0-9:]* *//')
+        if [[ -n "$cmd" && "$cmd" != "$__eternal_last" ]]; then
+          echo "$(date '+%Y-%m-%d %T') $(pwd) $cmd" >> ~/.bash_eternal_history
+          __eternal_last="$cmd"
+        fi
+      }
+
+      PROMPT_COMMAND="sync_history; __eternal_log; $PROMPT_COMMAND"
 
       eval "$(direnv hook bash)"
       source <(kubectl completion bash)
