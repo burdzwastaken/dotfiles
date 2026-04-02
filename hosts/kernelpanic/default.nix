@@ -108,6 +108,7 @@
   };
 
   services = {
+    xserver.videoDrivers = [ "nvidia" ];
     openssh.enable = false;
     dbus.enable = true;
     udisks2.enable = true;
