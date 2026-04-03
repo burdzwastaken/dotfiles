@@ -181,6 +181,10 @@
 
       # electron apps
       NIXOS_OZONE_WL = "1";
+
+      # model cache (shared between hf-cli and llama-server)
+      HF_HUB_CACHE = "${config.home.homeDirectory}/models/hf-cache";
+      LLAMA_CACHE = "${config.home.homeDirectory}/models/hf-cache";
     };
 
     file."Pictures/screenshots/.keep".text = "";
