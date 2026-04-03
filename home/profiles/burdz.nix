@@ -136,7 +136,7 @@
       zls
       zoxide
 
-      (pkgs.llama-cpp.override { cudaSupport = true; })
+      (unstable.llama-cpp.override { cudaSupport = true; })
 
       # unstable.claude-code
       # unstable.opencode
