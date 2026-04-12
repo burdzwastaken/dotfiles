@@ -75,6 +75,15 @@
             }
           ];
         };
+        spectre = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [
+            ./hosts/spectre/default.nix
+            ./hosts/spectre/hardware.nix
+
+            { nixpkgs.overlays = overlays; }
+          ];
+        };
       };
 
       homeConfigurations = {
