@@ -26,8 +26,14 @@ jobs:
     - name: Check fmt
       run: ./scripts/fmt.sh
 
-    - name: Build NixOS config (dry-run)
+    - name: Build NixOS kernelpanic config (dry-run)
       run: nix build .#nixosConfigurations.kernelpanic.config.system.build.toplevel --dry-run
+
+    - name: Build NixOS dirtycow config (dry-run)
+      run: nix build .#nixosConfigurations.dirtycow.config.system.build.toplevel --dry-run
+
+    - name: Build NixOS spectre config (dry-run)
+      run: nix build .#nixosConfigurations.spectre.config.system.build.toplevel --dry-run
 
     - name: Build home-manager config (dry-run)
       run: nix build .#homeConfigurations.burdz.activationPackage --dry-run
