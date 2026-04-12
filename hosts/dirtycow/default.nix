@@ -36,7 +36,11 @@
     hostName = "dirtycow";
     hostId = "0b25dffb";
     networkmanager.enable = true;
-    firewall.enable = true;
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [ 2049 ];
+      allowedUDPPorts = [ 2049 ];
+    };
   };
 
   services = {
@@ -45,6 +49,15 @@
       settings = {
         PermitRootLogin = "prohibit-password";
         PasswordAuthentication = false;
+      };
+    };
+
+    nfs = {
+      server = {
+         enable = true;
+         exports = ''
+           /tank    10.0.0.0/24(rw,async,no_subtree_check,no_root_squash)
+         '';
       };
     };
 
