@@ -38,6 +38,18 @@
       fsType = "zfs";
     };
 
+  fileSystems."/mnt/media" = {
+    device = "10.0.0.70:/tank/media";
+    fsType = "nfs";
+    options = [ "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" ];
+  };
+
+  fileSystems."/mnt/backups" = {
+    device = "10.0.0.70:/tank/backups/kernelpanic";
+    fsType = "nfs";
+    options = [ "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" ];
+  };
+
   fileSystems."/boot" =
     {
       device = "/dev/disk/by-label/NIXBOOT";
