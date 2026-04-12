@@ -56,7 +56,7 @@
       server = {
          enable = true;
          exports = ''
-           /tank    10.0.0.0/24(rw,async,no_subtree_check,no_root_squash)
+           /tank    10.0.0.0/24(rw,nohide,insecure,no_subtree_check,no_root_squash)
          '';
       };
     };
