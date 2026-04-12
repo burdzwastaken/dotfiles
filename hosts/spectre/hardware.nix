@@ -13,6 +13,7 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
+  boot.supportedFilesystems = [ "nfs" ];
 
   fileSystems."/" =
     {
@@ -43,6 +44,12 @@
       device = "compute/containers";
       fsType = "zfs";
     };
+
+  fileSystems."/mnt/tank" = {
+    device = "10.0.0.70:/tank";
+    fsType = "nfs";
+    options = [ "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" ];
+  };
 
   fileSystems."/boot" =
     {
