@@ -84,6 +84,15 @@
             { nixpkgs.overlays = overlays; }
           ];
         };
+        dirtycow = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [
+            ./hosts/dirtycow/default.nix
+            ./hosts/dirtycow/hardware.nix
+
+            { nixpkgs.overlays = overlays; }
+          ];
+        };
       };
 
       homeConfigurations = {
