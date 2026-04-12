@@ -56,8 +56,9 @@
       server = {
          enable = true;
          exports = ''
-           /tank/media            10.0.0.0/24(rw,nohide,insecure,no_subtree_check,no_root_squash)
-           /tank/backups/spectre  10.0.0.71(rw,nohide,insecure,no_subtree_check,no_root_squash)
+           /tank/media                10.0.0.0/24(rw,nohide,insecure,no_subtree_check,no_root_squash)
+           /tank/backups/spectre      10.0.0.71(rw,nohide,insecure,no_subtree_check,no_root_squash)
+           /tank/backups/kernelpanic  10.0.0.61(rw,nohide,insecure,no_subtree_check,no_root_squash)
          '';
       };
     };
