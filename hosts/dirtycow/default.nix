@@ -56,7 +56,8 @@
       server = {
          enable = true;
          exports = ''
-           /tank    10.0.0.0/24(rw,nohide,insecure,no_subtree_check,no_root_squash)
+           /tank/media            10.0.0.0/24(rw,nohide,insecure,no_subtree_check,no_root_squash)
+           /tank/backups/spectre  10.0.0.71(rw,nohide,insecure,no_subtree_check,no_root_squash)
          '';
       };
     };

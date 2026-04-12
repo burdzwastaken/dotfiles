@@ -38,9 +38,21 @@
       fsType = "zfs";
     };
 
-  fileSystems."/tank" =
+  fileSystems."/tank/backups" =
     {
-      device = "tank/data";
+      device = "tank/backups";
+      fsType = "zfs";
+    };
+
+  fileSystems."/tank/downloads" =
+    {
+      device = "tank/downloads";
+      fsType = "zfs";
+    };
+
+  fileSystems."/tank/media" =
+    {
+      device = "tank/media";
       fsType = "zfs";
     };
 
