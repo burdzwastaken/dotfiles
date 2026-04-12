@@ -169,3 +169,10 @@ umount -R /mnt
 zpool export -a
 reboot
 ```
+
+## 10. First Boot
+
+```
+# Setup samba password for your user
+sudo smbpasswd -a burdz
+```

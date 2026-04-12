@@ -30,6 +30,7 @@
     vim
     wget
     pciutils
+    samba
   ];
 
   networking = {
@@ -38,8 +39,11 @@
     networkmanager.enable = true;
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 2049 ];
-      allowedUDPPorts = [ 2049 ];
+      # 2049: NFS
+      # 139, 445: Samba TCP
+      allowedTCPPorts = [ 2049 139 445 ];
+      # 137, 138: Samba UDP (NetBIOS)
+      allowedUDPPorts = [ 2049 137 138 ];
     };
   };
 
@@ -60,6 +64,36 @@
           /tank/backups/spectre      10.0.0.71(rw,nohide,insecure,no_subtree_check,no_root_squash)
           /tank/backups/kernelpanic  10.0.0.61(rw,nohide,insecure,no_subtree_check,no_root_squash)
         '';
+      };
+    };
+
+    samba = {
+      enable = true;
+      openFirewall = true;
+      settings = {
+        global = {
+          workgroup = "WORKGROUP";
+          "server string" = "dirtycow";
+          "netbios name" = "dirtycow";
+          security = "user";
+          "guest account" = "nobody";
+          "map to guest" = "bad user";
+        };
+        swing = {
+          path = "/tank/backups/swing";
+          browseable = "yes";
+          "read only" = "no";
+          "guest ok" = "no";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+          "force user" = "burdz";
+        };
+        media = {
+          path = "/tank/media";
+          browseable = "yes";
+          "read only" = "no";
+          "guest ok" = "yes";
+        };
       };
     };
 
