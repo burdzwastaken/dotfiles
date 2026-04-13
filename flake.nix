@@ -64,6 +64,7 @@
           modules = [
             ./hosts/kernelpanic/default.nix
             ./hosts/kernelpanic/hardware.nix
+            ./modules/services/containers.nix
 
             { nixpkgs.overlays = overlays; }
 
@@ -80,6 +81,7 @@
           modules = [
             ./hosts/spectre/default.nix
             ./hosts/spectre/hardware.nix
+            ./modules/services/containers.nix
             ./modules/services/traefik.nix
 
             { nixpkgs.overlays = overlays; }
@@ -90,6 +92,7 @@
           modules = [
             ./hosts/dirtycow/default.nix
             ./hosts/dirtycow/hardware.nix
+            ./modules/services/containers.nix
 
             { nixpkgs.overlays = overlays; }
           ];
