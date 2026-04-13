@@ -71,6 +71,9 @@
     hostId = "46deb044";
     networkmanager.enable = true;
     firewall.enable = true;
+    extraHosts = ''
+      10.0.0.71 traefik.burdznest.com
+    '';
   };
 
   programs = {

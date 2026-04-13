@@ -79,6 +79,15 @@
           "guest account" = "nobody";
           "map to guest" = "bad user";
         };
+        winblows = {
+          path = "/tank/backups/winblows";
+          browseable = "yes";
+          "read only" = "no";
+          "guest ok" = "no";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+          "force user" = "burdz";
+        };
         swing = {
           path = "/tank/backups/swing";
           browseable = "yes";
