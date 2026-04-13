@@ -146,6 +146,7 @@
     zfs = {
       autoScrub.enable = true;
       autoScrub.interval = "monthly";
+      trim.enable = true;
     };
   };
 
