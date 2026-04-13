@@ -80,6 +80,7 @@
           modules = [
             ./hosts/spectre/default.nix
             ./hosts/spectre/hardware.nix
+            ./modules/services/traefik.nix
 
             { nixpkgs.overlays = overlays; }
           ];
