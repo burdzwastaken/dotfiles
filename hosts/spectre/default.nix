@@ -24,6 +24,17 @@
 
   boot.zfs.extraPools = [ "compute" ];
 
+  services.xserver.videoDrivers = [ "nvidia" ];
+
+  hardware.graphics.enable = true;
+
+  hardware.nvidia = {
+    open = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
+
+  hardware.nvidia-container-toolkit.enable = true;
+
   environment.systemPackages = with pkgs; [
     curl
     git
