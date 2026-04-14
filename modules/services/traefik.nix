@@ -41,6 +41,11 @@
     dynamicConfigOptions = {
       http = {
         middlewares = {
+          internal-only = {
+            ipAllowList = {
+              sourceRange = [ "10.0.0.0/24" "10.0.1.0/24" ];
+            };
+          };
           security-headers = {
             headers = {
               browserXssFilter = true;
