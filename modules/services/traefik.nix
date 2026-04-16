@@ -5,6 +5,10 @@
     enable = true;
 
     staticConfigOptions = {
+      log.level = "INFO";
+
+      accessLog = { };
+
       global = {
         checkNewVersion = false;
         sendAnonymousUsage = false;
