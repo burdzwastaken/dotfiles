@@ -62,7 +62,7 @@
           entryPoints = [ "websecure" ];
           tls.certResolver = "myresolver";
           service = "api@internal";
-          middlewares = [ "security-headers" ];
+          middlewares = [ "security-headers" "internal-only" ];
         };
 
         routers.doombox = {
