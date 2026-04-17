@@ -69,17 +69,17 @@
           middlewares = [ "security-headers" "internal-only" ];
         };
 
-        routers.doombox = {
-          rule = "Host(`doombox.burdznest.com`)";
-          entryPoints = [ "websecure" ];
-          tls.certResolver = "myresolver";
-          service = "doombox";
-          middlewares = [ "security-headers" ];
-        };
-
-        services.doombox.loadBalancer.servers = [
-          { url = "http://127.0.0.1:30080"; }
-        ];
+        # routers.doombox = {
+        #   rule = "Host(`doombox.burdznest.com`)";
+        #   entryPoints = [ "websecure" ];
+        #   tls.certResolver = "myresolver";
+        #   service = "doombox";
+        #   middlewares = [ "security-headers" ];
+        # };
+        #
+        # services.doombox.loadBalancer.servers = [
+        #   { url = "http://127.0.0.1:30080"; }
+        # ];
       };
     };
 
