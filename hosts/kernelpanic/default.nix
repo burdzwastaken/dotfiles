@@ -74,6 +74,7 @@
     extraHosts = ''
       10.0.0.71 traefik.burdznest.com
       10.0.0.71 doombox.burdznest.com
+      10.0.0.71 jellyfin.burdznest.com
     '';
   };
 

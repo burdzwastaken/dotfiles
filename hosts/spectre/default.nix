@@ -64,6 +64,27 @@
       autoScrub.interval = "weekly";
       trim.enable = true;
     };
+
+    # NVENC hardware transcoding is configured in the Jellyfin web UI:
+    # Dashboard > Playback > Transcoding > Hardware acceleration: NVIDIA NVENC
+    jellyfin = {
+      enable = true;
+      openFirewall = true;
+      user = "burdz";
+      group = "users";
+      dataDir = "/var/lib/jellyfin";
+
+      # TODO: uncomment when nixos-unstable module options land in stable
+      # hardwareAcceleration = {
+      #   enable = true;
+      #   device = "/dev/dri/card0";
+      #   type = "nvenc";
+      # };
+      #
+      # transcoding = {
+      #   enableHardwareEncoding = true;
+      # };
+    };
   };
 
   users.users.burdz = {
