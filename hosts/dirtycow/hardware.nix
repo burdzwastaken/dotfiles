@@ -56,6 +56,12 @@
       fsType = "zfs";
     };
 
+  fileSystems."/tank/immich" =
+    {
+      device = "tank/immich";
+      fsType = "zfs";
+    };
+
   fileSystems."/boot" =
     {
       device = "/dev/disk/by-uuid/C7A7-E95D";

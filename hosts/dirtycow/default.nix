@@ -61,6 +61,7 @@
         enable = true;
         exports = ''
           /tank/media                10.0.0.0/24(rw,nohide,insecure,no_subtree_check,no_root_squash)
+          /tank/immich               10.0.0.71(rw,nohide,insecure,no_subtree_check,all_squash,anonuid=1000,anongid=100)
           /tank/backups/spectre      10.0.0.71(rw,nohide,insecure,no_subtree_check,no_root_squash)
           /tank/backups/kernelpanic  10.0.0.61(rw,nohide,insecure,no_subtree_check,no_root_squash)
         '';
@@ -112,6 +113,10 @@
       trim.enable = true;
     };
   };
+
+  systemd.tmpfiles.rules = [
+    "d /tank/immich 0775 burdz users - -"
+  ];
 
   users.users.burdz = {
     isNormalUser = true;

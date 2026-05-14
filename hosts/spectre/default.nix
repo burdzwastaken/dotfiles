@@ -85,6 +85,26 @@
       #   enableHardwareEncoding = true;
       # };
     };
+
+    immich = {
+      enable = true;
+      host = "127.0.0.1";
+      port = 2283;
+      openFirewall = false;
+      mediaLocation = "/mnt/immich";
+
+      # Machine learning runs locally on spectre. Keep photo/video originals on dirtycow.
+      machine-learning.enable = true;
+    };
+
+    redis.servers.immich.logLevel = "warning";
+  };
+
+  users.users.immich.extraGroups = [ "users" ];
+
+  systemd.services.immich-server = {
+    requires = [ "mnt-immich.mount" ];
+    after = [ "mnt-immich.mount" ];
   };
 
   users.users.burdz = {
