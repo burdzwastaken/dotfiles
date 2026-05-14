@@ -54,7 +54,7 @@
   fileSystems."/mnt/immich" = {
     device = "10.0.0.70:/tank/immich";
     fsType = "nfs";
-    options = [ "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" "hard" "timeo=600" "retrans=2" ];
+    options = [ "x-systemd.automount" "noauto" "hard" "timeo=600" "retrans=2" ];
   };
 
   fileSystems."/mnt/backups" = {

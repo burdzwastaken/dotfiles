@@ -103,8 +103,7 @@
   users.users.immich.extraGroups = [ "users" ];
 
   systemd.services.immich-server = {
-    requires = [ "mnt-immich.mount" ];
-    after = [ "mnt-immich.mount" ];
+    unitConfig.RequiresMountsFor = "/mnt/immich";
   };
 
   users.users.burdz = {

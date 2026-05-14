@@ -6,6 +6,8 @@ In our architecture, the **Tank** (HDD Array) should be subdivided into datasets
 
 Always create datasets with `mountpoint=legacy`. This allows NixOS to control exactly where the dataset is mounted via `hardware.nix`, preventing ZFS from trying to mount it before the OS is ready.
 
+> **Warning:** Create the ZFS dataset manually before adding a required NixOS `fileSystems` mount for it. If NixOS is configured to mount a dataset that does not exist yet, the next boot or rebuild can drop into maintenance mode. Existing `backups`, `downloads`, and `media` mounts worked because those datasets already existed before their mounts were added.
+
 ```bash
 # General Syntax:
 # sudo zfs create -o mountpoint=legacy tank/<name>
@@ -15,6 +17,20 @@ sudo zfs create -o mountpoint=legacy tank/media      # Movies, TV, Music
 sudo zfs create -o mountpoint=legacy tank/apps       # Container configs / static data
 sudo zfs create -o mountpoint=legacy tank/backups    # PC/Mac backups
 sudo zfs create -o mountpoint=legacy tank/downloads  # Temporary scratch space
+```
+
+### Immich dataset setup / recovery
+
+If Dirtycow drops into maintenance mode after adding the Immich mount, create and mount the dataset, then continue booting:
+
+```bash
+mount -o remount,rw /
+mkdir -p /tank/immich
+zfs create -o mountpoint=legacy tank/immich
+mount -t zfs tank/immich /tank/immich
+chown burdz:users /tank/immich
+chmod 775 /tank/immich
+systemctl default
 ```
 
 ## 2. Managing Permissions
