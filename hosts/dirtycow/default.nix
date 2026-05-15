@@ -112,6 +112,24 @@
       autoScrub.interval = "weekly";
       trim.enable = true;
     };
+
+    sanoid = {
+      enable = true;
+      interval = "hourly";
+
+      templates.tank = {
+        hourly = 24;
+        daily = 30;
+        monthly = 3;
+        autosnap = true;
+        autoprune = true;
+      };
+
+      datasets."tank" = {
+        useTemplate = [ "tank" ];
+        recursive = true;
+      };
+    };
   };
 
   systemd.tmpfiles.rules = [

@@ -78,7 +78,29 @@ fileSystems."/mnt/media" = {
 };
 ```
 
-## 6. Useful ZFS Commands
+## 6. Automated Snapshots
+
+Dirtycow uses `sanoid` to snapshot `tank` recursively. This covers every child dataset under `tank`, including future datasets added later.
+
+Current retention policy:
+
+| Schedule | Retention |
+| :--- | :--- |
+| Hourly | 24 snapshots |
+| Daily | 30 snapshots |
+| Monthly | 3 snapshots |
+
+Sanoid runs from a systemd timer and prunes old snapshots automatically.
+
+Useful checks on Dirtycow:
+
+```bash
+systemctl status sanoid.timer
+systemctl status sanoid.service
+zfs list -t snapshot -r tank
+```
+
+## 7. Useful ZFS Commands
 
 | Command | Purpose |
 | :--- | :--- |
