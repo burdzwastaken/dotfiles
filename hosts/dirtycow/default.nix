@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   system.stateVersion = "24.11";
@@ -135,6 +135,44 @@
   systemd.tmpfiles.rules = [
     "d /tank/immich 0775 burdz users - -"
   ];
+
+  # Disabled until an offsite repository and secret files are chosen.
+  # Sanoid already provides local ZFS snapshots; this scaffold is for encrypted
+  # offsite backup later. Do not back up all of tank by default.
+  # Create these files outside Git before enabling:
+  #   /var/lib/restic/dirtycow.password
+  #   /var/lib/restic/dirtycow.env
+  services.restic.backups = lib.mkIf false {
+    dirtycow-offsite = {
+      repository = "s3:REPLACE-ME/dirtycow";
+      passwordFile = "/var/lib/restic/dirtycow.password";
+      environmentFile = "/var/lib/restic/dirtycow.env";
+      initialize = true;
+
+      paths = [
+        "/tank/backups"
+        "/tank/immich"
+        "/tank/media/movies"
+        "/tank/media/tv"
+      ];
+
+      exclude = [
+        "/tank/media/downloads"
+      ];
+
+      timerConfig = {
+        OnCalendar = "04:30";
+        Persistent = true;
+        RandomizedDelaySec = "30m";
+      };
+
+      pruneOpts = [
+        "--keep-daily 7"
+        "--keep-weekly 4"
+        "--keep-monthly 6"
+      ];
+    };
+  };
 
   users.users.burdz = {
     isNormalUser = true;

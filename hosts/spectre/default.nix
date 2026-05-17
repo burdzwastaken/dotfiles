@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   system.stateVersion = "24.11";
@@ -234,6 +234,48 @@
     "d /var/lib/nixarr/sonarr 0750 sonarr media - -"
     "d /mnt/backups/vaultwarden 0750 vaultwarden vaultwarden - -"
   ];
+
+  # Disabled until an offsite repository and secret files are chosen.
+  # Create these files outside Git before enabling:
+  #   /var/lib/restic/spectre.password
+  #   /var/lib/restic/spectre.env
+  # The env file should contain backend credentials, e.g. AWS_ACCESS_KEY_ID and
+  # AWS_SECRET_ACCESS_KEY for S3/B2-compatible storage.
+  services.restic.backups = lib.mkIf false {
+    spectre-offsite = {
+      repository = "s3:REPLACE-ME/spectre";
+      passwordFile = "/var/lib/restic/spectre.password";
+      environmentFile = "/var/lib/restic/spectre.env";
+      initialize = true;
+
+      paths = [
+        "/home/burdz"
+        "/var/lib/bitwarden_rs"
+        "/var/lib/jellyfin"
+        "/var/lib/nixarr"
+        "/var/lib/postgresql"
+        "/var/lib/traefik"
+        "/mnt/backups/vaultwarden"
+      ];
+
+      exclude = [
+        "/home/burdz/.cache"
+        "/var/lib/nixarr/qbittorrent"
+      ];
+
+      timerConfig = {
+        OnCalendar = "03:30";
+        Persistent = true;
+        RandomizedDelaySec = "30m";
+      };
+
+      pruneOpts = [
+        "--keep-daily 7"
+        "--keep-weekly 4"
+        "--keep-monthly 6"
+      ];
+    };
+  };
 
   users.users.burdz = {
     isNormalUser = true;
