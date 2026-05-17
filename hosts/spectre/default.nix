@@ -7,6 +7,8 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  burdz.containers.dockerSocket.enable = true;
+
   time.timeZone = "Asia/Singapore";
 
   boot.loader = {
@@ -141,6 +143,7 @@
         enable = true;
         openFirewall = false;
         environmentFile = "/var/lib/beszel-agent/env";
+        environment.DOCKER_HOST = "unix:///run/podman/podman.sock";
         smartmon.enable = true;
       };
     };
@@ -469,7 +472,10 @@
       "/var/lib/authelia-main/users_database.yml"
     ];
     bazarr.unitConfig.RequiresMountsFor = "/mnt/media";
-    beszel-agent.unitConfig.ConditionPathExists = "/var/lib/beszel-agent/env";
+    beszel-agent = {
+      unitConfig.ConditionPathExists = "/var/lib/beszel-agent/env";
+      serviceConfig.SupplementaryGroups = lib.mkAfter [ "podman" ];
+    };
     podman-shlink.unitConfig.ConditionPathExists = "/var/lib/shlink/secrets.env";
     prowlarr.unitConfig.RequiresMountsFor = "/mnt/media";
     qbittorrent.unitConfig.RequiresMountsFor = "/mnt/media";

@@ -220,7 +220,14 @@ Beszel monitors host health for the homelab from a hub running on Spectre. Spect
 | Beszel agent | Spectre | `services.beszel.agent` enabled for the local host; `openFirewall = false` |
 | Beszel agent | Dirtycow | `services.beszel.agent` enabled; `openFirewall = true` for TCP `45876` |
 | Beszel agent | Kernelpanic | `services.beszel.agent` enabled; `openFirewall = true` for TCP `45876` |
+| Container stats | Spectre | Opts in with `burdz.containers.dockerSocket.enable = true`; the local Beszel agent is explicitly pointed at Podman's native socket with `DOCKER_HOST=unix:///run/podman/podman.sock` and has supplementary `podman` group access |
 | Agent startup gate | Spectre, Dirtycow, and Kernelpanic | Agent units use `ConditionPathExists=/var/lib/beszel-agent/env` so they do not fail before credentials exist |
+
+### Beszel container monitoring
+
+The shared containers module keeps Podman's Docker-compatible socket opt-in per host through `burdz.containers.dockerSocket.enable`. Spectre is the current opt-in host, and the local Beszel agent is explicitly configured to use Podman's native socket at `/run/podman/podman.sock` for Docker-compatible discovery and Shlink container stats while the containers themselves continue to run through Podman.
+
+Docker/Podman socket access is root-equivalent: a process that can control the socket can effectively control containers and often the host. Keep it disabled on other hosts unless they explicitly need it.
 
 ## Agent credentials
 
@@ -289,6 +296,15 @@ On Spectre, check the hub and local agent:
 systemctl status beszel-hub beszel-agent --no-pager
 ```
 
+On Spectre, verify the Podman Docker-compatible socket and Beszel agent logs when checking container stats:
+
+```bash
+systemctl status podman.socket --no-pager
+test -S /run/podman/podman.sock
+id beszel-agent
+journalctl -u beszel-agent -b -n 80 --no-pager
+```
+
 On Dirtycow, check the remote agent:
 
 ```bash
@@ -301,7 +317,7 @@ On Kernelpanic, check the workstation agent:
 systemctl status beszel-agent --no-pager
 ```
 
-From the Beszel UI at `https://monitor.burdznest.com`, confirm Spectre, Dirtycow, and Kernelpanic appear online after their agent environment files are installed and their agents are restarted. Add Kernelpanic as `10.0.0.61:45876`, or use its current LAN IP with port `45876` if it has changed.
+From the Beszel UI at `https://monitor.burdznest.com`, confirm Spectre, Dirtycow, and Kernelpanic appear online after their agent environment files are installed and their agents are restarted. Add Kernelpanic as `10.0.0.61:45876`, or use its current LAN IP with port `45876` if it has changed. For Spectre, also check that Beszel shows container stats from the Podman-backed socket.
 
 ## Uptime Kuma Service Monitoring
 
