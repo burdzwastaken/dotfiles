@@ -548,12 +548,12 @@
     };
   } // lib.optionalAttrs false {
 
-  # Disabled until an offsite repository and secret files are chosen.
-  # Create these files outside Git before enabling:
-  #   /var/lib/restic/spectre.password
-  #   /var/lib/restic/spectre.env
-  # The env file should contain backend credentials, e.g. AWS_ACCESS_KEY_ID and
-  # AWS_SECRET_ACCESS_KEY for S3/B2-compatible storage.
+    # Disabled until an offsite repository and secret files are chosen.
+    # Create these files outside Git before enabling:
+    #   /var/lib/restic/spectre.password
+    #   /var/lib/restic/spectre.env
+    # The env file should contain backend credentials, e.g. AWS_ACCESS_KEY_ID and
+    # AWS_SECRET_ACCESS_KEY for S3/B2-compatible storage.
     spectre-offsite = {
       repository = "s3:REPLACE-ME/spectre";
       passwordFile = "/var/lib/restic/spectre.password";
