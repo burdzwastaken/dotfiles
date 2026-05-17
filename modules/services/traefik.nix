@@ -246,7 +246,7 @@
           entryPoints = [ "websecure" ];
           tls.certResolver = "myresolver";
           service = "shlink-web-client";
-          middlewares = [ "security-headers" "internal-only" ];
+          middlewares = [ "security-headers" "internal-only" "authelia" ];
         };
 
         services.jellyfin.loadBalancer.servers = [

@@ -194,6 +194,10 @@
               domain = "scrutiny.burdznest.com";
               policy = "one_factor";
             }
+            {
+              domain = "links.burdznest.com";
+              policy = "one_factor";
+            }
           ];
         };
       };
