@@ -36,6 +36,7 @@
   hardware.nvidia-container-toolkit.enable = true;
 
   environment.systemPackages = with pkgs; [
+    authelia
     curl
     git
     vim
@@ -149,6 +150,55 @@
       appriseSupport = true;
     };
 
+    authelia.instances.main = {
+      enable = true;
+
+      secrets = {
+        jwtSecretFile = "/var/lib/authelia-main/secrets/jwt-secret";
+        storageEncryptionKeyFile = "/var/lib/authelia-main/secrets/storage-encryption-key";
+      };
+
+      settings = {
+        theme = "dark";
+        default_2fa_method = "totp";
+
+        server.address = "tcp://127.0.0.1:9091/";
+
+        log = {
+          level = "info";
+          format = "text";
+          keep_stdout = true;
+        };
+
+        authentication_backend.file.path = "/var/lib/authelia-main/users_database.yml";
+
+        session.cookies = [
+          {
+            domain = "burdznest.com";
+            authelia_url = "https://auth.burdznest.com";
+            default_redirection_url = "https://scrutiny.burdznest.com";
+          }
+        ];
+
+        storage.local.path = "/var/lib/authelia-main/db.sqlite3";
+        notifier.filesystem.filename = "/var/lib/authelia-main/notifications.txt";
+
+        access_control = {
+          default_policy = "deny";
+          rules = [
+            {
+              domain = "auth.burdznest.com";
+              policy = "bypass";
+            }
+            {
+              domain = "scrutiny.burdznest.com";
+              policy = "one_factor";
+            }
+          ];
+        };
+      };
+    };
+
     ntfy-sh = {
       enable = true;
       settings = {
@@ -255,6 +305,11 @@
   };
 
   systemd.services = {
+    authelia-main.unitConfig.ConditionPathExists = [
+      "/var/lib/authelia-main/secrets/jwt-secret"
+      "/var/lib/authelia-main/secrets/storage-encryption-key"
+      "/var/lib/authelia-main/users_database.yml"
+    ];
     bazarr.unitConfig.RequiresMountsFor = "/mnt/media";
     beszel-agent.unitConfig.ConditionPathExists = "/var/lib/beszel-agent/env";
     prowlarr.unitConfig.RequiresMountsFor = "/mnt/media";
@@ -265,6 +320,8 @@
   };
 
   systemd.tmpfiles.rules = [
+    "d /var/lib/authelia-main 0750 authelia-main authelia-main - -"
+    "d /var/lib/authelia-main/secrets 0750 authelia-main authelia-main - -"
     "d /var/lib/beszel-agent 0750 root root - -"
     "d /var/lib/nixarr 0755 root root - -"
     "d /var/lib/nixarr/bazarr 0750 bazarr media - -"

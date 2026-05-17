@@ -59,6 +59,18 @@
               stsSeconds = 31536000;
             };
           };
+          authelia = {
+            forwardAuth = {
+              address = "http://127.0.0.1:9091/api/authz/forward-auth";
+              trustForwardHeader = true;
+              authResponseHeaders = [
+                "Remote-User"
+                "Remote-Groups"
+                "Remote-Email"
+                "Remote-Name"
+              ];
+            };
+          };
         };
 
         routers.dashboard = {
@@ -170,7 +182,7 @@
           entryPoints = [ "websecure" ];
           tls.certResolver = "myresolver";
           service = "scrutiny";
-          middlewares = [ "security-headers" "internal-only" ];
+          middlewares = [ "security-headers" "internal-only" "authelia" ];
         };
 
         routers.beszel = {
@@ -194,6 +206,14 @@
           entryPoints = [ "websecure" ];
           tls.certResolver = "myresolver";
           service = "ntfy";
+          middlewares = [ "security-headers" "internal-only" ];
+        };
+
+        routers.authelia = {
+          rule = "Host(`auth.burdznest.com`)";
+          entryPoints = [ "websecure" ];
+          tls.certResolver = "myresolver";
+          service = "authelia";
           middlewares = [ "security-headers" "internal-only" ];
         };
 
@@ -263,6 +283,10 @@
           ];
           responseForwarding.flushInterval = "100ms";
         };
+
+        services.authelia.loadBalancer.servers = [
+          { url = "http://127.0.0.1:9091"; }
+        ];
       };
     };
 

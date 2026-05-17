@@ -13,7 +13,7 @@ Scrutiny monitors drive SMART health for Dirtycow, the host that owns the HDDs a
 | Disk access | Dirtycow | Collector runs with supplementary `disk` group access |
 | Firewall | Dirtycow | `openFirewall = true` for Scrutiny |
 | Reverse proxy | Spectre | Traefik routes `scrutiny.burdznest.com` to `http://10.0.0.70:8080` |
-| Access policy | Spectre | Traefik uses the `internal-only` middleware |
+| Access policy | Spectre | Traefik uses the `security-headers`, `internal-only`, and `authelia` middlewares |
 | Local hostname | Kernelpanic | `extraHosts` maps `scrutiny.burdznest.com` to `10.0.0.71` |
 
 ## Scrutiny deployment
@@ -51,15 +51,163 @@ From a LAN machine, verify Dirtycow's Scrutiny web UI responds directly:
 curl -I http://10.0.0.70:8080
 ```
 
-Then open the proxied LAN-only route in a browser:
+Then open the proxied LAN-only route in a browser. Scrutiny is protected by Authelia, so authenticate when redirected:
 
 ```text
 https://scrutiny.burdznest.com
 ```
 
+## Authelia Authentication Gateway
+
+Authelia provides the Traefik forward-auth gateway for protected internal routes. It currently protects only Scrutiny.
+
+## Authelia implementation
+
+| Component | Host | Details |
+| :--- | :--- | :--- |
+| Authelia | Spectre | Runs as `authelia-main` on `127.0.0.1:9091` |
+| Login URL | Spectre | `https://auth.burdznest.com` |
+| Reverse proxy | Spectre | Traefik routes `auth.burdznest.com` to `http://127.0.0.1:9091` |
+| Access policy | Spectre | Authelia's own route uses the `internal-only` middleware |
+| Forward auth | Spectre | Traefik middleware named `authelia` points at Authelia's auth endpoint |
+| Protected route | Spectre | Only `scrutiny.burdznest.com` uses `security-headers`, `internal-only`, and `authelia` |
+| External state | Spectre | Uses `/var/lib/authelia-main/secrets/jwt-secret`, `/var/lib/authelia-main/secrets/storage-encryption-key`, and `/var/lib/authelia-main/users_database.yml` |
+| Startup gate | Spectre | Service uses `ConditionPathExists` for the required secret and user database files |
+
+## Authelia first-run setup
+
+Create the external state directories and secrets on Spectre:
+
+```bash
+sudo install -d -m 0750 -o root -g root /var/lib/authelia-main/secrets
+sudo openssl rand -hex 64 | sudo tee /var/lib/authelia-main/secrets/jwt-secret >/dev/null
+sudo openssl rand -hex 64 | sudo tee /var/lib/authelia-main/secrets/storage-encryption-key >/dev/null
+```
+
+Authelia's files must be owned by the `authelia-main` service user. If the user does not exist yet, deploy Spectre once after the files are created so NixOS creates the system user, then fix ownership and deploy again:
+
+```bash
+sudo nixos-rebuild switch --flake .#spectre
+```
+
+Generate a password hash for the `burdz` admin user:
+
+```bash
+authelia crypto hash generate argon2
+```
+
+Copy the entire value printed after `Digest:`. Do not copy the word `Digest:` itself. The value should start with `$argon2id...`.
+
+Create `/var/lib/authelia-main/users_database.yml` using the generated hash:
+
+```bash
+sudo tee /var/lib/authelia-main/users_database.yml >/dev/null <<'EOF'
+users:
+  burdz:
+    displayname: burdz
+    password: '$argon2id$v=19$m=...'
+    email: burdz@example.com
+    groups:
+      - admins
+EOF
+```
+
+Use the username `burdz` when logging in, not the email address. Single quotes around the digest are preferred because the hash contains `$` characters.
+
+After the `authelia-main` user exists, set ownership and permissions on the external files:
+
+```bash
+sudo chown -R authelia-main:authelia-main /var/lib/authelia-main
+sudo chmod 0700 /var/lib/authelia-main
+sudo chmod 0700 /var/lib/authelia-main/secrets
+sudo chmod 0600 /var/lib/authelia-main/secrets/jwt-secret
+sudo chmod 0600 /var/lib/authelia-main/secrets/storage-encryption-key
+sudo chmod 0600 /var/lib/authelia-main/users_database.yml
+```
+
+Rebuild Spectre after the secrets and user database are in place:
+
+```bash
+sudo nixos-rebuild switch --flake .#spectre
+```
+
+## Authelia password change
+
+To change the `burdz` Authelia password later, generate a new Argon2 hash on Spectre:
+
+```bash
+authelia crypto hash generate argon2
+```
+
+Copy the full value after `Digest:` without copying `Digest:`. Replace the `password:` value for `users.burdz` in `/var/lib/authelia-main/users_database.yml` with the new digest, preferably wrapped in single quotes:
+
+```yaml
+users:
+  burdz:
+    displayname: burdz
+    password: '$argon2id$v=19$m=...'
+    email: burdz@example.com
+    groups:
+      - admins
+```
+
+Fix ownership and permissions after editing, then restart Authelia:
+
+```bash
+sudo chown authelia-main:authelia-main /var/lib/authelia-main/users_database.yml
+sudo chmod 0600 /var/lib/authelia-main/users_database.yml
+sudo systemctl restart authelia-main
+```
+
+Log in with username `burdz`, not the email address.
+
+## Authelia verification
+
+On Spectre, check the service and logs:
+
+```bash
+systemctl status authelia-main --no-pager
+journalctl -u authelia-main -b -n 80 --no-pager
+```
+
+From a LAN machine, open Authelia directly first, then open Scrutiny and confirm it redirects through Authelia:
+
+```text
+https://auth.burdznest.com
+https://scrutiny.burdznest.com
+```
+
+## Authelia ban recovery
+
+Repeated failed logins can temporarily ban the user or source IP until the ban expires. Waiting for the expiry is fine and requires no action.
+
+If access is needed immediately, revoke the ban on Spectre. Use the storage encryption key from `/var/lib/authelia-main/secrets/storage-encryption-key` and the SQLite database at `/var/lib/authelia-main/db.sqlite3`:
+
+```bash
+STORAGE_ENCRYPTION_KEY=$(sudo cat /var/lib/authelia-main/secrets/storage-encryption-key)
+
+sudo AUTHELIA_STORAGE_ENCRYPTION_KEY="$STORAGE_ENCRYPTION_KEY" \
+  authelia storage bans user revoke burdz \
+  --config /etc/authelia-main/configuration.yml \
+  --sqlite.path /var/lib/authelia-main/db.sqlite3
+```
+
+To revoke an IP ban, replace `<ip-address>` with the banned client IP:
+
+```bash
+STORAGE_ENCRYPTION_KEY=$(sudo cat /var/lib/authelia-main/secrets/storage-encryption-key)
+
+sudo AUTHELIA_STORAGE_ENCRYPTION_KEY="$STORAGE_ENCRYPTION_KEY" \
+  authelia storage bans ip revoke <ip-address> \
+  --config /etc/authelia-main/configuration.yml \
+  --sqlite.path /var/lib/authelia-main/db.sqlite3
+```
+
+No `authelia-main` restart is needed after revoking a ban.
+
 ## Beszel Host Monitoring
 
-Beszel monitors host health for the homelab from a hub running on Spectre. Spectre and Dirtycow both run Beszel agents, but each agent is gated until its hub-provided key and token are installed.
+Beszel monitors host health for the homelab from a hub running on Spectre. Spectre, Dirtycow, and Kernelpanic run Beszel agents, but each agent is gated until its hub-provided key and token are installed.
 
 ## Implementation
 
@@ -71,7 +219,8 @@ Beszel monitors host health for the homelab from a hub running on Spectre. Spect
 | Local hostname | Kernelpanic | `extraHosts` maps `monitor.burdznest.com` to `10.0.0.71` |
 | Beszel agent | Spectre | `services.beszel.agent` enabled for the local host; `openFirewall = false` |
 | Beszel agent | Dirtycow | `services.beszel.agent` enabled; `openFirewall = true` for TCP `45876` |
-| Agent startup gate | Spectre and Dirtycow | Agent units use `ConditionPathExists=/var/lib/beszel-agent/env` so they do not fail before credentials exist |
+| Beszel agent | Kernelpanic | `services.beszel.agent` enabled; `openFirewall = true` for TCP `45876` |
+| Agent startup gate | Spectre, Dirtycow, and Kernelpanic | Agent units use `ConditionPathExists=/var/lib/beszel-agent/env` so they do not fail before credentials exist |
 
 ## Agent credentials
 
@@ -124,6 +273,9 @@ EOF
    # Dirtycow: deploy the remote agent and firewall rule.
    sudo nixos-rebuild switch --flake .#dirtycow
 
+   # Kernelpanic: deploy the workstation agent and firewall rule.
+   sudo nixos-rebuild switch --flake .#kernelpanic
+
    # Spectre: redeploy or restart the local agent after adding the env file.
    sudo nixos-rebuild switch --flake .#spectre
    sudo systemctl restart beszel-agent
@@ -143,7 +295,13 @@ On Dirtycow, check the remote agent:
 systemctl status beszel-agent --no-pager
 ```
 
-From the Beszel UI at `https://monitor.burdznest.com`, confirm Spectre and Dirtycow both appear online after their agent environment files are installed and their agents are restarted.
+On Kernelpanic, check the workstation agent:
+
+```bash
+systemctl status beszel-agent --no-pager
+```
+
+From the Beszel UI at `https://monitor.burdznest.com`, confirm Spectre, Dirtycow, and Kernelpanic appear online after their agent environment files are installed and their agents are restarted. Add Kernelpanic as `10.0.0.61:45876`, or use its current LAN IP with port `45876` if it has changed.
 
 ## Uptime Kuma Service Monitoring
 

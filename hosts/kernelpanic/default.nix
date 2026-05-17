@@ -90,6 +90,7 @@
       10.0.0.71 monitor.burdznest.com
       10.0.0.71 status.burdznest.com
       10.0.0.71 ntfy.burdznest.com
+      10.0.0.71 auth.burdznest.com
     '';
   };
 
@@ -134,6 +135,17 @@
     udisks2.enable = true;
     upower.enable = true;
 
+    # Create /var/lib/beszel-agent/env after the hub first-run setup.
+    # Required contents:
+    #   KEY=<hub public key>
+    #   TOKEN=<hub universal token>
+    beszel.agent = {
+      enable = true;
+      openFirewall = true;
+      environmentFile = "/var/lib/beszel-agent/env";
+      smartmon.enable = true;
+    };
+
     getty.autologinUser = "burdz";
 
     displayManager = {
@@ -166,6 +178,12 @@
       trim.enable = true;
     };
   };
+
+  systemd.services.beszel-agent.unitConfig.ConditionPathExists = "/var/lib/beszel-agent/env";
+
+  systemd.tmpfiles.rules = [
+    "d /var/lib/beszel-agent 0750 root root - -"
+  ];
 
   users.users.burdz = {
     isNormalUser = true;
