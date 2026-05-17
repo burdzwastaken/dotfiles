@@ -124,6 +124,37 @@
         ENABLE_WEBSOCKET = true;
       };
     };
+
+    nginx = {
+      enable = true;
+      virtualHosts = {
+        "cyberchef.local" = {
+          listen = [
+            {
+              addr = "127.0.0.1";
+              port = 8088;
+            }
+          ];
+          locations."/" = {
+            root = "${pkgs.unstable.cyberchef}/share/cyberchef";
+            index = "index.html";
+          };
+        };
+
+        "tools.local" = {
+          listen = [
+            {
+              addr = "127.0.0.1";
+              port = 8089;
+            }
+          ];
+          locations."/" = {
+            root = "${pkgs.it-tools}/lib";
+            index = "index.html";
+          };
+        };
+      };
+    };
   };
 
   users.users.immich.extraGroups = [ "users" ];

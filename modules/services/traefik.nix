@@ -101,6 +101,22 @@
           middlewares = [ "security-headers" "internal-only" ];
         };
 
+        routers.cyberchef = {
+          rule = "Host(`cyberchef.burdznest.com`)";
+          entryPoints = [ "websecure" ];
+          tls.certResolver = "myresolver";
+          service = "cyberchef";
+          middlewares = [ "security-headers" "internal-only" ];
+        };
+
+        routers.it-tools = {
+          rule = "Host(`it-tools.burdznest.com`)";
+          entryPoints = [ "websecure" ];
+          tls.certResolver = "myresolver";
+          service = "it-tools";
+          middlewares = [ "security-headers" "internal-only" ];
+        };
+
         services.jellyfin.loadBalancer.servers = [
           { url = "http://127.0.0.1:8096"; }
         ];
@@ -115,6 +131,14 @@
 
         services.vaultwarden.loadBalancer.servers = [
           { url = "http://127.0.0.1:8222"; }
+        ];
+
+        services.cyberchef.loadBalancer.servers = [
+          { url = "http://127.0.0.1:8088"; }
+        ];
+
+        services.it-tools.loadBalancer.servers = [
+          { url = "http://127.0.0.1:8089"; }
         ];
       };
     };

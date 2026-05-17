@@ -78,6 +78,8 @@
       10.0.0.71 photos.burdznest.com
       10.0.0.71 sync.burdznest.com
       10.0.0.71 vault.burdznest.com
+      10.0.0.71 cyberchef.burdznest.com
+      10.0.0.71 it-tools.burdznest.com
     '';
   };
 
