@@ -249,6 +249,14 @@
           middlewares = [ "security-headers" "internal-only" "authelia" ];
         };
 
+        routers.homepage = {
+          rule = "Host(`home.burdznest.com`)";
+          entryPoints = [ "websecure" ];
+          tls.certResolver = "myresolver";
+          service = "homepage";
+          middlewares = [ "security-headers" "internal-only" ];
+        };
+
         services.jellyfin.loadBalancer.servers = [
           { url = "http://127.0.0.1:8096"; }
         ];
@@ -334,6 +342,10 @@
 
         services.shlink-web-client.loadBalancer.servers = [
           { url = "http://127.0.0.1:8083"; }
+        ];
+
+        services.homepage.loadBalancer.servers = [
+          { url = "http://127.0.0.1:3010"; }
         ];
       };
     };

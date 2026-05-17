@@ -253,6 +253,95 @@
       };
     };
 
+    homepage-dashboard = {
+      enable = true;
+      listenPort = 3010;
+      openFirewall = false;
+      allowedHosts = "home.burdznest.com";
+
+      settings = {
+        title = "burdznest";
+        headerStyle = "clean";
+        statusStyle = "dot";
+        layout = {
+          "Start Here" = {
+            style = "row";
+            columns = 3;
+          };
+          "Media Automation" = {
+            style = "row";
+            columns = 3;
+          };
+          "Operations" = {
+            style = "row";
+            columns = 4;
+          };
+          "Utilities" = {
+            style = "row";
+            columns = 4;
+          };
+        };
+      };
+
+      widgets = [
+        {
+          resources = {
+            cpu = true;
+            memory = true;
+            disk = "/";
+          };
+        }
+        {
+          search = {
+            provider = "duckduckgo";
+            target = "_blank";
+          };
+        }
+      ];
+
+      services = [
+        {
+          "Start Here" = [
+            { "Jellyfin" = { href = "https://jellyfin.burdznest.com"; description = "Movies and TV"; }; }
+            { "Photos" = { href = "https://photos.burdznest.com"; description = "Immich photo library"; }; }
+            { "Requests" = { href = "https://request.burdznest.com"; description = "Request movies and TV"; }; }
+            { "Vault" = { href = "https://vault.burdznest.com"; description = "Vaultwarden passwords"; }; }
+            { "Bookmarks" = { href = "https://bookmarks.burdznest.com"; description = "Karakeep bookmarks"; }; }
+            { "Paperless" = { href = "https://paperless.burdznest.com"; description = "Documents and OCR"; }; }
+          ];
+        }
+        {
+          "Media Automation" = [
+            { "Radarr" = { href = "https://radarr.burdznest.com"; description = "Movie automation"; }; }
+            { "Sonarr" = { href = "https://sonarr.burdznest.com"; description = "TV automation"; }; }
+            { "Prowlarr" = { href = "https://prowlarr.burdznest.com"; description = "Indexer management"; }; }
+            { "Bazarr" = { href = "https://bazarr.burdznest.com"; description = "Subtitle automation"; }; }
+            { "Torrent" = { href = "https://torrent.burdznest.com"; description = "qBittorrent frontend"; }; }
+            { "Jellyfin" = { href = "https://jellyfin.burdznest.com"; description = "Media playback"; }; }
+          ];
+        }
+        {
+          "Operations" = [
+            { "Status" = { href = "https://status.burdznest.com"; description = "Uptime Kuma"; }; }
+            { "Monitor" = { href = "https://monitor.burdznest.com"; description = "Beszel host monitoring"; }; }
+            { "Scrutiny" = { href = "https://scrutiny.burdznest.com"; description = "Drive SMART health"; }; }
+            { "Traefik" = { href = "https://traefik.burdznest.com"; description = "Reverse proxy dashboard"; }; }
+            { "Auth" = { href = "https://auth.burdznest.com"; description = "Authelia login portal"; }; }
+            { "ntfy" = { href = "https://ntfy.burdznest.com"; description = "Notifications"; }; }
+            { "Shlink UI" = { href = "https://links.burdznest.com"; description = "Short link management"; }; }
+          ];
+        }
+        {
+          "Utilities" = [
+            { "CyberChef" = { href = "https://cyberchef.burdznest.com"; description = "Data transforms"; }; }
+            { "IT-Tools" = { href = "https://it-tools.burdznest.com"; description = "Developer utilities"; }; }
+            { "Syncthing" = { href = "https://sync.burdznest.com"; description = "File sync"; }; }
+            { "Short Links" = { href = "https://s.burdznest.com"; description = "Shlink redirect/API endpoint"; }; }
+          ];
+        }
+      ];
+    };
+
     nginx = {
       enable = true;
       virtualHosts = {

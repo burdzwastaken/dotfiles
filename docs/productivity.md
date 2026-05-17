@@ -10,6 +10,7 @@ Forgejo is intentionally left for later.
 | :--- | :--- | :--- | :--- |
 | Paperless-ngx | Document management and OCR | `https://paperless.burdznest.com` | `127.0.0.1:28981` |
 | Karakeep | Bookmarks and read-later archive | `https://bookmarks.burdznest.com` | `127.0.0.1:3000` |
+| Homepage | Homelab landing page and service links | `https://home.burdznest.com` | `127.0.0.1:3010` |
 | Shlink server | Short-link redirects/API | `https://s.burdznest.com` | `127.0.0.1:8082` |
 | Shlink web client | Shlink management UI | `https://links.burdznest.com` | `127.0.0.1:8083` |
 
@@ -25,6 +26,10 @@ All productivity routes currently use Traefik's `security-headers` and `internal
 | Karakeep | `services.karakeep` enabled on port `3000` |
 | Karakeep supporting services | Meilisearch and browser support enabled |
 | Karakeep settings | `NEXTAUTH_URL=https://bookmarks.burdznest.com`, `DISABLE_SIGNUPS=true`, `DISABLE_NEW_RELEASE_CHECK=true` |
+| Homepage | `services.homepage-dashboard` enabled on `127.0.0.1:3010` |
+| Homepage route | `home.burdznest.com` proxies to `http://127.0.0.1:3010` with `security-headers` and `internal-only` |
+| Homepage settings | `allowedHosts = "home.burdznest.com"` is required so reverse-proxied requests do not return `403` |
+| Homepage widgets | Links-only for now; no API-key widgets or secrets are configured yet |
 | Shlink | `shlinkio/shlink:stable` container through Podman |
 | Shlink bind | Container port `8080` published as `127.0.0.1:8082` |
 | Shlink data | `/var/lib/shlink/data` mounted to `/etc/shlink/data`, owned by container UID/GID `1001:1001` |
@@ -98,6 +103,8 @@ Paperless also runs its exporter on schedule at `02:30`, producing a human-frien
 
 Create the required secret files on Spectre before rebuilding. Do not commit these files or their contents to Git.
 
+Homepage does not require any secret files for the current links-only dashboard. Future optional widget API keys can be added later with secrets management.
+
 ### Paperless admin password
 
 Create `/var/lib/paperless/admin-password` with mode `0600` and ownership `paperless:paperless`:
@@ -145,6 +152,7 @@ Check service health on Spectre. Exact unit names can vary; these are the expect
 
 ```bash
 systemctl status paperless-web karakeep-web podman-shlink --no-pager
+systemctl status homepage-dashboard --no-pager
 ```
 
 If a Paperless unit name differs, list the generated units:
@@ -158,6 +166,7 @@ Verify each local backend responds before testing the Traefik routes:
 ```bash
 curl -I http://127.0.0.1:28981
 curl -I http://127.0.0.1:3000
+curl -I http://127.0.0.1:3010
 curl -I http://127.0.0.1:8082
 curl -I http://127.0.0.1:8083
 ```
@@ -167,6 +176,7 @@ Then open the internal-only routes from the LAN or VPN:
 ```text
 https://paperless.burdznest.com
 https://bookmarks.burdznest.com
+https://home.burdznest.com
 https://s.burdznest.com
 https://links.burdznest.com
 ```
@@ -216,6 +226,20 @@ sudo rm -rf /tmp/restic-restore-test
 3. Confirm signups are disabled after the first account is created.
 4. Test bookmark capture and browser integration from the LAN/VPN.
 5. Confirm `/var/lib/karakeep` and `/var/lib/meilisearch` are covered by restic after the workflow is confirmed.
+
+### Homepage
+
+1. Deploy Spectre after the Homepage config is present:
+   ```bash
+   sudo nixos-rebuild switch --flake .#spectre
+   ```
+2. Confirm `homepage-dashboard` is running and the local backend responds:
+   ```bash
+   systemctl status homepage-dashboard --no-pager
+   curl -I http://127.0.0.1:3010
+   ```
+3. Open `https://home.burdznest.com` from the LAN or VPN. Kernelpanic maps this hostname to Spectre at `10.0.0.71`.
+4. Keep the dashboard links-only until widget API keys are added through secrets management.
 
 ### Shlink
 
