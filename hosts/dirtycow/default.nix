@@ -142,11 +142,24 @@
 
       collector.schedule = "daily";
     };
+
+    # Create /var/lib/beszel-agent/env after the hub first-run setup.
+    # Required contents:
+    #   KEY=<hub public key>
+    #   TOKEN=<hub universal token>
+    beszel.agent = {
+      enable = true;
+      openFirewall = true;
+      environmentFile = "/var/lib/beszel-agent/env";
+      smartmon.enable = true;
+    };
   };
 
+  systemd.services.beszel-agent.unitConfig.ConditionPathExists = "/var/lib/beszel-agent/env";
   systemd.services.scrutiny-collector.serviceConfig.SupplementaryGroups = [ "disk" ];
 
   systemd.tmpfiles.rules = [
+    "d /var/lib/beszel-agent 0750 root root - -"
     "d /tank/immich 0775 burdz users - -"
   ];
 

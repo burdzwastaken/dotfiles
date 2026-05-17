@@ -173,6 +173,14 @@
           middlewares = [ "security-headers" "internal-only" ];
         };
 
+        routers.beszel = {
+          rule = "Host(`monitor.burdznest.com`)";
+          entryPoints = [ "websecure" ];
+          tls.certResolver = "myresolver";
+          service = "beszel";
+          middlewares = [ "security-headers" "internal-only" ];
+        };
+
         services.jellyfin.loadBalancer.servers = [
           { url = "http://127.0.0.1:8096"; }
         ];
@@ -223,6 +231,10 @@
 
         services.scrutiny.loadBalancer.servers = [
           { url = "http://10.0.0.70:8080"; }
+        ];
+
+        services.beszel.loadBalancer.servers = [
+          { url = "http://127.0.0.1:8090"; }
         ];
       };
     };

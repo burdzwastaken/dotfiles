@@ -87,6 +87,7 @@
       10.0.0.71 bazarr.burdznest.com
       10.0.0.71 torrent.burdznest.com
       10.0.0.71 scrutiny.burdznest.com
+      10.0.0.71 monitor.burdznest.com
     '';
   };
 

@@ -125,6 +125,25 @@
       };
     };
 
+    beszel = {
+      hub = {
+        enable = true;
+        host = "127.0.0.1";
+        port = 8090;
+      };
+
+      # Create /var/lib/beszel-agent/env after the hub first-run setup.
+      # Required contents:
+      #   KEY=<hub public key>
+      #   TOKEN=<hub universal token>
+      agent = {
+        enable = true;
+        openFirewall = false;
+        environmentFile = "/var/lib/beszel-agent/env";
+        smartmon.enable = true;
+      };
+    };
+
     nginx = {
       enable = true;
       virtualHosts = {
@@ -217,6 +236,7 @@
 
   systemd.services = {
     bazarr.unitConfig.RequiresMountsFor = "/mnt/media";
+    beszel-agent.unitConfig.ConditionPathExists = "/var/lib/beszel-agent/env";
     prowlarr.unitConfig.RequiresMountsFor = "/mnt/media";
     qbittorrent.unitConfig.RequiresMountsFor = "/mnt/media";
     radarr.unitConfig.RequiresMountsFor = "/mnt/media";
@@ -225,6 +245,7 @@
   };
 
   systemd.tmpfiles.rules = [
+    "d /var/lib/beszel-agent 0750 root root - -"
     "d /var/lib/nixarr 0755 root root - -"
     "d /var/lib/nixarr/bazarr 0750 bazarr media - -"
     "d /var/lib/nixarr/prowlarr 0750 prowlarr root - -"
