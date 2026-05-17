@@ -573,7 +573,6 @@
         "/var/lib/nixarr"
         "/var/lib/postgresql"
         "/var/lib/traefik"
-        "/mnt/backups/vaultwarden"
       ];
 
       exclude = [

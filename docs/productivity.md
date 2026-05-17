@@ -50,11 +50,14 @@ Active service state stays local on Spectre. Dirtycow is the backup target, not 
 
 Do not move live SQLite, PostgreSQL, or application state directories directly under `/mnt/backups` or another NFS mount. NFS is appropriate for backups and media storage, but it is risky for live database/state workloads because latency, locking behavior, and atomic filesystem operations can differ from local disk expectations.
 
+Spectre's restic backup backs up Spectre-local state only, primarily `/home` and `/var/lib` service data. Do not add Dirtycow-owned NFS mounts such as `/mnt/media`, `/mnt/immich`, or `/mnt/backups` as Spectre restic source paths. Dirtycow owns the `/tank` datasets and protects them with Sanoid snapshots; `/mnt/backups` is the destination for Spectre backups and exports, not source data to back up again.
+
 Current active state paths:
 
 | Service | Active state on Spectre | Backup coverage |
 | :--- | :--- | :--- |
-| Paperless-ngx | `/var/lib/paperless` | Backed up by restic; also exported to `/mnt/backups/paperless/export` |
+| Paperless-ngx | `/var/lib/paperless` | Backed up by restic; also exported to `/mnt/backups/paperless/export` as human-readable backup output |
+| Vaultwarden | `/var/lib/bitwarden_rs` | Backed up by restic; module SQLite backup output under `/mnt/backups/vaultwarden` does not need re-backup by Spectre restic |
 | Karakeep | `/var/lib/karakeep` | Backed up by restic |
 | Meilisearch for Karakeep | `/var/lib/meilisearch` | Backed up by restic |
 | Shlink | `/var/lib/shlink` | Backed up by restic |
@@ -97,7 +100,7 @@ Restic excludes:
 /var/lib/nixarr/qbittorrent
 ```
 
-Paperless also runs its exporter on schedule at `02:30`, producing a human-friendly export in addition to the restic backup:
+Paperless also runs its exporter on schedule at `02:30`, producing a human-friendly export in addition to the restic backup. This export is written to Dirtycow-backed storage and does not need to be backed up again as a Spectre restic source path:
 
 ```text
 /mnt/backups/paperless/export
