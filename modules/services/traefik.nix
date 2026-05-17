@@ -118,7 +118,7 @@
           entryPoints = [ "websecure" ];
           tls.certResolver = "myresolver";
           service = "cyberchef";
-          middlewares = [ "security-headers" "internal-only" ];
+          middlewares = [ "security-headers" "internal-only" "authelia" ];
         };
 
         routers.it-tools = {
@@ -126,7 +126,7 @@
           entryPoints = [ "websecure" ];
           tls.certResolver = "myresolver";
           service = "it-tools";
-          middlewares = [ "security-headers" "internal-only" ];
+          middlewares = [ "security-headers" "internal-only" "authelia" ];
         };
 
         routers.seerr = {

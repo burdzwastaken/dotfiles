@@ -11,10 +11,12 @@ Forgejo is intentionally left for later.
 | Paperless-ngx | Document management and OCR | `https://paperless.burdznest.com` | `127.0.0.1:28981` |
 | Karakeep | Bookmarks and read-later archive | `https://bookmarks.burdznest.com` | `127.0.0.1:3000` |
 | Homepage | Homelab landing page and service links | `https://home.burdznest.com` | `127.0.0.1:3010` |
+| CyberChef | Data transforms and encoding/decoding utilities | `https://cyberchef.burdznest.com` | `127.0.0.1:8088` |
+| IT-Tools | Developer and admin utility toolbox | `https://it-tools.burdznest.com` | `127.0.0.1:8089` |
 | Shlink server | Short-link redirects/API | `https://s.burdznest.com` | `127.0.0.1:8082` |
 | Shlink web client | Shlink management UI | `https://links.burdznest.com` | `127.0.0.1:8083` |
 
-All productivity routes currently use Traefik's `security-headers` and `internal-only` middlewares. Shlink's web client also uses the `authelia` middleware. Shlink's redirect/API route stays internal-only and is not behind Authelia so short slug redirects and API behavior remain normal; make `s.burdznest.com` public only if short links should work outside the LAN/VPN.
+All productivity routes currently use Traefik's `security-headers` and `internal-only` middlewares. CyberChef, IT-Tools, and Shlink's web client also use the `authelia` middleware, so they require an Authelia login from the LAN/VPN. Shlink's redirect/API route stays internal-only and is not behind Authelia so short slug redirects and API behavior remain normal; make `s.burdznest.com` public only if short links should work outside the LAN/VPN.
 
 ## Implementation
 
@@ -30,6 +32,8 @@ All productivity routes currently use Traefik's `security-headers` and `internal
 | Homepage route | `home.burdznest.com` proxies to `http://127.0.0.1:3010` with `security-headers` and `internal-only` |
 | Homepage settings | `allowedHosts = "home.burdznest.com"` is required so reverse-proxied requests do not return `403` |
 | Homepage widgets | Links-only for now; no API-key widgets or secrets are configured yet |
+| CyberChef route | `cyberchef.burdznest.com` proxies to `http://127.0.0.1:8088` with `security-headers`, `internal-only`, and `authelia` |
+| IT-Tools route | `it-tools.burdznest.com` proxies to `http://127.0.0.1:8089` with `security-headers`, `internal-only`, and `authelia` |
 | Shlink | `shlinkio/shlink:stable` container through Podman |
 | Shlink bind | Container port `8080` published as `127.0.0.1:8082` |
 | Shlink data | `/var/lib/shlink/data` mounted to `/etc/shlink/data`, owned by container UID/GID `1001:1001` |
@@ -167,6 +171,8 @@ Verify each local backend responds before testing the Traefik routes:
 curl -I http://127.0.0.1:28981
 curl -I http://127.0.0.1:3000
 curl -I http://127.0.0.1:3010
+curl -I http://127.0.0.1:8088
+curl -I http://127.0.0.1:8089
 curl -I http://127.0.0.1:8082
 curl -I http://127.0.0.1:8083
 ```
@@ -177,9 +183,13 @@ Then open the internal-only routes from the LAN or VPN:
 https://paperless.burdznest.com
 https://bookmarks.burdznest.com
 https://home.burdznest.com
+https://cyberchef.burdznest.com
+https://it-tools.burdznest.com
 https://s.burdznest.com
 https://links.burdznest.com
 ```
+
+CyberChef and IT-Tools are internal-only utility routes and require Authelia login before access.
 
 For Shlink, `https://s.burdznest.com` is the redirect/API endpoint and `https://links.burdznest.com` is the management UI. The UI route uses `security-headers`, `internal-only`, and `authelia`. The redirect/API route stays internal-only but is not behind Authelia so normal short-link redirects do not require a browser login; API writes still require the Shlink API key. A `404` at `https://s.burdznest.com/` is expected and healthy because the Shlink server has no homepage; short slugs such as `https://s.burdznest.com/<slug>` perform redirects. A `502` means Traefik cannot reach the backend.
 

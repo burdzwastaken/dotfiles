@@ -198,6 +198,14 @@
               domain = "links.burdznest.com";
               policy = "one_factor";
             }
+            {
+              domain = "cyberchef.burdznest.com";
+              policy = "one_factor";
+            }
+            {
+              domain = "it-tools.burdznest.com";
+              policy = "one_factor";
+            }
           ];
         };
       };
