@@ -98,6 +98,29 @@
     };
 
     redis.servers.immich.logLevel = "warning";
+
+    syncthing = {
+      enable = true;
+      guiAddress = "127.0.0.1:8384";
+      openDefaultPorts = true;
+      settings.gui.user = "burdz";
+    };
+
+    vaultwarden = {
+      enable = true;
+      dbBackend = "sqlite";
+      backupDir = "/mnt/backups/vaultwarden";
+
+      config = {
+        ROCKET_ADDRESS = "127.0.0.1";
+        ROCKET_PORT = 8222;
+        DOMAIN = "https://vault.burdznest.com";
+        SIGNUPS_ALLOWED = true; # flip to false after creating the initial account.
+        INVITATIONS_ALLOWED = false;
+        SHOW_PASSWORD_HINT = false;
+        ENABLE_WEBSOCKET = true;
+      };
+    };
   };
 
   users.users.immich.extraGroups = [ "users" ];
@@ -105,6 +128,10 @@
   systemd.services.immich-server = {
     unitConfig.RequiresMountsFor = "/mnt/immich";
   };
+
+  systemd.tmpfiles.rules = [
+    "d /mnt/backups/vaultwarden 0750 vaultwarden vaultwarden - -"
+  ];
 
   users.users.burdz = {
     isNormalUser = true;

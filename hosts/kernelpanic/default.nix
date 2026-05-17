@@ -76,6 +76,8 @@
       10.0.0.71 doombox.burdznest.com
       10.0.0.71 jellyfin.burdznest.com
       10.0.0.71 photos.burdznest.com
+      10.0.0.71 sync.burdznest.com
+      10.0.0.71 vault.burdznest.com
     '';
   };
 

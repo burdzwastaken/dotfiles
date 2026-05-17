@@ -85,12 +85,36 @@
           middlewares = [ "security-headers" "internal-only" ];
         };
 
+        routers.syncthing = {
+          rule = "Host(`sync.burdznest.com`)";
+          entryPoints = [ "websecure" ];
+          tls.certResolver = "myresolver";
+          service = "syncthing";
+          middlewares = [ "internal-only" ];
+        };
+
+        routers.vaultwarden = {
+          rule = "Host(`vault.burdznest.com`)";
+          entryPoints = [ "websecure" ];
+          tls.certResolver = "myresolver";
+          service = "vaultwarden";
+          middlewares = [ "security-headers" "internal-only" ];
+        };
+
         services.jellyfin.loadBalancer.servers = [
           { url = "http://127.0.0.1:8096"; }
         ];
 
         services.immich.loadBalancer.servers = [
           { url = "http://127.0.0.1:2283"; }
+        ];
+
+        services.syncthing.loadBalancer.servers = [
+          { url = "http://127.0.0.1:8384"; }
+        ];
+
+        services.vaultwarden.loadBalancer.servers = [
+          { url = "http://127.0.0.1:8222"; }
         ];
       };
     };
