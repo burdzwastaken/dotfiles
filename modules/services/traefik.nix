@@ -165,6 +165,14 @@
           middlewares = [ "security-headers" "internal-only" ];
         };
 
+        routers.scrutiny = {
+          rule = "Host(`scrutiny.burdznest.com`)";
+          entryPoints = [ "websecure" ];
+          tls.certResolver = "myresolver";
+          service = "scrutiny";
+          middlewares = [ "security-headers" "internal-only" ];
+        };
+
         services.jellyfin.loadBalancer.servers = [
           { url = "http://127.0.0.1:8096"; }
         ];
@@ -211,6 +219,10 @@
 
         services.qbittorrent.loadBalancer.servers = [
           { url = "http://127.0.0.1:5252"; }
+        ];
+
+        services.scrutiny.loadBalancer.servers = [
+          { url = "http://10.0.0.70:8080"; }
         ];
       };
     };

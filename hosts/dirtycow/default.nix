@@ -130,7 +130,21 @@
         recursive = true;
       };
     };
+
+    scrutiny = {
+      enable = true;
+      openFirewall = true;
+
+      settings.web.listen = {
+        host = "0.0.0.0";
+        port = 8080;
+      };
+
+      collector.schedule = "daily";
+    };
   };
+
+  systemd.services.scrutiny-collector.serviceConfig.SupplementaryGroups = [ "disk" ];
 
   systemd.tmpfiles.rules = [
     "d /tank/immich 0775 burdz users - -"
