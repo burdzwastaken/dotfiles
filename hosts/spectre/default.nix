@@ -115,7 +115,7 @@
         ROCKET_ADDRESS = "127.0.0.1";
         ROCKET_PORT = 8222;
         DOMAIN = "https://vault.burdznest.com";
-        SIGNUPS_ALLOWED = true; # flip to false after creating the initial account.
+        SIGNUPS_ALLOWED = false; # flip to false after creating the initial account.
         INVITATIONS_ALLOWED = false;
         SHOW_PASSWORD_HINT = false;
         ENABLE_WEBSOCKET = true;
