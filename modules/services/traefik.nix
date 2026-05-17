@@ -117,6 +117,54 @@
           middlewares = [ "security-headers" "internal-only" ];
         };
 
+        routers.seerr = {
+          rule = "Host(`request.burdznest.com`)";
+          entryPoints = [ "websecure" ];
+          tls.certResolver = "myresolver";
+          service = "seerr";
+          middlewares = [ "security-headers" "internal-only" ];
+        };
+
+        routers.radarr = {
+          rule = "Host(`radarr.burdznest.com`)";
+          entryPoints = [ "websecure" ];
+          tls.certResolver = "myresolver";
+          service = "radarr";
+          middlewares = [ "security-headers" "internal-only" ];
+        };
+
+        routers.sonarr = {
+          rule = "Host(`sonarr.burdznest.com`)";
+          entryPoints = [ "websecure" ];
+          tls.certResolver = "myresolver";
+          service = "sonarr";
+          middlewares = [ "security-headers" "internal-only" ];
+        };
+
+        routers.prowlarr = {
+          rule = "Host(`prowlarr.burdznest.com`)";
+          entryPoints = [ "websecure" ];
+          tls.certResolver = "myresolver";
+          service = "prowlarr";
+          middlewares = [ "security-headers" "internal-only" ];
+        };
+
+        routers.bazarr = {
+          rule = "Host(`bazarr.burdznest.com`)";
+          entryPoints = [ "websecure" ];
+          tls.certResolver = "myresolver";
+          service = "bazarr";
+          middlewares = [ "security-headers" "internal-only" ];
+        };
+
+        routers.qbittorrent = {
+          rule = "Host(`torrent.burdznest.com`)";
+          entryPoints = [ "websecure" ];
+          tls.certResolver = "myresolver";
+          service = "qbittorrent";
+          middlewares = [ "security-headers" "internal-only" ];
+        };
+
         services.jellyfin.loadBalancer.servers = [
           { url = "http://127.0.0.1:8096"; }
         ];
@@ -139,6 +187,30 @@
 
         services.it-tools.loadBalancer.servers = [
           { url = "http://127.0.0.1:8089"; }
+        ];
+
+        services.seerr.loadBalancer.servers = [
+          { url = "http://127.0.0.1:5055"; }
+        ];
+
+        services.radarr.loadBalancer.servers = [
+          { url = "http://127.0.0.1:7878"; }
+        ];
+
+        services.sonarr.loadBalancer.servers = [
+          { url = "http://127.0.0.1:8989"; }
+        ];
+
+        services.prowlarr.loadBalancer.servers = [
+          { url = "http://127.0.0.1:9696"; }
+        ];
+
+        services.bazarr.loadBalancer.servers = [
+          { url = "http://127.0.0.1:6767"; }
+        ];
+
+        services.qbittorrent.loadBalancer.servers = [
+          { url = "http://127.0.0.1:5252"; }
         ];
       };
     };

@@ -157,13 +157,81 @@
     };
   };
 
+  services = {
+    prowlarr.settings.auth.required = "DisabledForLocalAddresses";
+    radarr.settings.auth.required = "DisabledForLocalAddresses";
+    sonarr.settings.auth.required = "DisabledForLocalAddresses";
+  };
+
+  nixarr = {
+    enable = true;
+    mediaDir = "/mnt/media";
+    stateDir = "/var/lib/nixarr";
+    mediaUsers = [ "burdz" ];
+
+    vpn = {
+      # Leave VPN disabled for now. To add one later, place the provider's
+      # WireGuard config at /var/lib/nixarr/wg.conf, set enable = true and
+      # set qbittorrent.vpn.enable = true below.
+      enable = false;
+      wgConf = "/var/lib/nixarr/wg.conf";
+      proxyListenAddr = "127.0.0.1";
+      exposeOnLAN = false;
+      accessibleFrom = [ "10.0.0.0/24" "10.0.1.0/24" ];
+    };
+
+    # Wife-facing request UI. Connect this to Jellyfin, Radarr and Sonarr
+    # in the first-run web setup.
+    seerr.enable = true;
+
+    # Indexer and library automation.
+    prowlarr = {
+      enable = true;
+      settings-sync.enable-nixarr-apps = true;
+    };
+    radarr.enable = true;
+    sonarr.enable = true;
+    bazarr = {
+      enable = true;
+      settings-sync = {
+        radarr.enable = true;
+        radarr.config.sync_only_monitored_movies = true;
+        sonarr.enable = true;
+        sonarr.config.sync_only_monitored_series = true;
+      };
+    };
+
+    qbittorrent = {
+      enable = true;
+      vpn.enable = false;
+      peerPort = 50000; # replace with the forwarded VPN port.
+      webuiPort = 5252;
+    };
+  };
+
   users.users.immich.extraGroups = [ "users" ];
 
   systemd.services.immich-server = {
     unitConfig.RequiresMountsFor = "/mnt/immich";
   };
 
+  systemd.services = {
+    bazarr.unitConfig.RequiresMountsFor = "/mnt/media";
+    prowlarr.unitConfig.RequiresMountsFor = "/mnt/media";
+    qbittorrent.unitConfig.RequiresMountsFor = "/mnt/media";
+    radarr.unitConfig.RequiresMountsFor = "/mnt/media";
+    seerr.unitConfig.RequiresMountsFor = "/mnt/media";
+    sonarr.unitConfig.RequiresMountsFor = "/mnt/media";
+  };
+
   systemd.tmpfiles.rules = [
+    "d /var/lib/nixarr 0755 root root - -"
+    "d /var/lib/nixarr/bazarr 0750 bazarr media - -"
+    "d /var/lib/nixarr/prowlarr 0750 prowlarr root - -"
+    "d /var/lib/nixarr/qbittorrent 0750 qbittorrent media - -"
+    "d /var/lib/nixarr/radarr 0750 radarr media - -"
+    "d /var/lib/nixarr/seerr 0750 seerr root - -"
+    "d /var/lib/nixarr/sonarr 0750 sonarr media - -"
     "d /mnt/backups/vaultwarden 0750 vaultwarden vaultwarden - -"
   ];
 

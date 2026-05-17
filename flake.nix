@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixarr.url = "github:nix-media-server/nixarr";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
@@ -18,7 +19,7 @@
   };
 
   # with imports `{ self, ... }@inputs: `
-  outputs = { nixpkgs, nixpkgs-unstable, home-manager, winboat, ... }:
+  outputs = { nixpkgs, nixpkgs-unstable, nixarr, home-manager, winboat, ... }:
     let
       system = "x86_64-linux";
 
@@ -83,6 +84,7 @@
             ./hosts/spectre/hardware.nix
             ./modules/services/containers.nix
             ./modules/services/traefik.nix
+            nixarr.nixosModules.default
 
             { nixpkgs.overlays = overlays; }
           ];

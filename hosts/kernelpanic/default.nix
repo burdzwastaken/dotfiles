@@ -80,6 +80,12 @@
       10.0.0.71 vault.burdznest.com
       10.0.0.71 cyberchef.burdznest.com
       10.0.0.71 it-tools.burdznest.com
+      10.0.0.71 request.burdznest.com
+      10.0.0.71 radarr.burdznest.com
+      10.0.0.71 sonarr.burdznest.com
+      10.0.0.71 prowlarr.burdznest.com
+      10.0.0.71 bazarr.burdznest.com
+      10.0.0.71 torrent.burdznest.com
     '';
   };
 
