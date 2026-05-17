@@ -190,6 +190,68 @@ https://status.burdznest.com
 
 On first run, create the initial Uptime Kuma admin user in the web UI.
 
+## ntfy Notifications
+
+ntfy provides lightweight push notifications for homelab alerts from Spectre. It is currently exposed only through the internal Traefik route, so notifications are intended to work from the LAN or VPN.
+
+## ntfy implementation
+
+| Component | Host | Details |
+| :--- | :--- | :--- |
+| ntfy server | Spectre | `services.ntfy-sh` enabled |
+| Base URL | Spectre | `https://ntfy.burdznest.com` |
+| Bind address | Spectre | `listen-http = 127.0.0.1:2586` |
+| Proxy awareness | Spectre | `behind-proxy = true` |
+| Auth policy | Spectre | `auth-default-access = deny-all`, `enable-login = true`, `enable-signup = false` |
+| Reverse proxy | Spectre | Traefik routes `ntfy.burdznest.com` to `http://127.0.0.1:2586` |
+| Access policy | Spectre | Traefik uses the `security-headers` and `internal-only` middlewares |
+| Local hostname | Kernelpanic | `extraHosts` maps `ntfy.burdznest.com` to `10.0.0.71` |
+
+## ntfy deployment
+
+Deploy Spectre so the ntfy service and Traefik route are available:
+
+```bash
+sudo nixos-rebuild switch --flake .#spectre
+```
+
+## ntfy verification
+
+On Spectre, check the service:
+
+```bash
+systemctl status ntfy-sh --no-pager
+```
+
+Verify the local ntfy web UI responds before testing the proxied route:
+
+```bash
+curl -I http://127.0.0.1:2586
+```
+
+Then open the internal-only ntfy URL from the LAN or VPN:
+
+```text
+https://ntfy.burdznest.com
+```
+
+## ntfy one-time setup
+
+The ntfy service must run at least once before these user commands if the auth database does not exist yet.
+
+Create the admin user, a write-only notifier user for service alerts, and a notifier token:
+
+```bash
+sudo ntfy user add --role=admin burdz
+sudo ntfy user add notifier
+sudo ntfy access notifier homelab-alerts write-only
+sudo ntfy token add notifier
+```
+
+Use the generated notifier token for Uptime Kuma notifications to the `homelab-alerts` topic.
+
+Because the route uses `internal-only`, phone notifications work while the phone is on the LAN or VPN. Public and iOS push behavior can be revisited later by removing `internal-only` and setting `upstream-base-url`.
+
 ## Suggested Uptime Kuma monitors
 
 Add HTTP(S) monitors for the internal service routes after the first-run admin account is created:
@@ -209,4 +271,4 @@ Add HTTP(S) monitors for the internal service routes after the first-run admin a
 | Bazarr | `https://bazarr.burdznest.com` |
 | qBittorrent / Torrent | `https://torrent.burdznest.com` |
 
-Add alerting later through `ntfy` after the checks are stable and false positives have been tuned.
+Add alerting through `ntfy` after the checks are stable and false positives have been tuned. Uptime Kuma can use the write-only notifier token for the `homelab-alerts` topic.

@@ -189,6 +189,14 @@
           middlewares = [ "security-headers" "internal-only" ];
         };
 
+        routers.ntfy = {
+          rule = "Host(`ntfy.burdznest.com`)";
+          entryPoints = [ "websecure" ];
+          tls.certResolver = "myresolver";
+          service = "ntfy";
+          middlewares = [ "security-headers" "internal-only" ];
+        };
+
         services.jellyfin.loadBalancer.servers = [
           { url = "http://127.0.0.1:8096"; }
         ];
@@ -248,6 +256,13 @@
         services.uptime-kuma.loadBalancer.servers = [
           { url = "http://127.0.0.1:3001"; }
         ];
+
+        services.ntfy.loadBalancer = {
+          servers = [
+            { url = "http://127.0.0.1:2586"; }
+          ];
+          responseForwarding.flushInterval = "100ms";
+        };
       };
     };
 
