@@ -349,6 +349,12 @@
     };
   };
 
+  virtualisation.oci-containers.containers.shlink-web-client = {
+    image = "shlinkio/shlink-web-client:latest";
+    autoStart = true;
+    ports = [ "127.0.0.1:8083:8080" ];
+  };
+
   users.users.immich.extraGroups = [ "users" ];
 
   systemd.services.immich-server = {

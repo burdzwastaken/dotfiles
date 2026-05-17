@@ -10,9 +10,10 @@ Forgejo is intentionally left for later.
 | :--- | :--- | :--- | :--- |
 | Paperless-ngx | Document management and OCR | `https://paperless.burdznest.com` | `127.0.0.1:28981` |
 | Karakeep | Bookmarks and read-later archive | `https://bookmarks.burdznest.com` | `127.0.0.1:3000` |
-| Shlink | Short-link redirects/API | `https://s.burdznest.com` | `127.0.0.1:8082` |
+| Shlink server | Short-link redirects/API | `https://s.burdznest.com` | `127.0.0.1:8082` |
+| Shlink web client | Shlink management UI | `https://links.burdznest.com` | `127.0.0.1:8083` |
 
-All three routes currently use Traefik's `security-headers` and `internal-only` middlewares. Shlink is internal-only for now; make `s.burdznest.com` public only if short links should work outside the LAN/VPN.
+All productivity routes currently use Traefik's `security-headers` and `internal-only` middlewares. Shlink's redirect/API route and web client are internal-only for now; make `s.burdznest.com` public only if short links should work outside the LAN/VPN.
 
 ## Implementation
 
@@ -30,6 +31,9 @@ All three routes currently use Traefik's `security-headers` and `internal-only` 
 | Shlink secrets | `/var/lib/shlink/secrets.env` |
 | Shlink settings | `DEFAULT_DOMAIN=s.burdznest.com`, `IS_HTTPS_ENABLED=true`, `DEFAULT_SHORT_CODES_LENGTH=5`, `WEB_WORKER_NUM=2`, `TASK_WORKER_NUM=2`, `DB_DRIVER=sqlite` |
 | Shlink startup gate | `podman-shlink` waits for `/var/lib/shlink/secrets.env` |
+| Shlink web client | `shlinkio/shlink-web-client:latest` container through Podman |
+| Shlink web client bind | Container port `8080` published as `127.0.0.1:8083` |
+| Shlink web client route | `links.burdznest.com` proxies to `http://127.0.0.1:8083` |
 
 ## Persistence and backups
 
@@ -155,6 +159,7 @@ Verify each local backend responds before testing the Traefik routes:
 curl -I http://127.0.0.1:28981
 curl -I http://127.0.0.1:3000
 curl -I http://127.0.0.1:8082
+curl -I http://127.0.0.1:8083
 ```
 
 Then open the internal-only routes from the LAN or VPN:
@@ -163,7 +168,10 @@ Then open the internal-only routes from the LAN or VPN:
 https://paperless.burdznest.com
 https://bookmarks.burdznest.com
 https://s.burdznest.com
+https://links.burdznest.com
 ```
+
+For Shlink, `https://s.burdznest.com` is the redirect/API endpoint and `https://links.burdznest.com` is the management UI. A `404` at `https://s.burdznest.com/` is expected and healthy because the Shlink server has no homepage; short slugs such as `https://s.burdznest.com/<slug>` perform redirects. A `502` means Traefik cannot reach the backend.
 
 Verify the Dirtycow backup mount and run the Spectre restic backup once:
 
@@ -212,8 +220,10 @@ sudo rm -rf /tmp/restic-restore-test
 ### Shlink
 
 1. Confirm `/var/lib/shlink/secrets.env` exists before deployment; `podman-shlink` is gated on this file.
-2. Open or call `https://s.burdznest.com` from the LAN or VPN.
-3. Use the `INITIAL_API_KEY` value from `/var/lib/shlink/secrets.env` for Shlink API access.
-4. Create a test short link and confirm redirects work through `https://s.burdznest.com`.
-5. Confirm `/var/lib/shlink` is covered by restic and that a restore smoke test works.
-6. Keep the route internal-only unless short links should resolve outside the LAN/VPN.
+2. Open `https://links.burdznest.com` from the LAN or VPN.
+3. Add the Shlink server URL `https://s.burdznest.com`.
+4. Paste the API key from `/var/lib/shlink/secrets.env`. Do not commit or document the real key.
+5. Create a test short URL in the UI.
+6. Verify `https://s.burdznest.com/<slug>` redirects to the expected destination.
+7. Confirm `/var/lib/shlink` is covered by restic and that a restore smoke test works.
+8. Keep both the server and UI routes internal-only unless short links should resolve outside the LAN/VPN.

@@ -94,6 +94,7 @@
       10.0.0.71 paperless.burdznest.com
       10.0.0.71 bookmarks.burdznest.com
       10.0.0.71 s.burdznest.com
+      10.0.0.71 links.burdznest.com
     '';
   };
 
