@@ -214,6 +214,41 @@
       };
     };
 
+    paperless = {
+      enable = true;
+      address = "127.0.0.1";
+      port = 28981;
+
+      # Create this outside Git before first deploy:
+      #   sudo install -D -m 0600 -o paperless -g paperless /dev/stdin /var/lib/paperless/admin-password
+      passwordFile = "/var/lib/paperless/admin-password";
+
+      settings = {
+        PAPERLESS_URL = "https://paperless.burdznest.com";
+        PAPERLESS_CSRF_TRUSTED_ORIGINS = "https://paperless.burdznest.com";
+        PAPERLESS_TIME_ZONE = "Asia/Singapore";
+        PAPERLESS_OCR_LANGUAGE = "eng";
+      };
+
+      exporter = {
+        enable = true;
+        directory = "/mnt/backups/paperless/export";
+        onCalendar = "02:30:00";
+      };
+    };
+
+    karakeep = {
+      enable = true;
+      meilisearch.enable = true;
+      browser.enable = true;
+      extraEnvironment = {
+        PORT = "3000";
+        NEXTAUTH_URL = "https://bookmarks.burdznest.com";
+        DISABLE_SIGNUPS = "true";
+        DISABLE_NEW_RELEASE_CHECK = "true";
+      };
+    };
+
     nginx = {
       enable = true;
       virtualHosts = {
@@ -298,6 +333,22 @@
     };
   };
 
+  virtualisation.oci-containers.containers.shlink = {
+    image = "shlinkio/shlink:stable";
+    autoStart = true;
+    ports = [ "127.0.0.1:8082:8080" ];
+    volumes = [ "/var/lib/shlink/data:/etc/shlink/data" ];
+    environmentFiles = [ "/var/lib/shlink/secrets.env" ];
+    environment = {
+      DEFAULT_DOMAIN = "s.burdznest.com";
+      IS_HTTPS_ENABLED = "true";
+      DEFAULT_SHORT_CODES_LENGTH = "5";
+      WEB_WORKER_NUM = "2";
+      TASK_WORKER_NUM = "2";
+      DB_DRIVER = "sqlite";
+    };
+  };
+
   users.users.immich.extraGroups = [ "users" ];
 
   systemd.services.immich-server = {
@@ -312,9 +363,14 @@
     ];
     bazarr.unitConfig.RequiresMountsFor = "/mnt/media";
     beszel-agent.unitConfig.ConditionPathExists = "/var/lib/beszel-agent/env";
+    podman-shlink.unitConfig.ConditionPathExists = "/var/lib/shlink/secrets.env";
     prowlarr.unitConfig.RequiresMountsFor = "/mnt/media";
     qbittorrent.unitConfig.RequiresMountsFor = "/mnt/media";
     radarr.unitConfig.RequiresMountsFor = "/mnt/media";
+    restic-backups-spectre-dirtycow.unitConfig.ConditionPathExists = [
+      "/var/lib/restic/spectre-dirtycow.password"
+      "/mnt/backups"
+    ];
     seerr.unitConfig.RequiresMountsFor = "/mnt/media";
     sonarr.unitConfig.RequiresMountsFor = "/mnt/media";
   };
@@ -323,6 +379,13 @@
     "d /var/lib/authelia-main 0750 authelia-main authelia-main - -"
     "d /var/lib/authelia-main/secrets 0750 authelia-main authelia-main - -"
     "d /var/lib/beszel-agent 0750 root root - -"
+    "d /var/lib/shlink 0750 root root - -"
+    "d /var/lib/shlink/data 0750 1001 1001 - -"
+    "d /var/lib/restic 0750 root root - -"
+    "d /mnt/backups/paperless 0750 paperless paperless - -"
+    "d /mnt/backups/paperless/export 0750 paperless paperless - -"
+    "d /mnt/backups/restic 0750 root root - -"
+    "d /mnt/backups/restic/spectre 0750 root root - -"
     "d /var/lib/nixarr 0755 root root - -"
     "d /var/lib/nixarr/bazarr 0750 bazarr media - -"
     "d /var/lib/nixarr/prowlarr 0750 prowlarr root - -"
@@ -333,13 +396,57 @@
     "d /mnt/backups/vaultwarden 0750 vaultwarden vaultwarden - -"
   ];
 
+  # Local encrypted backup to Dirtycow. This protects local Spectre service
+  # state that should not run directly from NFS-backed storage.
+  # Create /var/lib/restic/spectre-dirtycow.password before relying on it.
+  services.restic.backups = {
+    spectre-dirtycow = {
+      repository = "/mnt/backups/restic/spectre";
+      passwordFile = "/var/lib/restic/spectre-dirtycow.password";
+      initialize = true;
+
+      paths = [
+        "/home/burdz"
+        "/var/lib/authelia-main"
+        "/var/lib/beszel-hub"
+        "/var/lib/bitwarden_rs"
+        "/var/lib/jellyfin"
+        "/var/lib/karakeep"
+        "/var/lib/meilisearch"
+        "/var/lib/nixarr"
+        "/var/lib/paperless"
+        "/var/lib/postgresql"
+        "/var/lib/private/ntfy-sh"
+        "/var/lib/private/uptime-kuma"
+        "/var/lib/shlink"
+        "/var/lib/traefik"
+      ];
+
+      exclude = [
+        "/home/burdz/.cache"
+        "/var/lib/nixarr/qbittorrent"
+      ];
+
+      timerConfig = {
+        OnCalendar = "03:00";
+        Persistent = true;
+        RandomizedDelaySec = "30m";
+      };
+
+      pruneOpts = [
+        "--keep-daily 7"
+        "--keep-weekly 4"
+        "--keep-monthly 6"
+      ];
+    };
+  } // lib.optionalAttrs false {
+
   # Disabled until an offsite repository and secret files are chosen.
   # Create these files outside Git before enabling:
   #   /var/lib/restic/spectre.password
   #   /var/lib/restic/spectre.env
   # The env file should contain backend credentials, e.g. AWS_ACCESS_KEY_ID and
   # AWS_SECRET_ACCESS_KEY for S3/B2-compatible storage.
-  services.restic.backups = lib.mkIf false {
     spectre-offsite = {
       repository = "s3:REPLACE-ME/spectre";
       passwordFile = "/var/lib/restic/spectre.password";

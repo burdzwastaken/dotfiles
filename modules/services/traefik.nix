@@ -217,6 +217,30 @@
           middlewares = [ "security-headers" "internal-only" ];
         };
 
+        routers.paperless = {
+          rule = "Host(`paperless.burdznest.com`)";
+          entryPoints = [ "websecure" ];
+          tls.certResolver = "myresolver";
+          service = "paperless";
+          middlewares = [ "security-headers" "internal-only" ];
+        };
+
+        routers.karakeep = {
+          rule = "Host(`bookmarks.burdznest.com`)";
+          entryPoints = [ "websecure" ];
+          tls.certResolver = "myresolver";
+          service = "karakeep";
+          middlewares = [ "security-headers" "internal-only" ];
+        };
+
+        routers.shlink = {
+          rule = "Host(`s.burdznest.com`)";
+          entryPoints = [ "websecure" ];
+          tls.certResolver = "myresolver";
+          service = "shlink";
+          middlewares = [ "security-headers" "internal-only" ];
+        };
+
         services.jellyfin.loadBalancer.servers = [
           { url = "http://127.0.0.1:8096"; }
         ];
@@ -286,6 +310,18 @@
 
         services.authelia.loadBalancer.servers = [
           { url = "http://127.0.0.1:9091"; }
+        ];
+
+        services.paperless.loadBalancer.servers = [
+          { url = "http://127.0.0.1:28981"; }
+        ];
+
+        services.karakeep.loadBalancer.servers = [
+          { url = "http://127.0.0.1:3000"; }
+        ];
+
+        services.shlink.loadBalancer.servers = [
+          { url = "http://127.0.0.1:8082"; }
         ];
       };
     };

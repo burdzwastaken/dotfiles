@@ -91,6 +91,9 @@
       10.0.0.71 status.burdznest.com
       10.0.0.71 ntfy.burdznest.com
       10.0.0.71 auth.burdznest.com
+      10.0.0.71 paperless.burdznest.com
+      10.0.0.71 bookmarks.burdznest.com
+      10.0.0.71 s.burdznest.com
     '';
   };
 
