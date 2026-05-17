@@ -181,6 +181,14 @@
           middlewares = [ "security-headers" "internal-only" ];
         };
 
+        routers.uptime-kuma = {
+          rule = "Host(`status.burdznest.com`)";
+          entryPoints = [ "websecure" ];
+          tls.certResolver = "myresolver";
+          service = "uptime-kuma";
+          middlewares = [ "security-headers" "internal-only" ];
+        };
+
         services.jellyfin.loadBalancer.servers = [
           { url = "http://127.0.0.1:8096"; }
         ];
@@ -235,6 +243,10 @@
 
         services.beszel.loadBalancer.servers = [
           { url = "http://127.0.0.1:8090"; }
+        ];
+
+        services.uptime-kuma.loadBalancer.servers = [
+          { url = "http://127.0.0.1:3001"; }
         ];
       };
     };

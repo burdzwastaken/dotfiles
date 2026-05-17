@@ -144,3 +144,69 @@ systemctl status beszel-agent --no-pager
 ```
 
 From the Beszel UI at `https://monitor.burdznest.com`, confirm Spectre and Dirtycow both appear online after their agent environment files are installed and their agents are restarted.
+
+## Uptime Kuma Service Monitoring
+
+Uptime Kuma monitors service availability for the homelab from Spectre. It is intended for endpoint and application checks that complement Scrutiny drive health monitoring and Beszel host metrics.
+
+## Uptime Kuma implementation
+
+| Component | Host | Details |
+| :--- | :--- | :--- |
+| Uptime Kuma | Spectre | `services.uptime-kuma` enabled with `appriseSupport` enabled |
+| Bind address | Spectre | Defaults to `HOST=127.0.0.1` and `PORT=3001` |
+| Data directory | Spectre | Defaults to `DATA_DIR=/var/lib/uptime-kuma` |
+| Reverse proxy | Spectre | Traefik routes `status.burdznest.com` to `http://127.0.0.1:3001` |
+| Access policy | Spectre | Traefik uses the `internal-only` middleware |
+| Local hostname | Kernelpanic | `extraHosts` maps `status.burdznest.com` to `10.0.0.71` |
+
+## Uptime Kuma deployment
+
+Deploy Spectre so the Uptime Kuma service and Traefik route are available:
+
+```bash
+sudo nixos-rebuild switch --flake .#spectre
+```
+
+## Uptime Kuma verification
+
+On Spectre, check the service:
+
+```bash
+systemctl status uptime-kuma --no-pager
+```
+
+Verify the local Uptime Kuma web UI responds before testing the proxied route:
+
+```bash
+curl -I http://127.0.0.1:3001
+```
+
+Then open the internal-only status URL from the LAN:
+
+```text
+https://status.burdznest.com
+```
+
+On first run, create the initial Uptime Kuma admin user in the web UI.
+
+## Suggested Uptime Kuma monitors
+
+Add HTTP(S) monitors for the internal service routes after the first-run admin account is created:
+
+| Service | URL |
+| :--- | :--- |
+| Jellyfin | `https://jellyfin.burdznest.com` |
+| Immich / Photos | `https://photos.burdznest.com` |
+| Vaultwarden / Vault | `https://vault.burdznest.com` |
+| Syncthing / Sync | `https://sync.burdznest.com` |
+| Scrutiny | `https://scrutiny.burdznest.com` |
+| Beszel / Monitor | `https://monitor.burdznest.com` |
+| Seerr / Requests | `https://request.burdznest.com` |
+| Radarr | `https://radarr.burdznest.com` |
+| Sonarr | `https://sonarr.burdznest.com` |
+| Prowlarr | `https://prowlarr.burdznest.com` |
+| Bazarr | `https://bazarr.burdznest.com` |
+| qBittorrent / Torrent | `https://torrent.burdznest.com` |
+
+Add alerting later through `ntfy` after the checks are stable and false positives have been tuned.

@@ -144,6 +144,11 @@
       };
     };
 
+    uptime-kuma = {
+      enable = true;
+      appriseSupport = true;
+    };
+
     nginx = {
       enable = true;
       virtualHosts = {
