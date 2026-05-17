@@ -13,7 +13,7 @@ Forgejo is intentionally left for later.
 | Shlink server | Short-link redirects/API | `https://s.burdznest.com` | `127.0.0.1:8082` |
 | Shlink web client | Shlink management UI | `https://links.burdznest.com` | `127.0.0.1:8083` |
 
-All productivity routes currently use Traefik's `security-headers` and `internal-only` middlewares. Shlink's redirect/API route and web client are internal-only for now; make `s.burdznest.com` public only if short links should work outside the LAN/VPN.
+All productivity routes currently use Traefik's `security-headers` and `internal-only` middlewares. Shlink's web client also uses the `authelia` middleware. Shlink's redirect/API route stays internal-only and is not behind Authelia so short slug redirects and API behavior remain normal; make `s.burdznest.com` public only if short links should work outside the LAN/VPN.
 
 ## Implementation
 
@@ -33,7 +33,7 @@ All productivity routes currently use Traefik's `security-headers` and `internal
 | Shlink startup gate | `podman-shlink` waits for `/var/lib/shlink/secrets.env` |
 | Shlink web client | `shlinkio/shlink-web-client:latest` container through Podman |
 | Shlink web client bind | Container port `8080` published as `127.0.0.1:8083` |
-| Shlink web client route | `links.burdznest.com` proxies to `http://127.0.0.1:8083` |
+| Shlink web client route | `links.burdznest.com` proxies to `http://127.0.0.1:8083` with `security-headers`, `internal-only`, and `authelia` |
 
 ## Persistence and backups
 
@@ -171,7 +171,7 @@ https://s.burdznest.com
 https://links.burdznest.com
 ```
 
-For Shlink, `https://s.burdznest.com` is the redirect/API endpoint and `https://links.burdznest.com` is the management UI. A `404` at `https://s.burdznest.com/` is expected and healthy because the Shlink server has no homepage; short slugs such as `https://s.burdznest.com/<slug>` perform redirects. A `502` means Traefik cannot reach the backend.
+For Shlink, `https://s.burdznest.com` is the redirect/API endpoint and `https://links.burdznest.com` is the management UI. The UI route uses `security-headers`, `internal-only`, and `authelia`. The redirect/API route stays internal-only but is not behind Authelia so normal short-link redirects do not require a browser login; API writes still require the Shlink API key. A `404` at `https://s.burdznest.com/` is expected and healthy because the Shlink server has no homepage; short slugs such as `https://s.burdznest.com/<slug>` perform redirects. A `502` means Traefik cannot reach the backend.
 
 Verify the Dirtycow backup mount and run the Spectre restic backup once:
 
@@ -226,4 +226,4 @@ sudo rm -rf /tmp/restic-restore-test
 5. Create a test short URL in the UI.
 6. Verify `https://s.burdznest.com/<slug>` redirects to the expected destination.
 7. Confirm `/var/lib/shlink` is covered by restic and that a restore smoke test works.
-8. Keep both the server and UI routes internal-only unless short links should resolve outside the LAN/VPN.
+8. Keep the UI route behind Authelia. Keep the redirect/API route internal-only and without Authelia unless short links should resolve outside the LAN/VPN; if it becomes public later, API writes still require the Shlink API key.
