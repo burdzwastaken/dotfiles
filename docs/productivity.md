@@ -10,13 +10,14 @@ Forgejo is intentionally left for later.
 | :--- | :--- | :--- | :--- |
 | Paperless-ngx | Document management and OCR | `https://paperless.burdznest.com` | `127.0.0.1:28981` |
 | Karakeep | Bookmarks and read-later archive | `https://bookmarks.burdznest.com` | `127.0.0.1:3000` |
+| Gokapi | Temporary file sharing with expiring links | `https://share.burdznest.com` | `127.0.0.1:53842` |
 | Homepage | Homelab landing page and service links | `https://home.burdznest.com` | `127.0.0.1:3010` |
 | CyberChef | Data transforms and encoding/decoding utilities | `https://cyberchef.burdznest.com` | `127.0.0.1:8088` |
 | IT-Tools | Developer and admin utility toolbox | `https://it-tools.burdznest.com` | `127.0.0.1:8089` |
 | Shlink server | Short-link redirects/API | `https://s.burdznest.com` | `127.0.0.1:8082` |
 | Shlink web client | Shlink management UI | `https://links.burdznest.com` | `127.0.0.1:8083` |
 
-All productivity routes currently use Traefik's `security-headers` and `internal-only` middlewares. CyberChef, IT-Tools, and Shlink's web client also use the `authelia` middleware, so they require an Authelia login from the LAN/VPN. Shlink's redirect/API route stays internal-only and is not behind Authelia so short slug redirects and API behavior remain normal; make `s.burdznest.com` public only if short links should work outside the LAN/VPN.
+All productivity routes currently use Traefik's `security-headers` and `internal-only` middlewares. CyberChef, IT-Tools, and Shlink's web client also use the `authelia` middleware, so they require an Authelia login from the LAN/VPN. Shlink's redirect/API route and Gokapi stay internal-only without Authelia so normal short slug redirects and file-share downloads do not require a browser login; make these routes public only if links should work outside the LAN/VPN.
 
 ## Implementation
 
@@ -28,6 +29,9 @@ All productivity routes currently use Traefik's `security-headers` and `internal
 | Karakeep | `services.karakeep` enabled on port `3000` |
 | Karakeep supporting services | Meilisearch and browser support enabled |
 | Karakeep settings | `NEXTAUTH_URL=https://bookmarks.burdznest.com`, `DISABLE_SIGNUPS=true`, `DISABLE_NEW_RELEASE_CHECK=true` |
+| Gokapi | `services.gokapi` enabled with `pkgs.unstable.gokapi` on `127.0.0.1:53842` |
+| Gokapi settings | `Port=127.0.0.1:53842`, `ServerUrl=https://share.burdznest.com`, `mutableSettings=true` |
+| Gokapi route | `share.burdznest.com` proxies to `http://127.0.0.1:53842` with `security-headers` and `internal-only` |
 | Homepage | `services.homepage-dashboard` enabled on `127.0.0.1:3010` |
 | Homepage route | `home.burdznest.com` proxies to `http://127.0.0.1:3010` with `security-headers` and `internal-only` |
 | Homepage settings | `allowedHosts = "home.burdznest.com"` is required so reverse-proxied requests do not return `403` |
@@ -58,6 +62,7 @@ Current active state paths:
 | :--- | :--- | :--- |
 | Paperless-ngx | `/var/lib/paperless` | Backed up by restic; also exported to `/mnt/backups/paperless/export` as human-readable backup output |
 | Vaultwarden | `/var/lib/bitwarden_rs` | Backed up by restic; module SQLite backup output under `/mnt/backups/vaultwarden` does not need re-backup by Spectre restic |
+| Gokapi | `/var/lib/gokapi` | Backed up by restic |
 | Karakeep | `/var/lib/karakeep` | Backed up by restic |
 | Meilisearch for Karakeep | `/var/lib/meilisearch` | Backed up by restic |
 | Shlink | `/var/lib/shlink` | Backed up by restic |
@@ -81,6 +86,7 @@ Restic currently includes these paths:
 /var/lib/authelia-main
 /var/lib/beszel-hub
 /var/lib/bitwarden_rs
+/var/lib/gokapi
 /var/lib/jellyfin
 /var/lib/karakeep
 /var/lib/meilisearch
@@ -173,6 +179,7 @@ Verify each local backend responds before testing the Traefik routes:
 ```bash
 curl -I http://127.0.0.1:28981
 curl -I http://127.0.0.1:3000
+curl -I http://127.0.0.1:53842
 curl -I http://127.0.0.1:3010
 curl -I http://127.0.0.1:8088
 curl -I http://127.0.0.1:8089
@@ -185,6 +192,7 @@ Then open the internal-only routes from the LAN or VPN:
 ```text
 https://paperless.burdznest.com
 https://bookmarks.burdznest.com
+https://share.burdznest.com
 https://home.burdznest.com
 https://cyberchef.burdznest.com
 https://it-tools.burdznest.com
@@ -192,7 +200,7 @@ https://s.burdznest.com
 https://links.burdznest.com
 ```
 
-CyberChef and IT-Tools are internal-only utility routes and require Authelia login before access.
+CyberChef and IT-Tools are internal-only utility routes and require Authelia login before access. Gokapi is internal-only but not behind Authelia, so anyone on the LAN/VPN with a generated share link can download without also having an Authelia account.
 
 For Shlink, `https://s.burdznest.com` is the redirect/API endpoint and `https://links.burdznest.com` is the management UI. The UI route uses `security-headers`, `internal-only`, and `authelia`. The redirect/API route stays internal-only but is not behind Authelia so normal short-link redirects do not require a browser login; API writes still require the Shlink API key. A `404` at `https://s.burdznest.com/` is expected and healthy because the Shlink server has no homepage; short slugs such as `https://s.burdznest.com/<slug>` perform redirects. A `502` means Traefik cannot reach the backend.
 
@@ -239,6 +247,16 @@ sudo rm -rf /tmp/restic-restore-test
 3. Confirm signups are disabled after the first account is created.
 4. Test bookmark capture and browser integration from the LAN/VPN.
 5. Confirm `/var/lib/karakeep` and `/var/lib/meilisearch` are covered by restic after the workflow is confirmed.
+
+### Gokapi
+
+1. Open `https://share.burdznest.com` from the LAN or VPN.
+2. Complete the initial admin setup at `/setup` and keep upload access restricted to trusted users.
+3. Use a Spectre-local SQLite database path such as `/var/lib/gokapi/data/gokapi.sqlite`; do not place the live database on `/mnt/backups` or another NFS mount.
+4. Bind the service to `127.0.0.1:53842` so only Traefik exposes it.
+5. Create a test upload with a short expiry and download-count limit.
+6. Verify the generated link downloads from another LAN/VPN device without an Authelia login.
+7. Confirm `/var/lib/gokapi` is covered by restic after first-run setup.
 
 ### Homepage
 

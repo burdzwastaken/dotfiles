@@ -264,6 +264,21 @@
       };
     };
 
+    gokapi = {
+      enable = true;
+      package = pkgs.unstable.gokapi;
+      mutableSettings = true;
+
+      environment = {
+        GOKAPI_PORT = 53842;
+      };
+
+      settings = {
+        Port = "127.0.0.1:53842";
+        ServerUrl = "https://share.burdznest.com/";
+      };
+    };
+
     homepage-dashboard = {
       enable = true;
       listenPort = 3010;
@@ -319,6 +334,7 @@
             { "Vault" = { href = "https://vault.burdznest.com"; description = "Vaultwarden passwords"; }; }
             { "Bookmarks" = { href = "https://bookmarks.burdznest.com"; description = "Karakeep bookmarks"; }; }
             { "Paperless" = { href = "https://paperless.burdznest.com"; description = "Documents and OCR"; }; }
+            { "Share" = { href = "https://share.burdznest.com"; description = "Temporary file shares"; }; }
           ];
         }
         {
@@ -523,6 +539,7 @@
         "/var/lib/authelia-main"
         "/var/lib/beszel-hub"
         "/var/lib/bitwarden_rs"
+        "/var/lib/gokapi"
         "/var/lib/jellyfin"
         "/var/lib/karakeep"
         "/var/lib/meilisearch"
@@ -569,6 +586,7 @@
       paths = [
         "/home/burdz"
         "/var/lib/bitwarden_rs"
+        "/var/lib/gokapi"
         "/var/lib/jellyfin"
         "/var/lib/nixarr"
         "/var/lib/postgresql"

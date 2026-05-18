@@ -233,6 +233,14 @@
           middlewares = [ "security-headers" "internal-only" ];
         };
 
+        routers.gokapi = {
+          rule = "Host(`share.burdznest.com`)";
+          entryPoints = [ "websecure" ];
+          tls.certResolver = "myresolver";
+          service = "gokapi";
+          middlewares = [ "security-headers" "internal-only" ];
+        };
+
         routers.shlink = {
           rule = "Host(`s.burdznest.com`)";
           entryPoints = [ "websecure" ];
@@ -334,6 +342,10 @@
 
         services.karakeep.loadBalancer.servers = [
           { url = "http://127.0.0.1:3000"; }
+        ];
+
+        services.gokapi.loadBalancer.servers = [
+          { url = "http://127.0.0.1:53842"; }
         ];
 
         services.shlink.loadBalancer.servers = [
