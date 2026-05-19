@@ -112,6 +112,17 @@ Paperless also runs its exporter on schedule at `02:30`, producing a human-frien
 /mnt/backups/paperless/export
 ```
 
+The Paperless exporter depends on the `/mnt/backups` NFS automount from Dirtycow and the `paperless-exporter` unit is configured with `RequiresMountsFor=/mnt/backups` so the scheduled export does not race the mount. The export directory should exist on the mounted backup share with owner `paperless:paperless` and mode `0750`. If the exporter reports `CommandError: That path doesn't exist`, verify the mount and recreate the destination directory on the mounted share:
+
+```bash
+findmnt /mnt/backups
+sudo mkdir -p /mnt/backups/paperless/export
+sudo chown paperless:paperless /mnt/backups/paperless /mnt/backups/paperless/export
+sudo chmod 0750 /mnt/backups/paperless /mnt/backups/paperless/export
+sudo systemctl start paperless-exporter.service
+systemctl status paperless-exporter.service --no-pager
+```
+
 ## Pre-deploy secrets and files
 
 Create the required secret files on Spectre before rebuilding. Do not commit these files or their contents to Git.
@@ -231,6 +242,18 @@ sudo find /tmp/restic-restore-test -maxdepth 4 -type d | head
 sudo rm -rf /tmp/restic-restore-test
 ```
 
+Run a restore smoke test for Paperless into `/tmp/restic-restore-test`, then remove the test restore:
+
+```bash
+sudo rm -rf /tmp/restic-restore-test
+sudo RESTIC_PASSWORD_FILE=/var/lib/restic/spectre-dirtycow.password \
+  restic -r /mnt/backups/restic/spectre restore latest \
+  --target /tmp/restic-restore-test \
+  --include /var/lib/paperless
+sudo find /tmp/restic-restore-test/var/lib/paperless -maxdepth 3 | head
+sudo rm -rf /tmp/restic-restore-test
+```
+
 ## First-run setup
 
 ### Paperless-ngx
@@ -238,7 +261,13 @@ sudo rm -rf /tmp/restic-restore-test
 1. Open `https://paperless.burdznest.com` from the LAN or VPN.
 2. Log in with the configured admin credentials. The admin password comes from `/var/lib/paperless/admin-password`.
 3. Confirm OCR works with English documents and that the displayed timezone matches `Asia/Singapore`.
-4. Confirm `/var/lib/paperless` is covered by restic and that the Paperless exporter writes the human-friendly export to `/mnt/backups/paperless/export`.
+4. Confirm `/var/lib/paperless` is covered by restic and that the Paperless exporter writes the human-friendly export to `/mnt/backups/paperless/export`:
+   ```bash
+   findmnt /mnt/backups
+   sudo -u paperless test -w /mnt/backups/paperless/export
+   sudo systemctl start paperless-exporter.service
+   systemctl status paperless-exporter.service --no-pager
+   ```
 
 ### Karakeep
 

@@ -492,6 +492,7 @@
       unitConfig.ConditionPathExists = "/var/lib/beszel-agent/env";
       serviceConfig.SupplementaryGroups = lib.mkAfter [ "podman" ];
     };
+    paperless-exporter.unitConfig.RequiresMountsFor = "/mnt/backups";
     podman-shlink.unitConfig.ConditionPathExists = "/var/lib/shlink/secrets.env";
     prowlarr.unitConfig.RequiresMountsFor = "/mnt/media";
     qbittorrent.unitConfig.RequiresMountsFor = "/mnt/media";
