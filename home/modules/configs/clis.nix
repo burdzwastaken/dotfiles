@@ -2,7 +2,8 @@
 
 {
   home.file.".curlrc".text = ''
-    user-agent = "badguy"
+    # user-agent = "badguy"
+    user-agent = "prisonmike"
     referer = ";auto"
     connect-timeout = 60
     show-error
@@ -21,6 +22,7 @@
     adjust_extension = on
     robots = off
     server_response = on
-    user_agent = Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)
+    # user_agent = Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)
+    user_agent = prisonmike
   '';
 }
