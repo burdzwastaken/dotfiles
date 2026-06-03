@@ -29,11 +29,11 @@
         "website-builder": "website-builder"
       },
       "locked": {
-        "lastModified": 1780144466,
-        "narHash": "sha256-EydxECBxfJK3ByItkowsHVaGDhIMt+d05bgTJIAcIqM=",
+        "lastModified": 1780503763,
+        "narHash": "sha256-e2PD1oowOjebEAaWsiQ9g0FQA9OYaUWj7vLwUvDE6EM=",
         "owner": "nix-media-server",
         "repo": "nixarr",
-        "rev": "9d686fbae193c4d353477b3691261eb9d944391a",
+        "rev": "6c1eb23334e06bd3fd8d3d8782c64e5c3ac13097",
         "type": "github"
       },
       "original": {
