@@ -46,7 +46,7 @@
       curl
       direnv
       dnsutils
-      docker
+      docker_29
       exiftool
       git
       htop
