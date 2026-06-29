@@ -1,6 +1,6 @@
 # flash (no part)
 
-sudo dd if=~/Downloads/nixos-minimal-25.11.8478.bcd464ccd2a1-x86_64-linux.iso of=/dev/disk/by-id/usb-SMI_USB_DISK_AA00000000022570-0:0 bs=4M status=progress oflag=sync
+sudo dd if=~/Downloads/nixos-minimal-26.05.<build>.<rev>-x86_64-linux.iso of=/dev/disk/by-id/usb-SMI_USB_DISK_AA00000000022570-0:0 bs=4M status=progress oflag=sync
 
 sudo dd bs=4M if=path/to/archlinux-version-x86_64.iso of=/dev/disk/by-id/usb-My_flash_drive conv=fsync oflag=direct status=progress
 

@@ -97,7 +97,7 @@
       jq
       nodejs
       cloc
-      nodejs.pkgs.yarn
+      yarn
       mdbook
       rustc
       cargo
@@ -114,7 +114,7 @@
         google-cloud-sdk.components.gke-gcloud-auth-plugin
         google-cloud-sdk.components.cloud-firestore-emulator
       ])
-      nodePackages.bash-language-server
+      bash-language-server
       krew
       terraform-ls
       efm-langserver

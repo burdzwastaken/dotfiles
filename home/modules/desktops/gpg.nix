@@ -19,10 +19,10 @@
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
-    matchBlocks = {
+    settings = {
       "*" = {
-        serverAliveInterval = 60;
-        serverAliveCountMax = 3;
+        ServerAliveInterval = 60;
+        ServerAliveCountMax = 3;
       };
     };
   };

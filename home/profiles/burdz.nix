@@ -98,7 +98,7 @@
       nmap
       dockerfile-language-server
       nodejs
-      nodejs.pkgs.yarn
+      yarn
       openssl
       p7zip
       pamixer

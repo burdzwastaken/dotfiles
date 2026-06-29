@@ -25,6 +25,7 @@
   };
 
   boot.zfs.extraPools = [ "compute" ];
+  boot.zfs.forceImportRoot = true;
 
   services.xserver.videoDrivers = [ "nvidia" ];
 

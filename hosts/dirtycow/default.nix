@@ -23,6 +23,7 @@
   };
 
   boot.zfs.extraPools = [ "tank" ];
+  boot.zfs.forceImportRoot = true;
 
   environment.systemPackages = with pkgs; [
     curl
