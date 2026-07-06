@@ -364,6 +364,69 @@ https://status.burdznest.com
 
 On first run, create the initial Uptime Kuma admin user in the web UI.
 
+## Uptime Kuma interrupted migration recovery
+
+During major Uptime Kuma upgrades, the service may run a SQLite aggregate-table migration. Do not restart or rebuild while this migration is running. If the service is interrupted, it can leave the migration state stuck and then fail with logs like:
+
+```text
+[DB] WARN: Aggregate table migration is already in progress, or it was interrupted
+[DB] ERROR: Database migration failed
+[SERVER] ERROR: Failed to prepare your database: Aggregate table migration is already in progress
+```
+
+Confirm the failure first:
+
+```bash
+systemctl status uptime-kuma --no-pager
+journalctl -u uptime-kuma -b -n 120 --no-pager
+```
+
+Stop the service and clear systemd's start-limit state before touching the database:
+
+```bash
+sudo systemctl stop uptime-kuma
+sudo systemctl reset-failed uptime-kuma
+```
+
+Back up the database before making any SQLite changes:
+
+```bash
+sudo install -d -m 0700 /var/lib/uptime-kuma/manual-backups
+sudo cp -a /var/lib/uptime-kuma/kuma.db \
+  /var/lib/uptime-kuma/manual-backups/kuma.db.before-migration-flag-reset.$(date +%Y%m%d-%H%M%S)
+```
+
+Inspect the aggregate migration flag:
+
+```bash
+sudo sqlite3 /var/lib/uptime-kuma/kuma.db \
+  "SELECT key, value FROM setting WHERE key = 'migrateAggregateTableState';"
+```
+
+If it returns `migrateAggregateTableState|"migrating"`, clear only that stuck flag:
+
+```bash
+sudo sqlite3 /var/lib/uptime-kuma/kuma.db \
+  "DELETE FROM setting WHERE key = 'migrateAggregateTableState';"
+
+sudo sqlite3 /var/lib/uptime-kuma/kuma.db \
+  "SELECT key, value FROM setting WHERE key = 'migrateAggregateTableState';"
+```
+
+The final `SELECT` should return nothing. Start Uptime Kuma once and let the migration finish; do not use `restart` while it is migrating:
+
+```bash
+sudo systemctl start uptime-kuma
+journalctl -u uptime-kuma -f
+```
+
+If the logs show `[DON'T STOP] Migrating...`, leave the service alone until it settles. Then verify the local backend before checking the Traefik route:
+
+```bash
+systemctl status uptime-kuma --no-pager
+curl -I http://127.0.0.1:3001
+```
+
 ## ntfy Notifications
 
 ntfy provides lightweight push notifications for homelab alerts from Spectre. It is currently exposed only through the internal Traefik route, so notifications are intended to work from the LAN or VPN.
