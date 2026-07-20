@@ -5,7 +5,12 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    permittedInsecurePackages = [
+      "pnpm-9.15.9"
+    ];
+  };
 
   burdz.containers.dockerSocket.enable = true;
 
