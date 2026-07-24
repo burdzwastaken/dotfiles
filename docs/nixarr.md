@@ -43,8 +43,17 @@ These services write through the shared `media` group:
 | Radarr | `radarr:media` | `/mnt/media/movies` |
 | Sonarr | `sonarr:media` | `/mnt/media/tv` |
 | qBittorrent | `qbittorrent:media` | `/mnt/media/downloads` and `/mnt/media/downloads/incomplete` |
+| Unpackerr | `unpackerr:media` | `/mnt/media/downloads` |
 
 Media directories should look like `drwxrwsr-x`: group `media`, group-writable, and setgid so new files inherit the `media` group. If `chmod` does not stick through NFS from Spectre, run the corresponding commands on Dirtycow under `/tank/media/...`.
+
+qBittorrent is configured with `UMask=0002` so new downloads are group-writable for Radarr, Sonarr, Jellyfin and Unpackerr. This only affects new files and directories; existing downloads may still need a one-time permission repair:
+
+```bash
+sudo chgrp -R media /mnt/media/qbittorrent
+sudo chmod -R g+rwX /mnt/media/qbittorrent
+sudo find /mnt/media/qbittorrent -type d -exec chmod g+s {} \;
+```
 
 Verify service write access from Spectre:
 

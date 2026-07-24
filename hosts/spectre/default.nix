@@ -462,6 +462,7 @@
   services.unpackerr = {
     enable = true;
     package = pkgs.unstable.unpackerr;
+    group = "media";
 
     settings = {
       interval = "2m";
@@ -527,7 +528,10 @@
     paperless-exporter.unitConfig.RequiresMountsFor = "/mnt/backups";
     podman-shlink.unitConfig.ConditionPathExists = "/var/lib/shlink/secrets.env";
     prowlarr.unitConfig.RequiresMountsFor = "/mnt/media";
-    qbittorrent.unitConfig.RequiresMountsFor = "/mnt/media";
+    qbittorrent = {
+      unitConfig.RequiresMountsFor = "/mnt/media";
+      serviceConfig.UMask = "0002";
+    };
     radarr.unitConfig.RequiresMountsFor = "/mnt/media";
     restic-backups-spectre-dirtycow.unitConfig.ConditionPathExists = [
       "/var/lib/restic/spectre-dirtycow.password"
@@ -542,7 +546,6 @@
       };
       serviceConfig = {
         EnvironmentFile = "/var/lib/unpackerr/env";
-        SupplementaryGroups = [ "media" ];
       };
     };
   };
