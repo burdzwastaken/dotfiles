@@ -459,6 +459,32 @@
     };
   };
 
+  services.unpackerr = {
+    enable = true;
+    package = pkgs.unstable.unpackerr;
+
+    settings = {
+      interval = "2m";
+      start_delay = "1m";
+      file_mode = "0664";
+      dir_mode = "0775";
+
+      radarr = [
+        {
+          url = "http://127.0.0.1:7878";
+          paths = [ "/mnt/media/downloads" ];
+        }
+      ];
+
+      sonarr = [
+        {
+          url = "http://127.0.0.1:8989";
+          paths = [ "/mnt/media/downloads" ];
+        }
+      ];
+    };
+  };
+
   virtualisation.oci-containers.containers.shlink = {
     image = "shlinkio/shlink:stable";
     autoStart = true;
@@ -509,6 +535,16 @@
     ];
     seerr.unitConfig.RequiresMountsFor = "/mnt/media";
     sonarr.unitConfig.RequiresMountsFor = "/mnt/media";
+    unpackerr = {
+      unitConfig = {
+        ConditionPathExists = "/var/lib/unpackerr/env";
+        RequiresMountsFor = "/mnt/media";
+      };
+      serviceConfig = {
+        EnvironmentFile = "/var/lib/unpackerr/env";
+        SupplementaryGroups = [ "media" ];
+      };
+    };
   };
 
   systemd.tmpfiles.rules = [
@@ -517,6 +553,7 @@
     "d /var/lib/beszel-agent 0750 root root - -"
     "d /var/lib/shlink 0750 root root - -"
     "d /var/lib/shlink/data 0750 1001 1001 - -"
+    "d /var/lib/unpackerr 0750 root root - -"
     "d /var/lib/restic 0750 root root - -"
     "d /mnt/backups/paperless 0750 paperless paperless - -"
     "d /mnt/backups/paperless/export 0750 paperless paperless - -"

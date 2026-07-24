@@ -88,6 +88,7 @@
             ./modules/services/containers.nix
             ./modules/services/traefik.nix
             nixarr.nixosModules.default
+            "${nixpkgs-unstable}/nixos/modules/services/misc/unpackerr.nix"
 
             { nixpkgs.overlays = overlays; }
           ];

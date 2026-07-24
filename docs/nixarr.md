@@ -13,6 +13,7 @@ Spectre runs the media automation stack through `nixarr`, using Dirtycow's `tank
 | Bazarr | Subtitle automation | `https://bazarr.burdznest.com` | `127.0.0.1:6767` |
 | qBittorrent / qui | Torrent client frontend | `https://torrent.burdznest.com` | `127.0.0.1:5252` |
 | qBittorrent WebUI | Native qBittorrent admin UI | SSH tunnel only | `127.0.0.1:8085` |
+| Unpackerr | Archive extraction for completed Radarr/Sonarr downloads | systemd service only | Watches Radarr/Sonarr queues |
 
 All nixarr UIs are routed through Traefik with the `internal-only` middleware. They are only intended to be reachable from the trusted LAN ranges `10.0.0.0/24` and `10.0.1.0/24`.
 
@@ -86,6 +87,45 @@ Use these paths in the web UIs:
    - Optional incomplete path: `/mnt/media/downloads/incomplete`
 
 After this is set, day-to-day torrent checks can use qui at `https://torrent.burdznest.com`.
+
+## Unpackerr archive extraction
+
+Unpackerr runs on Spectre to extract `.rar` and other archive releases that qBittorrent finishes downloading before Radarr or Sonarr imports them. Radarr and Sonarr do not extract archives themselves; they report the packed download, Unpackerr extracts it under `/mnt/media/downloads`, then the Starr app can import the extracted media.
+
+The NixOS config keeps Unpackerr's non-secret settings declarative and reads Radarr/Sonarr API keys from a host-local environment file:
+
+```text
+/var/lib/unpackerr/env
+```
+
+Create the file on Spectre before rebuilding or starting Unpackerr:
+
+```bash
+sudo install -d -m 0750 -o root -g root /var/lib/unpackerr
+sudo install -m 0600 -o root -g root /dev/stdin /var/lib/unpackerr/env <<'EOF'
+UN_RADARR_0_API_KEY=<radarr-api-key>
+UN_SONARR_0_API_KEY=<sonarr-api-key>
+EOF
+```
+
+Get the keys from the web UIs:
+
+```text
+Radarr -> Settings -> General -> Security -> API Key
+Sonarr -> Settings -> General -> Security -> API Key
+```
+
+If an existing integration already uses Radarr or Sonarr, the same app-specific API keys can be reused. Do not use Prowlarr, Seerr, qBittorrent, Traefik or Authelia credentials here.
+
+Deploy and verify on Spectre:
+
+```bash
+sudo nixos-rebuild switch --flake .#spectre
+systemctl status unpackerr --no-pager
+journalctl -u unpackerr -b -n 100 --no-pager
+```
+
+Unpackerr needs read/write access to `/mnt/media/downloads`; the service gets supplementary `media` group access and writes extracted files with group-friendly modes.
 
 ## First-Run Debugging
 
