@@ -546,6 +546,7 @@
       };
       serviceConfig = {
         EnvironmentFile = "/var/lib/unpackerr/env";
+        UMask = "0002";
       };
     };
   };
