@@ -54,7 +54,12 @@ nix develop .#libgitew
 
 ### troubleshooting
 no space left on /boot
-```
-sudo nix-collect-garbage --delete-older-than 5d
-sudo nix-env -p /nix/var/nix/profiles/system --delete-generations +2
+```bash
+# dry run first
+./scripts/clean-boot-kernels.sh 5
+
+# delete unreferenced /boot/kernels files if the dry run looks right
+DELETE=1 ./scripts/clean-boot-kernels.sh 5
+
+sudo nixos-rebuild switch --flake .#$(hostname)
 ```
