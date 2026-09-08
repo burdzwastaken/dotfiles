@@ -9,6 +9,8 @@
     allowUnfree = true;
     permittedInsecurePackages = [
       "pnpm-9.15.9"
+      # TODO: Remove once Immich 3.x.x is available in this channel.
+      "immich-2.7.5"
     ];
   };
 
