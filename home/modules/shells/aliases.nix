@@ -73,6 +73,7 @@
   gdom = "git diff origin/master";
   grm = "git rm `git ls-files --deleted`";
   gpr = "git pull-request -c";
+  gpc = "git push origin \"$(git branch --show-current)\"";
   gr = "git restore";
   grs = "git restore --staged";
   gwa = "git worktree add";

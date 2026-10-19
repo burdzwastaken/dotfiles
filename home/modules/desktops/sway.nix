@@ -110,12 +110,11 @@
 
       output = {
         "DP-2" = {
-          resolution = "3440x1440@49.987Hz";
-          # resolution = "3440x1440@59.973Hz";
+          resolution = "3440x1440@59.973Hz"; # LG ULTRAWIDE: native resolution, maximum refresh
           position = "0,0"; # top monitor
         };
         "HDMI-A-2" = {
-          resolution = "3440x1440@49.987Hz";
+          resolution = "3840x2160@144.050Hz"; # LG SMARTGAME+: native resolution, maximum refresh
           position = "0,1440";
         };
       };
