@@ -3,6 +3,12 @@
 {
   system.stateVersion = "24.11";
 
+  # eMudhra CA compromise: https://emudhra.we-have-a-problem.com/
+  security.pki.caCertificateBlacklist = [
+    "Comodo AAA Services root"
+    "emSign ECC Root CA - G3"
+  ];
+
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   nixpkgs.config = {
