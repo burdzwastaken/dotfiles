@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+  imports = [ ./gpu-unlock.nix ];
+
   system.stateVersion = "24.11";
 
   # eMudhra CA compromise: https://emudhra.we-have-a-problem.com/
