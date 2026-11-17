@@ -7,7 +7,12 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    permittedInsecurePackages = [
+      "keybase-gui-6.5.1"
+    ];
+  };
 
   time.timeZone = "Asia/Singapore";
 
